@@ -19,21 +19,28 @@ main() {
 
   const tUserId = '21';
 
-  const tBooksList = [
-    BookEntity(name: 'name', author: 'author', pages: 12, readPages: 8)
+  final tBooksList = [
+    BookEntity(
+      id: 1,
+      name: 'name',
+      author: 'author',
+      pages: 12,
+      readPages: 8,
+      stars: 3,
+    )
   ];
 
   test('Should get books entity list for a give user id from the repository',
       () async {
     // Arrange
     when(() => repository.getUserBooks(any()))
-        .thenAnswer((_) async => const Right(tBooksList));
+        .thenAnswer((_) async => Right(tBooksList));
 
     // Act
     final result = await usecase(tUserId);
 
     // Assert
-    expect(result, const Right(tBooksList));
+    expect(result, Right(tBooksList));
     verify(() => repository.getUserBooks(tUserId)).called(1);
   });
 
