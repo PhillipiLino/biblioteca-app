@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
 
   checkModule() async {
     await Modular.isModuleReady<AppModule>();
-    Modular.to.pushReplacementNamed('/book/');
+    Modular.to.pushReplacementNamed('/home/');
   }
 
   @override

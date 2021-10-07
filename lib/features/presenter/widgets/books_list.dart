@@ -16,6 +16,7 @@ class BooksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.only(top: 20),
       itemCount: list.length,
       itemBuilder: (itemContext, position) => HomeBookItem(

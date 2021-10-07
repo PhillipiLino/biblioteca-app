@@ -52,7 +52,6 @@ main() {
 
   const tUserId = '23';
   final tInfosToSave = BookToSaveEntity(book: tBook, imageFile: XFile('path'));
-  final tExpectedName = 'book_${tBook.id}';
 
   test('Should return a list of book model when calls the datasource',
       () async {
@@ -94,8 +93,8 @@ main() {
     // Assert
     expect(result, const Right(true));
     verify(() => datasource.createBook(tBook.toModel())).called(1);
-    verify(() => imageHelper.saveImage(tInfosToSave.imageFile!, tExpectedName))
-        .called(1);
+    verify(() => imageHelper.saveImage(
+        tInfosToSave.imageFile!, tInfosToSave.book.imagePath ?? '')).called(1);
   });
 
   test(
@@ -110,8 +109,8 @@ main() {
     // Assert
     expect(result, Left(DatabaseFailure()));
     verify(() => datasource.createBook(tBook.toModel())).called(1);
-    verifyNever(
-        () => imageHelper.saveImage(tInfosToSave.imageFile!, tExpectedName));
+    verifyNever(() => imageHelper.saveImage(
+        tInfosToSave.imageFile!, tInfosToSave.book.imagePath ?? ''));
   });
 
   test(
@@ -127,7 +126,7 @@ main() {
     // Assert
     expect(result, Left(SaveImageFailure()));
     verify(() => datasource.createBook(tBook.toModel())).called(1);
-    verify(() => imageHelper.saveImage(tInfosToSave.imageFile!, tExpectedName))
-        .called(1);
+    verify(() => imageHelper.saveImage(
+        tInfosToSave.imageFile!, tInfosToSave.book.imagePath ?? '')).called(1);
   });
 }

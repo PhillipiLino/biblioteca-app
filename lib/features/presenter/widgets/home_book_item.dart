@@ -3,6 +3,8 @@ import 'package:clean_biblioteca/features/presenter/widgets/star.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import 'book_image.dart';
+
 class HomeBookItem extends StatelessWidget {
   final BookEntity book;
   final Function onTap;
@@ -19,6 +21,8 @@ class HomeBookItem extends StatelessWidget {
     for (var i = 1; i <= 5; i++) {
       stars.add(Star(i <= book.stars));
     }
+
+    print(book);
 
     return Material(
       child: InkWell(
@@ -38,8 +42,7 @@ class HomeBookItem extends StatelessWidget {
                 ),
                 child: Hero(
                   tag: 'avatar-${book.id}',
-                  child: Image.network(
-                      'https://m.media-amazon.com/images/I/51dH0OWndEL.jpg'), // Utility.imageFromBase64String(book.imageUrl),
+                  child: BookImage(book.imagePath ?? ''),
                 ),
               ),
               Column(

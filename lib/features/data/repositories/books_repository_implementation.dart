@@ -28,8 +28,8 @@ class BooksRepositoryImplementation implements IBooksRepository {
     try {
       await datasource.createBook(infoToSave.book.toModel());
       if (infoToSave.imageFile != null) {
-        final name = 'book_${infoToSave.book.id}';
-        await imageHelper.saveImage(infoToSave.imageFile!, name);
+        await imageHelper.saveImage(
+            infoToSave.imageFile!, infoToSave.book.imagePath ?? '');
       }
 
       return const Right(true);

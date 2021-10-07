@@ -34,8 +34,12 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
     final books = list ?? [];
     return Expanded(
       child: books.isEmpty
-          ? EmptyList(() {})
-          : BooksList(books, onTapItem: (_) {}),
+          ? EmptyList(() {
+              Modular.to.pushNamed('/book/');
+            })
+          : BooksList(books, onTapItem: (item) {
+              Modular.to.pushNamed('/book/', arguments: item);
+            }),
     );
   }
 

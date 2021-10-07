@@ -25,13 +25,14 @@ class BookEntity extends Equatable {
         ? 0
         : readPages > pages
             ? 100
-            : (pages * readPages);
+            : (readPages * 100) / pages;
 
     percentage = '$percent%';
     progress = readPages == 0 ? 0 : percent / 100;
   }
 
   BookModel toModel() => BookModel(
+      databaseId: id,
       name: name,
       author: author,
       pages: pages,

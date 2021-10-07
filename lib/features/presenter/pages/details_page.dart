@@ -8,7 +8,6 @@ import 'package:clean_biblioteca/features/presenter/widgets/rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
 class DetailPage extends StatefulWidget {
   final BookEntity? book;
@@ -27,6 +26,7 @@ class _DetailPageState extends ModularState<DetailPage, DetailsStore> {
   int starsNumber = 1;
 
   final ImagePicker _picker = ImagePicker();
+  XFile? pickedImage;
   Timer _timer = Timer(const Duration(milliseconds: 0), () {});
 
   late BookImage bookImage;
@@ -39,8 +39,7 @@ class _DetailPageState extends ModularState<DetailPage, DetailsStore> {
 
     store.initTextControllers(book);
 
-    bookImage =
-        const BookImage('https://m.media-amazon.com/images/I/51dH0OWndEL.jpg');
+    bookImage = BookImage(book?.imagePath ?? '');
   }
 
   @override
@@ -99,20 +98,15 @@ class _DetailPageState extends ModularState<DetailPage, DetailsStore> {
                 child: Center(
                   child: GestureDetector(
                     onTap: () async {
-                      var newImage = await _picker.pickImage(
+                      pickedImage = await _picker.pickImage(
                         source: ImageSource.gallery,
                         imageQuality: 25,
                       );
 
-                      if (newImage == null) return;
-
-                      final directory =
-                          await getApplicationDocumentsDirectory();
-                      final myImagePath = '${directory.path}/image_1.jpg';
-                      await newImage.saveTo(myImagePath);
+                      if (pickedImage == null) return;
 
                       setState(() {
-                        bookImage = BookImage(newImage.path);
+                        bookImage = BookImage(pickedImage!.path);
                       });
                     },
                     child: Hero(
@@ -257,13 +251,9 @@ class _DetailPageState extends ModularState<DetailPage, DetailsStore> {
                             SizedBox(
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  // final name = _nameController.text;
-                                  // final author = _authorController.text;
-                                  // final pages =
-                                  //     int.tryParse(_pagesController.text) ?? 0;
-                                  // final readPages =
-                                  //     int.tryParse(_readPagesController.text) ??
-                                  //         0;
+                                  await store.insertBook(
+                                      book?.id, starsNumber, pickedImage);
+                                  Modular.to.pop();
                                 },
                                 child: const Text('Salvar'),
                                 style: ElevatedButton.styleFrom(
