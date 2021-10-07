@@ -1,5 +1,6 @@
 import 'package:clean_biblioteca/core/database/book_dao.dart';
 import 'package:clean_biblioteca/core/database/books_database.dart';
+import 'package:clean_biblioteca/core/utils/helpers/image_helper.dart';
 import 'package:clean_biblioteca/features/data/datasources/database_datasource_implementation.dart';
 import 'package:clean_biblioteca/features/data/repositories/books_repository_implementation.dart';
 import 'package:clean_biblioteca/features/domain/usecases/create_book_usecase.dart';
@@ -22,8 +23,9 @@ class AppModule extends Module {
     Bind((i) => DetailsStore(i())),
     Bind((i) => GetUserBooksUsecase(i())),
     Bind((i) => CreateBooksUsecase(i())),
-    Bind((i) => BooksRepositoryImplementation(i())),
+    Bind((i) => BooksRepositoryImplementation(i(), i())),
     Bind((i) => DatabaseDataSourceImplementation(i<IBooksDao>())),
+    Bind((i) => ImageHelper()),
   ];
 
   @override
