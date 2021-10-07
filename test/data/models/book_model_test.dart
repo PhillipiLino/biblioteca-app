@@ -8,6 +8,7 @@ import '../../mocks/book_mock.dart';
 
 main() {
   final tBookModel = BookModel(
+    databaseId: 1,
     name: 'name',
     author: 'author',
     pages: 10,
