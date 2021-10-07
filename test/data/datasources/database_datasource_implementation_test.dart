@@ -1,4 +1,5 @@
 import 'package:clean_biblioteca/core/database/book_dao.dart';
+import 'package:clean_biblioteca/core/usecase/errors/exceptions.dart';
 import 'package:clean_biblioteca/features/data/datasources/database_datasource_implementation.dart';
 import 'package:clean_biblioteca/features/data/models/book_model.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -54,6 +55,18 @@ main() {
     verify(() => dao.getAllBooksFromUser(tUserId)).called(1);
   });
 
+  test('Should throw a DatabaseException when get all books call is unccessful',
+      () async {
+    // Arrange
+    when(() => dao.getAllBooksFromUser(any())).thenThrow(Exception());
+
+    // Act
+    final result = datasource.getBooksFromUser(tUserId);
+
+    // Assert
+    expect(() => result, throwsA(DatabaseException()));
+  });
+
   test('Should complete flow when insert book with successfull', () async {
     // Arrange
     when(() => dao.insertBook(any())).thenAnswer((_) async {});
@@ -64,5 +77,17 @@ main() {
     // Assert
     expect(result, completes);
     verify(() => dao.insertBook(tBook.toModel())).called(1);
+  });
+
+  test('Should throw a DatabaseException when insert book call is unccessful',
+      () {
+    // Arrange
+    when(() => dao.insertBook(any())).thenThrow(Exception());
+
+    // Act
+    final result = datasource.createBook(tBook.toModel());
+
+    // Assert
+    expect(() => result, throwsA(DatabaseException()));
   });
 }

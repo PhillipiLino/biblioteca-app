@@ -1,9 +1,11 @@
 import 'package:clean_biblioteca/core/usecase/errors/failures.dart';
 import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
+import 'package:clean_biblioteca/features/domain/entities/book_to_save_entity.dart';
 import 'package:clean_biblioteca/features/domain/repositories/books_repository.dart';
 import 'package:clean_biblioteca/features/domain/usecases/create_book_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../mocks/book_entity_mock.dart';
@@ -15,18 +17,22 @@ main() {
   late IBooksRepository repository;
 
   setUp(() {
-    registerFallbackValue(BookEntity(
-      id: 1,
-      name: 'name',
-      author: 'author',
-      pages: 10,
-      readPages: 0,
-      stars: 1,
-    ));
+    registerFallbackValue(BookToSaveEntity(
+        book: BookEntity(
+          id: 1,
+          name: 'name',
+          author: 'author',
+          pages: 10,
+          readPages: 0,
+          stars: 1,
+        ),
+        imageFile: null));
 
     repository = MockBooksRepository();
     usecase = CreateBooksUsecase(repository);
   });
+
+  final tInfosToSave = BookToSaveEntity(book: tBook, imageFile: XFile('path'));
 
   test('Should return true for a create book on repository with success',
       () async {
@@ -35,11 +41,11 @@ main() {
         .thenAnswer((_) async => const Right(true));
 
     // Act
-    final result = await usecase(tBook);
+    final result = await usecase(tInfosToSave);
 
     // Assert
     expect(result, const Right(true));
-    verify(() => repository.createBook(tBook)).called(1);
+    verify(() => repository.createBook(tInfosToSave)).called(1);
   });
 
   test('Should return a DatabaseFailure when don\'t succeed', () async {
@@ -48,10 +54,10 @@ main() {
         .thenAnswer((_) async => Left(DatabaseFailure()));
 
     // Act
-    final result = await usecase(tBook);
+    final result = await usecase(tInfosToSave);
 
     // Assert
     expect(result, Left(DatabaseFailure()));
-    verify(() => repository.createBook(tBook)).called(1);
+    verify(() => repository.createBook(tInfosToSave)).called(1);
   });
 }

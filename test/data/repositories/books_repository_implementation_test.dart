@@ -3,8 +3,10 @@ import 'package:clean_biblioteca/core/usecase/errors/failures.dart';
 import 'package:clean_biblioteca/features/data/datasources/books_datasource.dart';
 import 'package:clean_biblioteca/features/data/models/book_model.dart';
 import 'package:clean_biblioteca/features/data/repositories/books_repository_implementation.dart';
+import 'package:clean_biblioteca/features/domain/entities/book_to_save_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../mocks/book_entity_mock.dart';
@@ -43,6 +45,7 @@ main() {
   ];
 
   const tUserId = '23';
+  final tInfosToSave = BookToSaveEntity(book: tBook, imageFile: XFile('path'));
 
   test('Should return a list of book model when calls the datasource',
       () async {
@@ -78,7 +81,7 @@ main() {
     when(() => datasource.createBook(any())).thenAnswer((_) async {});
 
     // Act
-    final result = await repository.createBook(tBook);
+    final result = await repository.createBook(tInfosToSave);
 
     // Assert
     expect(result, const Right(true));
@@ -92,7 +95,7 @@ main() {
     when(() => datasource.createBook(any())).thenThrow(DatabaseException());
 
     // Act
-    final result = await repository.createBook(tBook);
+    final result = await repository.createBook(tInfosToSave);
 
     // Assert
     expect(result, Left(DatabaseFailure()));
