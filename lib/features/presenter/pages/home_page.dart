@@ -22,6 +22,23 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
     store.getBooksFromUser('0');
   }
 
+  Widget _onLoading(BuildContext context) {
+    return const Expanded(child: Center(child: CircularProgressIndicator()));
+  }
+
+  Widget _onError(BuildContext context, Object? error) {
+    return const Expanded(child: Center(child: Text('ERROR')));
+  }
+
+  Widget _onSuccess(BuildContext context, List<BookEntity>? list) {
+    final books = list ?? [];
+    return Expanded(
+      child: books.isEmpty
+          ? EmptyList(() {})
+          : BooksList(books, onTapItem: (_) {}),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,41 +46,11 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
       body: SafeArea(
         child: Column(children: [
           Container(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                hintText: 'digite o nome do livro',
-                fillColor: Colors.grey[200],
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(25.7),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(25.7),
-                ),
-              ),
-              cursorRadius: const Radius.circular(10),
-              cursorColor: Colors.grey,
-            ),
-          ),
           ScopedBuilder(
             store: store,
-            onLoading: (_) => const Expanded(
-                child: Center(child: CircularProgressIndicator())),
-            onState: (_, List<BookEntity>? list) {
-              final books = list ?? [];
-              return Expanded(
-                child: books.isEmpty
-                    ? EmptyList(() {})
-                    : BooksList(books, onTapItem: (_) {}),
-              );
-            },
-            onError: (_, __) =>
-                const Expanded(child: Center(child: Text('ERROR'))),
+            onLoading: _onLoading,
+            onState: _onSuccess,
+            onError: _onError,
           ),
         ]),
       ),
