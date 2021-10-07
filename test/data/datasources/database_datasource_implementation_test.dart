@@ -4,6 +4,8 @@ import 'package:clean_biblioteca/features/data/models/book_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../mocks/book_entity_mock.dart';
+
 class MockBooksDao extends Mock implements IBooksDao {}
 
 main() {
@@ -11,6 +13,16 @@ main() {
   late IBooksDao dao;
 
   setUp(() {
+    registerFallbackValue(BookModel(
+      name: 'name',
+      author: 'author',
+      pages: 10,
+      readPages: 0,
+      stars: 0,
+      imagePath: 'imagePath',
+      userId: '23',
+    ));
+
     dao = MockBooksDao();
     datasource = DatabaseDataSourceImplementation(dao);
   });
@@ -40,5 +52,17 @@ main() {
     // Assert
     expect(result, tBooksList);
     verify(() => dao.getAllBooksFromUser(tUserId)).called(1);
+  });
+
+  test('Should complete flow when insert book with successfull', () async {
+    // Arrange
+    when(() => dao.insertBook(any())).thenAnswer((_) async {});
+
+    // Act
+    final result = datasource.createBook(tBook.toModel());
+
+    // Assert
+    expect(result, completes);
+    verify(() => dao.insertBook(tBook.toModel())).called(1);
   });
 }

@@ -98,13 +98,31 @@ class _$BooksDatabase extends BooksDatabase {
 
 class _$IBooksDao extends IBooksDao {
   _$IBooksDao(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database);
+      : _queryAdapter = QueryAdapter(database),
+        _bookModelInsertionAdapter = InsertionAdapter(
+            database,
+            'books_table',
+            (BookModel item) => <String, Object?>{
+                  'databaseId': item.databaseId,
+                  'user_id': item.userId,
+                  'id': item.id,
+                  'name': item.name,
+                  'author': item.author,
+                  'pages': item.pages,
+                  'readPages': item.readPages,
+                  'stars': item.stars,
+                  'imagePath': item.imagePath,
+                  'progress': item.progress,
+                  'percentage': item.percentage
+                });
 
   final sqflite.DatabaseExecutor database;
 
   final StreamController<String> changeListener;
 
   final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<BookModel> _bookModelInsertionAdapter;
 
   @override
   Future<List<BookModel>> getAllBooksFromUser(String userId) async {
@@ -120,5 +138,10 @@ class _$IBooksDao extends IBooksDao {
             imagePath: row['imagePath'] as String?,
             userId: row['user_id'] as String),
         arguments: [userId]);
+  }
+
+  @override
+  Future<void> insertBook(BookModel book) async {
+    await _bookModelInsertionAdapter.insert(book, OnConflictStrategy.replace);
   }
 }

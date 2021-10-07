@@ -4,4 +4,5 @@ import 'package:dartz/dartz.dart';
 
 abstract class IBooksRepository {
   Future<Either<Failure, List<BookEntity>>> getUserBooks(String userId);
+  Future<Either<Failure, bool>> createBook(BookEntity book);
 }

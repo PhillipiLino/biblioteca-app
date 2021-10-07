@@ -1,3 +1,4 @@
+import 'package:clean_biblioteca/features/data/models/book_model.dart';
 import 'package:equatable/equatable.dart';
 
 class BookEntity extends Equatable {
@@ -29,6 +30,15 @@ class BookEntity extends Equatable {
     percentage = '$percent%';
     progress = readPages == 0 ? 0 : percent / 100;
   }
+
+  BookModel toModel() => BookModel(
+      name: name,
+      author: author,
+      pages: pages,
+      readPages: readPages,
+      stars: stars,
+      imagePath: imagePath,
+      userId: '0');
 
   @override
   List<Object?> get props => [

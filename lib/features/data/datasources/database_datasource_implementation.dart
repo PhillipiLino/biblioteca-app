@@ -8,7 +8,12 @@ class DatabaseDataSourceImplementation implements IBooksDatasource {
   DatabaseDataSourceImplementation(this.dao);
 
   @override
-  Future<List<BookModel>> getBooksFromUser(String userId) {
+  Future<List<BookModel>> getBooksFromUser(String userId) async {
     return dao.getAllBooksFromUser(userId);
+  }
+
+  @override
+  Future<void> createBook(BookModel book) {
+    return dao.insertBook(book);
   }
 }

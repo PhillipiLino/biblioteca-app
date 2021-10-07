@@ -6,4 +6,7 @@ abstract class IBooksDao {
   @Query(
       'Select * from books_table WHERE user_id = :userId ORDER BY name DESC ')
   Future<List<BookModel>> getAllBooksFromUser(String userId);
+
+  @Insert(onConflict: OnConflictStrategy.replace)
+  Future<void> insertBook(BookModel book);
 }

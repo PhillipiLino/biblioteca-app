@@ -19,4 +19,14 @@ class BooksRepositoryImplementation implements IBooksRepository {
       return Left(DatabaseFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> createBook(BookEntity book) async {
+    try {
+      await datasource.createBook(book.toModel());
+      return const Right(true);
+    } on DatabaseException {
+      return Left(DatabaseFailure());
+    }
+  }
 }
