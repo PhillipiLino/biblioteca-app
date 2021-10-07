@@ -32,7 +32,8 @@ main() {
 
   const tUserId = '23';
 
-  test('Should return a book model when calls the datasource', () async {
+  test('Should return a list of book model when calls the datasource',
+      () async {
     // Arrange
     when(() => datasource.getBooksFromUser(any()))
         .thenAnswer((_) async => tBooksList);

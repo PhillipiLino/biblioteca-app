@@ -1,10 +1,11 @@
 import 'package:clean_biblioteca/core/usecase/errors/failures.dart';
-import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
 import 'package:clean_biblioteca/features/domain/repositories/books_repository.dart';
 import 'package:clean_biblioteca/features/domain/usecases/get_user_books_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../../mocks/book_entity_mock.dart';
 
 class MockBooksRepository extends Mock implements IBooksRepository {}
 
@@ -18,17 +19,6 @@ main() {
   });
 
   const tUserId = '21';
-
-  final tBooksList = [
-    BookEntity(
-      id: 1,
-      name: 'name',
-      author: 'author',
-      pages: 12,
-      readPages: 8,
-      stars: 3,
-    )
-  ];
 
   test('Should get books entity list for a give user id from the repository',
       () async {

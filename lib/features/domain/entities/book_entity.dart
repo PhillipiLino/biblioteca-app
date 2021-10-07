@@ -20,7 +20,12 @@ class BookEntity extends Equatable {
     required this.stars,
     this.imagePath,
   }) {
-    final percent = readPages == 0 ? 0 : pages ~/ readPages;
+    final percent = readPages == 0
+        ? 0
+        : readPages > pages
+            ? 100
+            : (pages * readPages);
+
     percentage = '$percent%';
     progress = readPages == 0 ? 0 : percent / 100;
   }

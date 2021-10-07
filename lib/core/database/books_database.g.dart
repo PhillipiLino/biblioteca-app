@@ -109,7 +109,7 @@ class _$IBooksDao extends IBooksDao {
   @override
   Future<List<BookModel>> getAllBooksFromUser(String userId) async {
     return _queryAdapter.queryList(
-        'Select * from books_table ORDER BY name DESC WHERE user_id = ?1',
+        'Select * from books_table WHERE user_id = ?1 ORDER BY name DESC',
         mapper: (Map<String, Object?> row) => BookModel(
             databaseId: row['databaseId'] as int?,
             name: row['name'] as String,
