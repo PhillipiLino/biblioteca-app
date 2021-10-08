@@ -272,6 +272,7 @@ class _DetailPageState extends ModularState<DetailPage, DetailsStore> {
                             Container(width: 12),
                             SizedBox(
                               child: ElevatedButton(
+                                child: const Text('Salvar'),
                                 onPressed: () async {
                                   await store.insertBook(
                                     book?.id,
@@ -281,7 +282,6 @@ class _DetailPageState extends ModularState<DetailPage, DetailsStore> {
                                   );
                                   Modular.to.pop(true);
                                 },
-                                child: const Text('Salvar'),
                                 style: ElevatedButton.styleFrom(
                                   primary:
                                       Theme.of(context).colorScheme.secondary,

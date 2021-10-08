@@ -1,6 +1,6 @@
 import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
 import 'package:clean_biblioteca/features/presenter/controller/home_store.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/books_list.dart';
+import 'package:clean_biblioteca/features/presenter/widgets/books_list/books_list.dart';
 import 'package:clean_biblioteca/features/presenter/widgets/custom_app_bar.dart';
 import 'package:clean_biblioteca/features/presenter/widgets/empty_list.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeStore> {
+  bool listIsEmpty = false;
+
   @override
   void initState() {
     super.initState();
@@ -40,12 +42,20 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
 
   Widget _onSuccess(BuildContext context, List<BookEntity>? list) {
     final books = list ?? [];
+    listIsEmpty = books.isEmpty;
+
     return Expanded(
       child: books.isEmpty
           ? EmptyList(_openDetails)
           : RefreshIndicator(
               onRefresh: _refresh,
-              child: BooksList(books, onTapItem: _openDetails),
+              child: BooksList(
+                books,
+                onTapItem: _openDetails,
+                onDeleteItem: (list, _) {
+                  if (list.isEmpty) _refresh();
+                },
+              ),
             ),
     );
   }
@@ -66,7 +76,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         ]),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
         onPressed: _openDetails,
       ),
     );

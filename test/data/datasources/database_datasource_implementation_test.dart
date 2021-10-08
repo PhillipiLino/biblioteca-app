@@ -90,4 +90,28 @@ main() {
     // Assert
     expect(() => result, throwsA(DatabaseException()));
   });
+
+  test('Should complete flow when delete book with successfull', () async {
+    // Arrange
+    when(() => dao.deleteBook(any())).thenAnswer((_) async {});
+
+    // Act
+    final result = datasource.deleteBook(tBook.toModel());
+
+    // Assert
+    expect(result, completes);
+    verify(() => dao.deleteBook(tBook.toModel())).called(1);
+  });
+
+  test('Should throw a DatabaseException when delete book call is unccessful',
+      () {
+    // Arrange
+    when(() => dao.deleteBook(any())).thenThrow(Exception());
+
+    // Act
+    final result = datasource.deleteBook(tBook.toModel());
+
+    // Assert
+    expect(() => result, throwsA(DatabaseException()));
+  });
 }

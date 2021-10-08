@@ -10,8 +10,9 @@ class AppWidget extends StatelessWidget {
       initialRoute: Modular.initialRoute,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
-          accentColor: Colors.deepPurple,
-          brightness: Brightness.light,
+          primarySwatch: Colors.deepPurple,
+          accentColor: const Color(0xFFC5B4E4),
+          // brightness: Brightness.light,
         ),
       ),
     ).modular();

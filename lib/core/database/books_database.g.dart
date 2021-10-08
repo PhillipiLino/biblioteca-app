@@ -114,6 +114,23 @@ class _$IBooksDao extends IBooksDao {
                   'imagePath': item.imagePath,
                   'progress': item.progress,
                   'percentage': item.percentage
+                }),
+        _bookModelDeletionAdapter = DeletionAdapter(
+            database,
+            'books_table',
+            ['databaseId'],
+            (BookModel item) => <String, Object?>{
+                  'databaseId': item.databaseId,
+                  'user_id': item.userId,
+                  'id': item.id,
+                  'name': item.name,
+                  'author': item.author,
+                  'pages': item.pages,
+                  'readPages': item.readPages,
+                  'stars': item.stars,
+                  'imagePath': item.imagePath,
+                  'progress': item.progress,
+                  'percentage': item.percentage
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -123,6 +140,8 @@ class _$IBooksDao extends IBooksDao {
   final QueryAdapter _queryAdapter;
 
   final InsertionAdapter<BookModel> _bookModelInsertionAdapter;
+
+  final DeletionAdapter<BookModel> _bookModelDeletionAdapter;
 
   @override
   Future<List<BookModel>> getAllBooksFromUser(String userId) async {
@@ -143,5 +162,10 @@ class _$IBooksDao extends IBooksDao {
   @override
   Future<void> insertBook(BookModel book) async {
     await _bookModelInsertionAdapter.insert(book, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> deleteBook(BookModel book) async {
+    await _bookModelDeletionAdapter.delete(book);
   }
 }

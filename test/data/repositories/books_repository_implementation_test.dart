@@ -4,6 +4,7 @@ import 'package:clean_biblioteca/core/utils/helpers/image_helper.dart';
 import 'package:clean_biblioteca/features/data/datasources/books_datasource.dart';
 import 'package:clean_biblioteca/features/data/models/book_model.dart';
 import 'package:clean_biblioteca/features/data/repositories/books_repository_implementation.dart';
+import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
 import 'package:clean_biblioteca/features/domain/entities/book_to_save_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,6 +33,17 @@ main() {
       userId: '23',
     ));
     registerFallbackValue(XFile('path'));
+
+    registerFallbackValue([
+      BookEntity(
+        id: 1,
+        name: 'name',
+        author: 'author',
+        pages: 10,
+        readPages: 0,
+        stars: 1,
+      ),
+    ]);
 
     datasource = MockBooksDatasource();
     imageHelper = MockImageHelper();
@@ -128,5 +140,32 @@ main() {
     verify(() => datasource.createBook(tBook.toModel())).called(1);
     verify(() => imageHelper.saveImage(
         tInfosToSave.imageFile!, tInfosToSave.book.imagePath ?? '')).called(1);
+  });
+
+  test('Should return true when calls delete book from datasource with success',
+      () async {
+    // Arrange
+    when(() => datasource.deleteBook(any())).thenAnswer((_) async {});
+
+    // Act
+    final result = await repository.deleteBook(tBook);
+
+    // Assert
+    expect(result, const Right(true));
+    verify(() => datasource.deleteBook(tBook.toModel())).called(1);
+  });
+
+  test(
+      'Should return a database failure when the call to datasource is unsuccessful',
+      () async {
+    // Arrange
+    when(() => datasource.deleteBook(any())).thenThrow(DatabaseException());
+
+    // Act
+    final result = await repository.deleteBook(tBook);
+
+    // Assert
+    expect(result, Left(DatabaseFailure()));
+    verify(() => datasource.deleteBook(tBook.toModel())).called(1);
   });
 }

@@ -30,7 +30,7 @@ class DetailsStore extends NotifierStore<Failure, bool> {
     readPagesController.text = readPages.toString();
   }
 
-  insertBook(
+  Future insertBook(
     int? bookId,
     int stars,
     XFile? imageFile,

@@ -46,7 +46,7 @@ class HomeBookItem extends StatelessWidget {
                 width: 90,
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadiusDirectional.circular(10),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Hero(
                   tag: 'avatar-${book.id}',
@@ -70,12 +70,13 @@ class HomeBookItem extends StatelessWidget {
                 ],
               ),
               CircularPercentIndicator(
-                startAngle: 180,
+                startAngle: 0,
                 radius: 60.0,
                 lineWidth: 5.0,
                 percent: book.progress,
                 center: Text(book.percentage),
-                progressColor: Theme.of(context).colorScheme.secondary,
+                progressColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 animation: true,
                 circularStrokeCap: CircularStrokeCap.round,
               )

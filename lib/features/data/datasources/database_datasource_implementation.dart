@@ -25,4 +25,13 @@ class DatabaseDataSourceImplementation implements IBooksDatasource {
       throw DatabaseException();
     }
   }
+
+  @override
+  Future<void> deleteBook(BookModel book) async {
+    try {
+      return dao.deleteBook(book);
+    } catch (e) {
+      throw DatabaseException();
+    }
+  }
 }

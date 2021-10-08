@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class BookImage extends StatelessWidget {
@@ -17,12 +16,10 @@ class BookImage extends StatelessWidget {
   ) {
     return Container(
       color: Colors.grey[200],
-      child: Center(
-        child: Icon(
-          Icons.menu_book_sharp,
-          size: 60,
-          color: Colors.grey[400],
-        ),
+      child: Image.asset(
+        'assets/images/book_placeholder.png',
+        fit: BoxFit.cover,
+        filterQuality: FilterQuality.medium,
       ),
     );
   }
@@ -34,12 +31,14 @@ class BookImage extends StatelessWidget {
   ) {
     if (loadingProgress == null) return child;
 
-    return Center(
-      child: CircularProgressIndicator(
-        value: loadingProgress.expectedTotalBytes != null
-            ? loadingProgress.cumulativeBytesLoaded /
-                loadingProgress.expectedTotalBytes!
-            : null,
+    return Container(
+      color: Theme.of(context).colorScheme.secondary,
+      width: double.infinity,
+      child: Center(
+        child: CircularProgressIndicator(
+          color: Theme.of(context).colorScheme.primary,
+          strokeWidth: 1.5,
+        ),
       ),
     );
   }

@@ -4,10 +4,12 @@ import 'package:clean_biblioteca/core/utils/helpers/image_helper.dart';
 import 'package:clean_biblioteca/features/data/datasources/database_datasource_implementation.dart';
 import 'package:clean_biblioteca/features/data/repositories/books_repository_implementation.dart';
 import 'package:clean_biblioteca/features/domain/usecases/create_book_usecase.dart';
+import 'package:clean_biblioteca/features/domain/usecases/delete_book_usecase.dart';
 import 'package:clean_biblioteca/features/domain/usecases/get_user_books_usecase.dart';
 import 'package:clean_biblioteca/features/presenter/controller/details_store.dart';
 import 'package:clean_biblioteca/features/presenter/controller/home_store.dart';
 import 'package:clean_biblioteca/features/presenter/pages/home_page.dart';
+import 'package:clean_biblioteca/features/presenter/widgets/books_list/books_list_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'features/presenter/pages/details_page.dart';
@@ -20,9 +22,11 @@ class AppModule extends Module {
         await $FloorBooksDatabase.databaseBuilder('books-db.db').build()),
     AsyncBind((i) async => i<BooksDatabase>().bookDao),
     Bind((i) => HomeStore(i())),
+    Bind((i) => BooksListStore(i())),
     Bind((i) => DetailsStore(i())),
     Bind((i) => GetUserBooksUsecase(i())),
     Bind((i) => CreateBooksUsecase(i())),
+    Bind((i) => DeleteBookUsecase(i())),
     Bind((i) => BooksRepositoryImplementation(i(), i())),
     Bind((i) => DatabaseDataSourceImplementation(i<IBooksDao>())),
     Bind((i) => ImageHelper()),

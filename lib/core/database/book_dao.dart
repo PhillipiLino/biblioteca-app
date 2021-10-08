@@ -9,4 +9,7 @@ abstract class IBooksDao {
 
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertBook(BookModel book);
+
+  @delete
+  Future<void> deleteBook(BookModel book);
 }

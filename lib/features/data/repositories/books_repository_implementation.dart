@@ -39,4 +39,14 @@ class BooksRepositoryImplementation implements IBooksRepository {
       return Left(SaveImageFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> deleteBook(BookEntity book) async {
+    try {
+      await datasource.deleteBook(book.toModel());
+      return const Right(true);
+    } on DatabaseException {
+      return Left(DatabaseFailure());
+    }
+  }
 }
