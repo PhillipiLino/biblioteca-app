@@ -45,7 +45,7 @@ main() {
     when(() => usecase(any())).thenAnswer((_) async => const Right(true));
 
     // Act
-    await store.insertBook(tBook.id, 1, XFile('path'));
+    await store.insertBook(tBook.id, 1, XFile('path'), tBook.imagePath);
 
     // Assert
     store.observer(onState: (state) {
@@ -61,7 +61,7 @@ main() {
     when(() => usecase(any())).thenAnswer((_) async => Left(tDatabaseFailure));
 
     // Act
-    await store.insertBook(tBook.id, 1, XFile('path'));
+    await store.insertBook(tBook.id, 1, XFile('path'), tBook.imagePath);
 
     // Assert
     store.observer(onError: (error) {
@@ -77,7 +77,7 @@ main() {
     when(() => usecase(any())).thenAnswer((_) async => Left(tImageFailure));
 
     // Act
-    await store.insertBook(tBook.id, 1, XFile('path'));
+    await store.insertBook(tBook.id, 1, XFile('path'), tBook.imagePath);
 
     // Assert
     store.observer(onError: (error) {

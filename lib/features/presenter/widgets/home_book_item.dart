@@ -22,7 +22,15 @@ class HomeBookItem extends StatelessWidget {
       stars.add(Star(i <= book.stars));
     }
 
-    print(book);
+    final bookImageWidget = Container(
+      height: 130,
+      width: 90,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadiusDirectional.circular(10),
+      ),
+      child: BookImage(book.imagePath ?? ''),
+    );
 
     return Material(
       child: InkWell(
@@ -43,6 +51,9 @@ class HomeBookItem extends StatelessWidget {
                 child: Hero(
                   tag: 'avatar-${book.id}',
                   child: BookImage(book.imagePath ?? ''),
+                  flightShuttleBuilder: (flightContext, animation,
+                          flightDirection, fromHeroContext, toHeroContext) =>
+                      Center(child: bookImageWidget),
                 ),
               ),
               Column(
@@ -64,7 +75,7 @@ class HomeBookItem extends StatelessWidget {
                 lineWidth: 5.0,
                 percent: book.progress,
                 center: Text(book.percentage),
-                progressColor: Colors.deepPurple,
+                progressColor: Theme.of(context).colorScheme.secondary,
                 animation: true,
                 circularStrokeCap: CircularStrokeCap.round,
               )

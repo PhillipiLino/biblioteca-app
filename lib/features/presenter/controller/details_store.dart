@@ -30,17 +30,26 @@ class DetailsStore extends NotifierStore<Failure, bool> {
     readPagesController.text = readPages.toString();
   }
 
-  insertBook(int? bookId, int stars, XFile? imageFile) async {
+  insertBook(
+    int? bookId,
+    int stars,
+    XFile? imageFile,
+    String? imagePath,
+  ) async {
     final name = nameController.text;
     final author = authorController.text;
     final pages = int.tryParse(pagesController.text) ?? 0;
     final readPages = int.tryParse(readPagesController.text) ?? 0;
 
-    final date =
-        DateTime.now().toString().replaceAll(':', '_').replaceAll(' ', '_');
-    final imageName = 'book_${name.hashCode}_$date';
-    final directory = await getApplicationDocumentsDirectory();
-    final path = '${directory.path}/$imageName';
+    String path = imagePath ?? '';
+
+    if (path.isEmpty) {
+      final date =
+          DateTime.now().toString().replaceAll(':', '_').replaceAll(' ', '_');
+      final imageName = 'book_${name.hashCode}_$date';
+      final directory = await getApplicationDocumentsDirectory();
+      path = '${directory.path}/$imageName';
+    }
 
     final book = BookToSaveEntity(
       book: BookEntity(

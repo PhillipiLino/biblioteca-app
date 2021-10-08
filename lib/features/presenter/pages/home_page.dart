@@ -19,7 +19,15 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   void initState() {
     super.initState();
 
-    store.getBooksFromUser('0');
+    _refresh();
+  }
+
+  Future _refresh() async => store.getBooksFromUser('0');
+
+  _openDetails([BookEntity? book]) {
+    Modular.to.pushNamed('/book/', arguments: book).then((value) {
+      if ((value as bool? ?? false)) _refresh();
+    });
   }
 
   Widget _onLoading(BuildContext context) {
@@ -34,12 +42,11 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
     final books = list ?? [];
     return Expanded(
       child: books.isEmpty
-          ? EmptyList(() {
-              Modular.to.pushNamed('/book/');
-            })
-          : BooksList(books, onTapItem: (item) {
-              Modular.to.pushNamed('/book/', arguments: item);
-            }),
+          ? EmptyList(_openDetails)
+          : RefreshIndicator(
+              onRefresh: _refresh,
+              child: BooksList(books, onTapItem: _openDetails),
+            ),
     );
   }
 
@@ -57,6 +64,10 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
             onError: _onError,
           ),
         ]),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: _openDetails,
       ),
     );
   }

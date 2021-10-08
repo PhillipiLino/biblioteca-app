@@ -33,6 +33,10 @@ class AppModule extends Module {
     ChildRoute(Modular.initialRoute,
         child: (context, args) => const SplashPage()),
     ChildRoute('/home/', child: (_, __) => const HomePage()),
-    ChildRoute('/book/', child: (_, args) => DetailPage(args.data)),
+    ChildRoute(
+      '/book/',
+      child: (_, args) => DetailPage(args.data),
+      transition: TransitionType.downToUp,
+    ),
   ];
 }

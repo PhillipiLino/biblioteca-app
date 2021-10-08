@@ -67,6 +67,20 @@ class _DetailPageState extends ModularState<DetailPage, DetailsStore> {
       });
     }
 
+    final bookImageWidget = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 120),
+      child: AspectRatio(
+        aspectRatio: 1 / 1.5,
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadiusDirectional.circular(10),
+          ),
+          child: bookImage,
+        ),
+      ),
+    );
+
     return Scaffold(
         body: GestureDetector(
       onTap: hideKeyboard,
@@ -111,6 +125,14 @@ class _DetailPageState extends ModularState<DetailPage, DetailsStore> {
                     },
                     child: Hero(
                       tag: 'avatar-${book?.id}',
+                      flightShuttleBuilder: (flightContext,
+                              animation,
+                              flightDirection,
+                              fromHeroContext,
+                              toHeroContext) =>
+                          Center(
+                        child: bookImageWidget,
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 20, horizontal: 120),
@@ -252,12 +274,18 @@ class _DetailPageState extends ModularState<DetailPage, DetailsStore> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   await store.insertBook(
-                                      book?.id, starsNumber, pickedImage);
-                                  Modular.to.pop();
+                                    book?.id,
+                                    starsNumber,
+                                    pickedImage,
+                                    book?.imagePath,
+                                  );
+                                  Modular.to.pop(true);
                                 },
                                 child: const Text('Salvar'),
                                 style: ElevatedButton.styleFrom(
-                                    primary: Colors.deepPurple),
+                                  primary:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
                               ),
                             )
                           ],

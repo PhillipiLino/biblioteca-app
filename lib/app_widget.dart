@@ -8,6 +8,12 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: Modular.initialRoute,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+          accentColor: Colors.deepPurple,
+          brightness: Brightness.light,
+        ),
+      ),
     ).modular();
   }
 }
