@@ -43,6 +43,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
 
   Widget _onSuccess(BuildContext context, List<BookEntity>? list) {
     books = list ?? [];
+    Modular.get<PersistList>().list = books;
     listIsEmpty = books.isEmpty;
 
     return Expanded(

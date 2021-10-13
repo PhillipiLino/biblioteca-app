@@ -11,7 +11,7 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.deepPurple,
-          accentColor: const Color(0xFFC5B4E4),
+          accentColor: Colors.deepPurple[50],
         ),
       ),
     ).modular();
