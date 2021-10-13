@@ -39,7 +39,7 @@ class AppModule extends Module {
     ChildRoute('/home/', child: (_, __) => const HomePage()),
     ChildRoute(
       '/book/',
-      child: (_, args) => DetailPage(args.data),
+      child: (_, args) => DetailsPage(args.data),
       transition: TransitionType.downToUp,
     ),
   ];

@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeStore> {
   bool listIsEmpty = false;
+  List<BookEntity> books = [];
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   }
 
   Widget _onSuccess(BuildContext context, List<BookEntity>? list) {
-    final books = list ?? [];
+    books = list ?? [];
     listIsEmpty = books.isEmpty;
 
     return Expanded(
@@ -52,8 +53,10 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
               child: BooksList(
                 books,
                 onTapItem: _openDetails,
-                onDeleteItem: (list, _) {
-                  if (list.isEmpty) _refresh();
+                onDeleteItem: (list, item) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('${item.name} deletado com sucesso')));
+                  _refresh();
                 },
               ),
             ),
@@ -76,7 +79,9 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         ]),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Colors.white,
+        child: const Icon(Icons.add),
         onPressed: _openDetails,
       ),
     );

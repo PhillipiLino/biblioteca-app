@@ -8,7 +8,7 @@ import '../home_book_item.dart';
 class BooksList extends StatefulWidget {
   final List<BookEntity> list;
   final Function(BookEntity) onTapItem;
-  final Function(List<BookEntity> updatedList, int removedPosition)
+  final Function(List<BookEntity> updatedList, BookEntity removeditem)
       onDeleteItem;
 
   const BooksList(
@@ -77,11 +77,10 @@ class _BooksListState extends ModularState<BooksList, BooksListStore> {
           return result;
         },
         onDismissed: (direction) async {
-          await store.deleteBook(list[position]);
+          final item = list[position];
           list.removeAt(position);
-          widget.onDeleteItem(list, position);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('${list[position].name} Deletado com sucesso')));
+          await store.deleteBook(item);
+          widget.onDeleteItem(list, item);
         },
         secondaryBackground: Container(
           color: Colors.grey[200],

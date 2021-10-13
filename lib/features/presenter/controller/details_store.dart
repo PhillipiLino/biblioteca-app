@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:clean_biblioteca/core/usecase/errors/failures.dart';
 import 'package:clean_biblioteca/core/utils/adapters/dartz_either_adapter.dart';
 import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
@@ -16,6 +18,10 @@ class DetailsStore extends NotifierStore<Failure, bool> {
   final TextEditingController pagesController = TextEditingController();
   final TextEditingController readPagesController = TextEditingController();
 
+  final StreamController<bool> _streamEnabledButton = StreamController<bool>();
+  Sink get enabledButtonInput => _streamEnabledButton.sink;
+  Stream<bool> get enabledButton => _streamEnabledButton.stream;
+
   DetailsStore(this.usecase) : super(true);
 
   initTextControllers(BookEntity? initialBook) {
@@ -28,6 +34,7 @@ class DetailsStore extends NotifierStore<Failure, bool> {
     authorController.text = author;
     pagesController.text = pages.toString();
     readPagesController.text = readPages.toString();
+    onChangeField();
   }
 
   Future insertBook(
@@ -65,5 +72,15 @@ class DetailsStore extends NotifierStore<Failure, bool> {
     );
 
     executeEither(() => DartzEitherAdapter.adapter(usecase(book)));
+  }
+
+  onChangeField([String? text]) {
+    final name = nameController.text;
+    final author = authorController.text;
+    final pages = int.tryParse(pagesController.text) ?? 0;
+    final readPages = int.tryParse(readPagesController.text) ?? 0;
+
+    enabledButtonInput.add(
+        name.isNotEmpty && author.isNotEmpty && pages > 0 && readPages >= 0);
   }
 }

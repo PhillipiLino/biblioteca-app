@@ -12,7 +12,6 @@ class AppWidget extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.deepPurple,
           accentColor: const Color(0xFFC5B4E4),
-          // brightness: Brightness.light,
         ),
       ),
     ).modular();

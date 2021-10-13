@@ -27,7 +27,7 @@ class BookEntity extends Equatable {
             ? 100
             : (readPages * 100) / pages;
 
-    percentage = '${percent.toStringAsFixed(1)}%';
+    percentage = '${percent.toStringAsFixed(0)}%';
     progress = readPages == 0 ? 0 : percent / 100;
   }
 
