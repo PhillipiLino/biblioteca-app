@@ -167,7 +167,7 @@ class _$IBooksDao extends IBooksDao {
   @override
   Future<List<UserProgressModel>?> getProgress() async {
     return _queryAdapter.queryList(
-        'SELECT EXISTS(Select SUM(pages) as totalPages,        Sum(readPages) as totalReadPages,        ((Sum(readPages) * 100.0)/Sum(pages)) as pagesProgress,       Count(*) as books,       Count(case when pages = readPages Then 1 else NULL end) as completedBooks,       ((Count(case when pages = readPages Then 1 else NULL end) * 100.0)/Count(*)) as booksProgress,       max(updated_at) updatedAt from books_table)',
+        'Select SUM(pages) as totalPages,        Sum(readPages) as totalReadPages,        ((Sum(readPages) * 100.0)/Sum(pages)) as pagesProgress,       Count(*) as books,       Count(case when pages = readPages Then 1 else NULL end) as completedBooks,       ((Count(case when pages = readPages Then 1 else NULL end) * 100.0)/Count(*)) as booksProgress,       max(updated_at) updatedAt from books_table',
         mapper: (Map<String, Object?> row) => UserProgressModel(
             id: row['id'] as int?,
             totalPages: row['totalPages'] as int?,

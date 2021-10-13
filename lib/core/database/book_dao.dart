@@ -14,12 +14,12 @@ abstract class IBooksDao {
   @delete
   Future<void> deleteBook(BookModel book);
 
-  @Query('''SELECT EXISTS(Select SUM(pages) as totalPages, 
+  @Query('''Select SUM(pages) as totalPages, 
       Sum(readPages) as totalReadPages, 
       ((Sum(readPages) * 100.0)/Sum(pages)) as pagesProgress,
       Count(*) as books,
       Count(case when pages = readPages Then 1 else NULL end) as completedBooks,
       ((Count(case when pages = readPages Then 1 else NULL end) * 100.0)/Count(*)) as booksProgress,
-      max(updated_at) updatedAt from books_table)''')
+      max(updated_at) updatedAt from books_table''')
   Future<List<UserProgressModel>?> getProgress();
 }

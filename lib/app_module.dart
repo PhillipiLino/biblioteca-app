@@ -35,7 +35,7 @@ class AppModule extends Module {
         .databaseBuilder('books-db.db')
         .addMigrations([migration1to2]).build()),
     AsyncBind((i) async => i<BooksDatabase>().bookDao),
-    Bind((i) => HomeStore(i())),
+    Bind((i) => HomeStore(i(), i())),
     Bind((i) => PersistList()),
     Bind((i) => BooksListStore(i())),
     Bind((i) => DetailsStore(i())),

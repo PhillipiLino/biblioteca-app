@@ -15,7 +15,7 @@ main() {
 
   setUp(() {
     usecase = MockGetUserBooksUsecase();
-    store = HomeStore(usecase);
+    store = HomeStore(usecase, PersistList());
   });
 
   const tUserId = '23';

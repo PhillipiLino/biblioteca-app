@@ -41,7 +41,7 @@ class BookModel extends BookEntity {
         stars: json['stars'],
         imagePath: json['imagePath'],
         userId: json['user_id'],
-        updatedAt: json['updated_at'],
+        updatedAt: DateTime.parse(json['updated_at']),
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,6 +53,6 @@ class BookModel extends BookEntity {
         'stars': stars,
         'imagePath': imagePath,
         'user_id': userId,
-        'updated_at': updatedAt,
+        'updated_at': updatedAt.toString(),
       };
 }
