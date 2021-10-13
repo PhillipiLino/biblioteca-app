@@ -66,7 +66,7 @@ class _$BooksDatabase extends BooksDatabase {
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback? callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -82,7 +82,9 @@ class _$BooksDatabase extends BooksDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `books_table` (`databaseId` INTEGER PRIMARY KEY AUTOINCREMENT, `user_id` TEXT NOT NULL, `id` INTEGER, `name` TEXT NOT NULL, `author` TEXT NOT NULL, `pages` INTEGER NOT NULL, `readPages` INTEGER NOT NULL, `stars` INTEGER NOT NULL, `imagePath` TEXT, `progress` REAL NOT NULL, `percentage` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `books_table` (`databaseId` INTEGER PRIMARY KEY AUTOINCREMENT, `user_id` TEXT NOT NULL, `updated_at` INTEGER NOT NULL, `id` INTEGER, `name` TEXT NOT NULL, `author` TEXT NOT NULL, `pages` INTEGER NOT NULL, `readPages` INTEGER NOT NULL, `stars` INTEGER NOT NULL, `imagePath` TEXT, `progress` REAL NOT NULL, `percentage` TEXT NOT NULL)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `books_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `totalPages` INTEGER NOT NULL, `totalReadPages` INTEGER NOT NULL, `pagesProgress` REAL NOT NULL, `books` INTEGER NOT NULL, `completedBooks` INTEGER NOT NULL, `booksProgress` REAL NOT NULL, `updatedAt` INTEGER NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -105,6 +107,7 @@ class _$IBooksDao extends IBooksDao {
             (BookModel item) => <String, Object?>{
                   'databaseId': item.databaseId,
                   'user_id': item.userId,
+                  'updated_at': _dateTimeConverter.encode(item.updatedAt),
                   'id': item.id,
                   'name': item.name,
                   'author': item.author,
@@ -122,6 +125,7 @@ class _$IBooksDao extends IBooksDao {
             (BookModel item) => <String, Object?>{
                   'databaseId': item.databaseId,
                   'user_id': item.userId,
+                  'updated_at': _dateTimeConverter.encode(item.updatedAt),
                   'id': item.id,
                   'name': item.name,
                   'author': item.author,
@@ -146,7 +150,7 @@ class _$IBooksDao extends IBooksDao {
   @override
   Future<List<BookModel>> getAllBooksFromUser(String userId) async {
     return _queryAdapter.queryList(
-        'Select * from books_table WHERE user_id = ?1 ORDER BY name DESC',
+        'Select * from books_table WHERE user_id = ?1 ORDER BY updated_at DESC',
         mapper: (Map<String, Object?> row) => BookModel(
             databaseId: row['databaseId'] as int?,
             name: row['name'] as String,
@@ -155,8 +159,24 @@ class _$IBooksDao extends IBooksDao {
             readPages: row['readPages'] as int,
             stars: row['stars'] as int,
             imagePath: row['imagePath'] as String?,
-            userId: row['user_id'] as String),
+            userId: row['user_id'] as String,
+            updatedAt: _dateTimeConverter.decode(row['updated_at'] as int)),
         arguments: [userId]);
+  }
+
+  @override
+  Future<List<UserProgressModel>?> getProgress() async {
+    return _queryAdapter.queryList(
+        'Select SUM(pages) as totalPages,        Sum(readPages) as totalReadPages,        ((Sum(readPages) * 100.0)/Sum(pages)) as pagesProgress,       Count(*) as books,       Count(case when pages = readPages Then 1 else NULL end) as completedBooks,       ((Count(case when pages = readPages Then 1 else NULL end) * 100.0)/Count(*)) as booksProgress,       max(updated_at) updatedAt from books_table',
+        mapper: (Map<String, Object?> row) => UserProgressModel(
+            id: row['id'] as int?,
+            totalPages: row['totalPages'] as int,
+            totalReadPages: row['totalReadPages'] as int,
+            pagesProgress: row['pagesProgress'] as double,
+            books: row['books'] as int,
+            completedBooks: row['completedBooks'] as int,
+            booksProgress: row['booksProgress'] as double,
+            updatedAt: _dateTimeConverter.decode(row['updatedAt'] as int)));
   }
 
   @override
@@ -169,3 +189,6 @@ class _$IBooksDao extends IBooksDao {
     await _bookModelDeletionAdapter.delete(book);
   }
 }
+
+// ignore_for_file: unused_element
+final _dateTimeConverter = DateTimeConverter();

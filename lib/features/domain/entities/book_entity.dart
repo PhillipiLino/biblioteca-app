@@ -32,14 +32,16 @@ class BookEntity extends Equatable {
   }
 
   BookModel toModel() => BookModel(
-      databaseId: id,
-      name: name,
-      author: author,
-      pages: pages,
-      readPages: readPages,
-      stars: stars,
-      imagePath: imagePath,
-      userId: '0');
+        databaseId: id,
+        name: name,
+        author: author,
+        pages: pages,
+        readPages: readPages,
+        stars: stars,
+        imagePath: imagePath,
+        userId: '0',
+        updatedAt: DateTime.now(),
+      );
 
   @override
   List<Object?> get props => [

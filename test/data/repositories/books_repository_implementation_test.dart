@@ -31,6 +31,7 @@ main() {
       stars: 0,
       imagePath: 'imagePath',
       userId: '23',
+      updatedAt: DateTime.now(),
     ));
     registerFallbackValue(XFile('path'));
 
@@ -59,6 +60,7 @@ main() {
       stars: 3,
       imagePath: 'imagePath',
       userId: '23',
+      updatedAt: DateTime.now(),
     ),
   ];
 

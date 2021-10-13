@@ -16,6 +16,7 @@ main() {
     stars: 3,
     imagePath: 'imagePath',
     userId: '23',
+    updatedAt: DateTime.now(),
   );
 
   test('Should be a subclass of BookEntity', () {

@@ -9,16 +9,20 @@ class BookModel extends BookEntity {
   @ColumnInfo(name: 'user_id')
   final String userId;
 
-  BookModel({
-    this.databaseId,
-    required String name,
-    required String author,
-    required int pages,
-    required int readPages,
-    required int stars,
-    required String? imagePath,
-    required this.userId,
-  }) : super(
+  @ColumnInfo(name: 'updated_at')
+  final DateTime updatedAt;
+
+  BookModel(
+      {this.databaseId,
+      required String name,
+      required String author,
+      required int pages,
+      required int readPages,
+      required int stars,
+      required String? imagePath,
+      required this.userId,
+      required this.updatedAt})
+      : super(
           id: databaseId,
           name: name,
           author: author,
@@ -37,6 +41,7 @@ class BookModel extends BookEntity {
         stars: json['stars'],
         imagePath: json['imagePath'],
         userId: json['user_id'],
+        updatedAt: json['updated_at'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -48,5 +53,6 @@ class BookModel extends BookEntity {
         'stars': stars,
         'imagePath': imagePath,
         'user_id': userId,
+        'updated_at': updatedAt,
       };
 }
