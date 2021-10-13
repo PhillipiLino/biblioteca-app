@@ -26,9 +26,16 @@ class DefaultTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Brightness brightnessValue =
+        MediaQuery.of(context).platformBrightness;
+    bool isDark = brightnessValue == Brightness.dark;
+
     return TextField(
       controller: controller,
-      style: const TextStyle(fontSize: 15),
+      style: TextStyle(
+        fontSize: 15,
+        color: isDark ? Colors.white : Colors.black87,
+      ),
       textAlign: textAlign,
       keyboardType: keyboardType,
       textCapitalization: textCapitalization,
@@ -37,13 +44,13 @@ class DefaultTextField extends StatelessWidget {
         filled: true,
         hintText: hint,
         hintStyle: TextStyle(color: Colors.grey[500]),
-        fillColor: Colors.grey[200],
+        fillColor: isDark ? Colors.grey[700] : Colors.grey[200],
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.transparent),
           borderRadius: BorderRadius.circular(5),
         ),
         enabledBorder: UnderlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.transparent),
           borderRadius: BorderRadius.circular(5),
         ),
       ),

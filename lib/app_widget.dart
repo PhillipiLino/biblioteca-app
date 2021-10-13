@@ -8,10 +8,16 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: Modular.initialRoute,
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.amber,
+          accentColor: Colors.black87,
+        ),
+      ),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.deepPurple,
-          accentColor: Colors.deepPurple[50],
+          primarySwatch: Colors.amber,
+          accentColor: Colors.black87,
         ),
       ),
     ).modular();

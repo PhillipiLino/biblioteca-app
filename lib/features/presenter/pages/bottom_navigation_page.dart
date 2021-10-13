@@ -54,7 +54,8 @@ class _BottomNavigationPageState
         onTap: controller.goToPage,
         backgroundColor: Theme.of(context).colorScheme.secondary,
         selectedItemColor: Theme.of(context).colorScheme.primary,
-        unselectedItemColor: Colors.deepPurple[200],
+        unselectedItemColor:
+            Theme.of(context).colorScheme.primary.withOpacity(0.6),
         selectedIconTheme: IconThemeData(
             size: 30, color: Theme.of(context).colorScheme.primary),
         unselectedIconTheme: const IconThemeData(size: 20),

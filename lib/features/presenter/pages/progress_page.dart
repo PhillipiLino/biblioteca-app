@@ -84,7 +84,6 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
                             child: Text(
                               'Total de páginas: ${userProgress.totalPages}',
                               style: const TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -109,7 +108,6 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
                             child: Text(
                               'Total de páginas lidas: ${userProgress.totalReadPages}',
                               style: const TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -162,7 +160,6 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
                             child: Text(
                               'Total de livros: ${userProgress.books}',
                               style: const TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -187,7 +184,6 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
                             child: Text(
                               'Total de livros lidos: ${userProgress.completedBooks}',
                               style: const TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
