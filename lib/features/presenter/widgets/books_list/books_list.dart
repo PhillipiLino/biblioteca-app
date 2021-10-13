@@ -1,5 +1,5 @@
-import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/books_list/books_list_store.dart';
+import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/features/presenter/widgets/books_list/books_list_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

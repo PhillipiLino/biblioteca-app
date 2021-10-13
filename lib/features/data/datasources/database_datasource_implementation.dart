@@ -1,8 +1,8 @@
-import 'package:clean_biblioteca/core/database/book_dao.dart';
-import 'package:clean_biblioteca/core/usecase/errors/exceptions.dart';
-import 'package:clean_biblioteca/features/data/datasources/books_datasource.dart';
-import 'package:clean_biblioteca/features/data/models/book_model.dart';
-import 'package:clean_biblioteca/features/data/models/user_progress_model.dart';
+import 'package:biblioteca/core/database/book_dao.dart';
+import 'package:biblioteca/core/usecase/errors/exceptions.dart';
+import 'package:biblioteca/features/data/datasources/books_datasource.dart';
+import 'package:biblioteca/features/data/models/book_model.dart';
+import 'package:biblioteca/features/data/models/user_progress_model.dart';
 
 class DatabaseDataSourceImplementation implements IBooksDatasource {
   final IBooksDao dao;

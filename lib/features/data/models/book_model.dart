@@ -1,4 +1,4 @@
-import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/features/domain/entities/book_entity.dart';
 import 'package:floor/floor.dart';
 
 @Entity(tableName: 'books_table')
@@ -10,19 +10,19 @@ class BookModel extends BookEntity {
   final String userId;
 
   @ColumnInfo(name: 'updated_at')
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
 
-  BookModel(
-      {this.databaseId,
-      required String name,
-      required String author,
-      required int pages,
-      required int readPages,
-      required int stars,
-      required String? imagePath,
-      required this.userId,
-      required this.updatedAt})
-      : super(
+  BookModel({
+    this.databaseId,
+    required String name,
+    required String author,
+    required int pages,
+    required int readPages,
+    required int stars,
+    required String? imagePath,
+    required this.userId,
+    required this.updatedAt,
+  }) : super(
           id: databaseId,
           name: name,
           author: author,

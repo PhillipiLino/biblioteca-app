@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:clean_biblioteca/features/data/models/book_model.dart';
-import 'package:clean_biblioteca/features/data/models/user_progress_model.dart';
+import 'package:biblioteca/features/data/models/book_model.dart';
+import 'package:biblioteca/features/data/models/user_progress_model.dart';
 import 'package:floor/floor.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 
@@ -14,14 +14,16 @@ abstract class BooksDatabase extends FloorDatabase {
   IBooksDao get bookDao;
 }
 
-class DateTimeConverter extends TypeConverter<DateTime, int> {
+class DateTimeConverter extends TypeConverter<DateTime?, int?> {
   @override
-  DateTime decode(int databaseValue) {
-    return DateTime.fromMillisecondsSinceEpoch(databaseValue);
+  DateTime? decode(int? databaseValue) {
+    return databaseValue == null
+        ? DateTime.now()
+        : DateTime.fromMillisecondsSinceEpoch(databaseValue);
   }
 
   @override
-  int encode(DateTime value) {
-    return value.millisecondsSinceEpoch;
+  int? encode(DateTime? value) {
+    return value?.millisecondsSinceEpoch;
   }
 }

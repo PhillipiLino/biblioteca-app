@@ -1,6 +1,6 @@
 {
-    "name": "clean_biblioteca",
-    "short_name": "clean_biblioteca",
+    "name": "Biblioteca",
+    "short_name": "Biblioteca",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

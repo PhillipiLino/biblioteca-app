@@ -8,7 +8,7 @@ class UserProgressEntity extends Equatable {
   final int books;
   final int completedBooks;
   final double booksProgress;
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
 
   const UserProgressEntity({
     required this.totalPages,

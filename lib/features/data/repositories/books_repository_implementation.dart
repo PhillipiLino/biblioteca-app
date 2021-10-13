@@ -1,11 +1,11 @@
-import 'package:clean_biblioteca/core/usecase/errors/exceptions.dart';
-import 'package:clean_biblioteca/core/utils/helpers/image_helper.dart';
-import 'package:clean_biblioteca/features/data/datasources/books_datasource.dart';
-import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
-import 'package:clean_biblioteca/core/usecase/errors/failures.dart';
-import 'package:clean_biblioteca/features/domain/entities/book_to_save_entity.dart';
-import 'package:clean_biblioteca/features/domain/entities/user_progress_entity.dart';
-import 'package:clean_biblioteca/features/domain/repositories/books_repository.dart';
+import 'package:biblioteca/core/usecase/errors/exceptions.dart';
+import 'package:biblioteca/core/utils/helpers/image_helper.dart';
+import 'package:biblioteca/features/data/datasources/books_datasource.dart';
+import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/core/usecase/errors/failures.dart';
+import 'package:biblioteca/features/domain/entities/book_to_save_entity.dart';
+import 'package:biblioteca/features/domain/entities/user_progress_entity.dart';
+import 'package:biblioteca/features/domain/repositories/books_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class BooksRepositoryImplementation implements IBooksRepository {

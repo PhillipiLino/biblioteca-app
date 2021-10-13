@@ -1,6 +1,6 @@
-import 'package:clean_biblioteca/features/domain/entities/user_progress_entity.dart';
-import 'package:clean_biblioteca/features/presenter/controller/progress_store.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/custom_app_bar.dart';
+import 'package:biblioteca/features/domain/entities/user_progress_entity.dart';
+import 'package:biblioteca/features/presenter/controller/progress_store.dart';
+import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
@@ -37,8 +37,12 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
     final submissionDate = userProgress?.updatedAt ?? DateTime.now();
     final date = formatterDate.format(submissionDate);
 
-    return userProgress == null
-        ? Container()
+    if (userProgress == null) {
+      return const Center(child: Text('ERROR'));
+    }
+
+    return userProgress.books == 0
+        ? const Center(child: Text('Sem Livros na sua biblioteca'))
         : Column(children: [
             Text(
               date,

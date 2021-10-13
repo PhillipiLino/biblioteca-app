@@ -1,4 +1,4 @@
-import 'package:clean_biblioteca/features/presenter/controller/bottom_navigation_store.dart';
+import 'package:biblioteca/features/presenter/controller/bottom_navigation_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';

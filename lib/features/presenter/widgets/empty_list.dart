@@ -17,8 +17,6 @@ class EmptyList extends StatelessWidget {
           ElevatedButton(
             onPressed: onTap as Function(),
             child: const Text('Adicionar'),
-            style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).colorScheme.secondary),
           )
         ],
       ),

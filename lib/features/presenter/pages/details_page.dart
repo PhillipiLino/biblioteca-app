@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
-import 'package:clean_biblioteca/features/presenter/controller/details_store.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/book_image.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/custom_app_bar.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/default_text_field.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/rating_bar.dart';
+import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/features/presenter/controller/details_store.dart';
+import 'package:biblioteca/features/presenter/widgets/book_image.dart';
+import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
+import 'package:biblioteca/features/presenter/widgets/default_text_field.dart';
+import 'package:biblioteca/features/presenter/widgets/rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';

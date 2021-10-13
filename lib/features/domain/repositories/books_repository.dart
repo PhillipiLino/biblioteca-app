@@ -1,7 +1,7 @@
-import 'package:clean_biblioteca/core/usecase/errors/failures.dart';
-import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
-import 'package:clean_biblioteca/features/domain/entities/book_to_save_entity.dart';
-import 'package:clean_biblioteca/features/domain/entities/user_progress_entity.dart';
+import 'package:biblioteca/core/usecase/errors/failures.dart';
+import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/features/domain/entities/book_to_save_entity.dart';
+import 'package:biblioteca/features/domain/entities/user_progress_entity.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class IBooksRepository {
