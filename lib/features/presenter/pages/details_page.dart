@@ -171,12 +171,16 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                               hint: 'Nome do livro',
                               controller: store.nameController,
                               onChanged: store.onChangeField,
+                              textCapitalization: TextCapitalization.words,
+                              textInputAction: TextInputAction.next,
                             ),
                             Container(height: 12),
                             DefaultTextField(
                               hint: 'Autor',
                               controller: store.authorController,
                               onChanged: store.onChangeField,
+                              textCapitalization: TextCapitalization.words,
+                              textInputAction: TextInputAction.next,
                             ),
                             Container(height: 12),
                             DefaultTextField(
@@ -184,6 +188,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                               controller: store.pagesController,
                               keyboardType: TextInputType.number,
                               onChanged: store.onChangeField,
+                              textInputAction: TextInputAction.next,
                             ),
                             Container(height: 20),
                             Row(

@@ -5,6 +5,8 @@ class DefaultTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextAlign textAlign;
   final TextInputType? keyboardType;
+  final TextCapitalization textCapitalization;
+  final TextInputAction? textInputAction;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onEditingComplete;
   final ValueChanged<String>? onSubmitted;
@@ -14,6 +16,8 @@ class DefaultTextField extends StatelessWidget {
     this.controller,
     this.textAlign = TextAlign.start,
     this.keyboardType,
+    this.textCapitalization = TextCapitalization.none,
+    this.textInputAction,
     this.onChanged,
     this.onEditingComplete,
     this.onSubmitted,
@@ -27,6 +31,8 @@ class DefaultTextField extends StatelessWidget {
       style: const TextStyle(fontSize: 15),
       textAlign: textAlign,
       keyboardType: keyboardType,
+      textCapitalization: textCapitalization,
+      textInputAction: textInputAction,
       decoration: InputDecoration(
         filled: true,
         hintText: hint,
