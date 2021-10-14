@@ -39,7 +39,7 @@ class HomeBookItem extends StatelessWidget {
           height: 150,
           child: Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 height: 130,
@@ -56,19 +56,28 @@ class HomeBookItem extends StatelessWidget {
                       Center(child: bookImageWidget),
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(book.name, textAlign: TextAlign.start),
-                  Text(
-                    book.author,
-                    style: const TextStyle(color: Colors.grey, fontSize: 12),
-                  ),
-                  const SizedBox(height: 12),
-                  Row(children: stars)
-                ],
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      book.name,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
+                    Text(
+                      book.author,
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(children: stars)
+                  ],
+                ),
               ),
+              const SizedBox(width: 10),
               CircularPercentIndicator(
                 startAngle: 0,
                 radius: 60.0,

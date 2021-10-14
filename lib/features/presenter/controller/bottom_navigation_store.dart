@@ -10,8 +10,11 @@ class BottomNavigationStore extends NotifierStore<Failure, int> {
       case '/home/':
         update(0);
         break;
-      case '/progress/':
+      case '/search/':
         update(1);
+        break;
+      case '/progress/':
+        update(2);
         break;
       default:
         update(0);
@@ -27,6 +30,9 @@ class BottomNavigationStore extends NotifierStore<Failure, int> {
         _goToHome();
         break;
       case 1:
+        _goToSearch();
+        break;
+      case 2:
         _goToProgress();
         break;
       default:
@@ -34,6 +40,8 @@ class BottomNavigationStore extends NotifierStore<Failure, int> {
   }
 
   _goToHome() => Modular.to.navigate('/menu/home/');
+
+  _goToSearch() => Modular.to.navigate('/menu/search/');
 
   _goToProgress() => Modular.to.navigate('/menu/progress/');
 }

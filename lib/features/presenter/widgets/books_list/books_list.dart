@@ -65,6 +65,7 @@ class _BooksListState extends ModularState<BooksList, BooksListStore> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       physics:
           const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       itemCount: list.length,

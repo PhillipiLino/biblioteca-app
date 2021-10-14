@@ -60,4 +60,14 @@ class BooksRepositoryImplementation implements IBooksRepository {
       return Left(DatabaseFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<BookEntity>>> searchBooks(String filter) async {
+    try {
+      final result = await datasource.searchBooks(filter);
+      return Right(result.items);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

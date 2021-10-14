@@ -20,6 +20,7 @@ class _BottomNavigationPageState
   late final items = <BottomNavigationBarItem>[
     const BottomNavigationBarItem(
         icon: Icon(Icons.menu_book), label: 'Meus Livros'),
+    const BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Busca'),
     const BottomNavigationBarItem(
         icon: Icon(Icons.bar_chart), label: 'Progresso'),
   ];

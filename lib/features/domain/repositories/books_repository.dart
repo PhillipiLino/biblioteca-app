@@ -9,4 +9,5 @@ abstract class IBooksRepository {
   Future<Either<Failure, bool>> createBook(BookToSaveEntity infoToSave);
   Future<Either<Failure, bool>> deleteBook(BookEntity book);
   Future<Either<Failure, List<UserProgressEntity>>> getProgress();
+  Future<Either<Failure, List<BookEntity>>> searchBooks(String filter);
 }
