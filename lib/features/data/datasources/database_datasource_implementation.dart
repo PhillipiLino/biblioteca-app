@@ -9,6 +9,7 @@ import 'package:biblioteca/features/data/endpoints/google_endpoints.dart';
 import 'package:biblioteca/features/data/models/book_model.dart';
 import 'package:biblioteca/features/data/models/google_search_model.dart';
 import 'package:biblioteca/features/data/models/user_progress_model.dart';
+import 'package:biblioteca/features/domain/usecases/search_books_usecase.dart';
 
 class DatabaseDataSourceImplementation implements IBooksDatasource {
   final IBooksDao dao;
@@ -53,12 +54,9 @@ class DatabaseDataSourceImplementation implements IBooksDatasource {
   }
 
   @override
-  Future<GoogleSearchModel> searchBooks(String filter) async {
+  Future<GoogleSearchModel> searchBooks(SearchParams params) async {
     final response = await client.get(
-      GoogleEndpoints.apod(
-        NasaApiKeys.apiKey,
-        filter,
-      ),
+      GoogleEndpoints.apod(NasaApiKeys.apiKey, params.filter, params.page),
     );
 
     if (response.statusCode == 200) {

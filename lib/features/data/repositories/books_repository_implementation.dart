@@ -6,6 +6,7 @@ import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/features/domain/entities/book_to_save_entity.dart';
 import 'package:biblioteca/features/domain/entities/user_progress_entity.dart';
 import 'package:biblioteca/features/domain/repositories/books_repository.dart';
+import 'package:biblioteca/features/domain/usecases/search_books_usecase.dart';
 import 'package:dartz/dartz.dart';
 
 class BooksRepositoryImplementation implements IBooksRepository {
@@ -62,9 +63,10 @@ class BooksRepositoryImplementation implements IBooksRepository {
   }
 
   @override
-  Future<Either<Failure, List<BookEntity>>> searchBooks(String filter) async {
+  Future<Either<Failure, List<BookEntity>>> searchBooks(
+      SearchParams params) async {
     try {
-      final result = await datasource.searchBooks(filter);
+      final result = await datasource.searchBooks(params);
       return Right(result.items);
     } on ServerException {
       return Left(ServerFailure());

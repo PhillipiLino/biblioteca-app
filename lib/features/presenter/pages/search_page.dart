@@ -7,6 +7,7 @@ import 'package:biblioteca/features/presenter/widgets/search_book_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
+import 'package:pagination_view/pagination_view.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -44,15 +45,32 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
     return Expanded(
       child: listIsEmpty
           ? const Center(child: Text('Nenhum resultado encontrado'))
-          : ListView.builder(
+          : PaginationView<BookEntity>(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics()),
-              itemCount: books.length,
-              itemBuilder: (itemContext, position) => SearchBookItem(
-                books[position],
+              preloadedItems: const [],
+              itemBuilder:
+                  (BuildContext context, BookEntity book, int position) =>
+                      SearchBookItem(
+                book,
                 position,
-                onTap: () => _openDetails(books[position]),
+                onTap: () => _openDetails(book),
+              ),
+              pageFetch: (position) {
+                return store.paginate(_searchController.text, position);
+              },
+              onError: (dynamic error) => const Center(
+                child: Text('Ocorreu um erro inesperado'),
+              ),
+              onEmpty: const Center(
+                child: Text('Nenhum resultado encontrado'),
+              ),
+              bottomLoader: const Center(
+                child: CircularProgressIndicator(),
+              ),
+              initialLoader: const Center(
+                child: CircularProgressIndicator(),
               ),
             ),
     );
