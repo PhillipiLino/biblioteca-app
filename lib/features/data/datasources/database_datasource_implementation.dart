@@ -1,15 +1,12 @@
 import 'package:biblioteca/core/database/book_dao.dart';
-import 'package:biblioteca/core/http_client/http_client.dart';
 import 'package:biblioteca/core/usecase/errors/exceptions.dart';
 import 'package:biblioteca/features/data/datasources/books_datasource.dart';
 import 'package:biblioteca/features/data/models/book_model.dart';
-import 'package:biblioteca/features/data/models/user_progress_model.dart';
 
 class DatabaseDataSourceImplementation implements IBooksDatasource {
   final IBooksDao dao;
-  final HttpClient client;
 
-  DatabaseDataSourceImplementation(this.dao, this.client);
+  DatabaseDataSourceImplementation(this.dao);
 
   @override
   Future<List<BookModel>> getBooksFromUser(String userId) async {
@@ -33,15 +30,6 @@ class DatabaseDataSourceImplementation implements IBooksDatasource {
   Future<void> deleteBook(BookModel book) async {
     try {
       return dao.deleteBook(book);
-    } catch (e) {
-      throw DatabaseException();
-    }
-  }
-
-  @override
-  Future<List<UserProgressModel>?> getProgress() async {
-    try {
-      return dao.getProgress();
     } catch (e) {
       throw DatabaseException();
     }

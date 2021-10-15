@@ -1,4 +1,4 @@
-import 'package:biblioteca/features/domain/entities/user_progress_entity.dart';
+import 'package:biblioteca/modules/profile/domain/entities/user_progress_entity.dart';
 import 'package:floor/floor.dart';
 
 @Entity(tableName: 'books_table')

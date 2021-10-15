@@ -1,12 +1,12 @@
 import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/core/usecase/usecase.dart';
-import 'package:biblioteca/features/domain/entities/user_progress_entity.dart';
-import 'package:biblioteca/features/domain/repositories/books_repository.dart';
+import 'package:biblioteca/modules/profile/domain/entities/user_progress_entity.dart';
+import 'package:biblioteca/modules/profile/domain/repositories/user_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class GetProgressUsecase
     implements Usecase<List<UserProgressEntity>, NoParams> {
-  final IBooksRepository repository;
+  final IUserRepository repository;
 
   GetProgressUsecase(this.repository);
 

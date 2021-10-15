@@ -1,5 +1,4 @@
 import 'package:biblioteca/core/database/book_dao.dart';
-import 'package:biblioteca/core/http_client/http_client.dart';
 import 'package:biblioteca/core/usecase/errors/exceptions.dart';
 import 'package:biblioteca/features/data/datasources/database_datasource_implementation.dart';
 import 'package:biblioteca/features/data/models/book_model.dart';
@@ -10,12 +9,9 @@ import '../../mocks/book_entity_mock.dart';
 
 class MockBooksDao extends Mock implements IBooksDao {}
 
-class MockHttpClient extends Mock implements HttpClient {}
-
 main() {
   late DatabaseDataSourceImplementation datasource;
   late IBooksDao dao;
-  late HttpClient client;
 
   setUp(() {
     registerFallbackValue(BookModel(
@@ -29,12 +25,8 @@ main() {
       updatedAt: DateTime.now(),
     ));
 
-    client = MockHttpClient();
     dao = MockBooksDao();
-    datasource = DatabaseDataSourceImplementation(
-      dao,
-      client,
-    );
+    datasource = DatabaseDataSourceImplementation(dao);
   });
 
   final tBooksList = [
