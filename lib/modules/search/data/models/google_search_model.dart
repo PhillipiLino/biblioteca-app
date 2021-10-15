@@ -1,4 +1,4 @@
-import 'package:biblioteca/features/data/models/google_book_model.dart';
+import 'package:biblioteca/modules/search/data/models/google_book_model.dart';
 
 class GoogleSearchModel {
   final String kind;

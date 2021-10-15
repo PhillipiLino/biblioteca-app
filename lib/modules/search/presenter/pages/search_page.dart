@@ -1,9 +1,9 @@
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
-import 'package:biblioteca/features/presenter/controller/home_store.dart';
-import 'package:biblioteca/features/presenter/controller/search_store.dart';
+import 'package:biblioteca/core/utils/adapters/book_adapter.dart';
+import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
+import 'package:biblioteca/modules/search/presenter/controller/search_store.dart';
 import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
 import 'package:biblioteca/features/presenter/widgets/search_bar.dart';
-import 'package:biblioteca/features/presenter/widgets/search_book_item.dart';
+import 'package:biblioteca/modules/search/presenter/widgets/search_book_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
@@ -17,7 +17,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends ModularState<SearchPage, SearchStore> {
-  final List<BookEntity> list = Modular.get<PersistList>().list;
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -26,8 +25,8 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
     super.dispose();
   }
 
-  _openDetails([BookEntity? book]) {
-    Modular.to.pushNamed('/book/', arguments: book);
+  _openDetails(SearchBookEntity book) {
+    Modular.to.pushNamed('/book/', arguments: book.toDetails());
   }
 
   Widget _onLoading(BuildContext context) {
@@ -38,20 +37,20 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
     return const Expanded(child: Center(child: Text('ERROR')));
   }
 
-  Widget _onSuccess(BuildContext context, List<BookEntity>? list) {
+  Widget _onSuccess(BuildContext context, List<SearchBookEntity>? list) {
     final books = list ?? [];
     final listIsEmpty = books.isEmpty;
 
     return Expanded(
       child: listIsEmpty
           ? const Center(child: Text('Nenhum resultado encontrado'))
-          : PaginationView<BookEntity>(
+          : PaginationView<SearchBookEntity>(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics()),
               preloadedItems: const [],
               itemBuilder:
-                  (BuildContext context, BookEntity book, int position) =>
+                  (BuildContext context, SearchBookEntity book, int position) =>
                       SearchBookItem(
                 book,
                 position,

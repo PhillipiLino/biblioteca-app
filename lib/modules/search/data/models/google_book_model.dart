@@ -1,10 +1,8 @@
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
 
-class GoogleBookModel extends BookEntity {
-  final String bookId;
-
-  GoogleBookModel({
-    required this.bookId,
+class GoogleBookModel extends SearchBookEntity {
+  const GoogleBookModel({
+    required String id,
     required String name,
     required String author,
     required int pages,
@@ -12,18 +10,16 @@ class GoogleBookModel extends BookEntity {
     required int stars,
     required String? imagePath,
   }) : super(
-          id: int.tryParse(bookId),
+          id: id,
           name: name,
           author: author,
           pages: pages,
-          readPages: readPages,
-          stars: stars,
           imagePath: imagePath,
         );
 
   factory GoogleBookModel.fromJson(Map<String, dynamic> json) =>
       GoogleBookModel(
-        bookId: json['id'],
+        id: json['id'],
         name: json['volumeInfo']['title'],
         author: ((json['volumeInfo']['authors'] as List<dynamic>?)?.first
                 as String?) ??
@@ -39,8 +35,6 @@ class GoogleBookModel extends BookEntity {
         'name': name,
         'author': author,
         'pages': pages,
-        'readPages': readPages,
-        'stars': stars,
         'imagePath': imagePath,
       };
 }

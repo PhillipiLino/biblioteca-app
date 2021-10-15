@@ -8,17 +8,17 @@ import 'package:biblioteca/features/domain/usecases/create_book_usecase.dart';
 import 'package:biblioteca/features/domain/usecases/delete_book_usecase.dart';
 import 'package:biblioteca/features/domain/usecases/get_progress_usecase.dart';
 import 'package:biblioteca/features/domain/usecases/get_user_books_usecase.dart';
-import 'package:biblioteca/features/domain/usecases/search_books_usecase.dart';
+import 'package:biblioteca/modules/search/domain/usecases/search_books_usecase.dart';
 import 'package:biblioteca/features/presenter/controller/bottom_navigation_store.dart';
 import 'package:biblioteca/features/presenter/controller/details_store.dart';
 import 'package:biblioteca/features/presenter/controller/home_store.dart';
 import 'package:biblioteca/features/presenter/controller/progress_store.dart';
-import 'package:biblioteca/features/presenter/controller/search_store.dart';
+import 'package:biblioteca/modules/search/presenter/controller/search_store.dart';
 import 'package:biblioteca/features/presenter/pages/bottom_navigation_page.dart';
 import 'package:biblioteca/features/presenter/pages/home_page.dart';
 import 'package:biblioteca/features/presenter/pages/progress_page.dart';
-import 'package:biblioteca/features/presenter/pages/search_page.dart';
 import 'package:biblioteca/features/presenter/widgets/books_list/books_list_store.dart';
+import 'package:biblioteca/modules/search/search_module.dart';
 import 'package:floor/floor.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
@@ -76,9 +76,9 @@ class AppModule extends Module {
           child: (_, args) => const ProgressPage(),
           transition: TransitionType.noTransition,
         ),
-        ChildRoute(
+        ModuleRoute(
           '/search/',
-          child: (_, args) => const SearchPage(),
+          module: SearchModule(),
           transition: TransitionType.noTransition,
         ),
       ],

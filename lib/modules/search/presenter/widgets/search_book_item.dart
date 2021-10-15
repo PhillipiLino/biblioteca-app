@@ -1,12 +1,13 @@
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
 import 'package:flutter/material.dart';
 
-import 'book_image.dart';
+import '../../../../features/presenter/widgets/book_image.dart';
 
 class SearchBookItem extends StatelessWidget {
   final int position;
-  final BookEntity book;
+  final SearchBookEntity book;
   final Function onTap;
+
   const SearchBookItem(
     this.book,
     this.position, {
