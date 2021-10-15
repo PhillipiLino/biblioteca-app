@@ -4,31 +4,19 @@ import 'package:biblioteca/modules/books/presenter/widgets/home_book_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class BooksList extends StatefulWidget {
+class BooksList extends StatelessWidget {
+  final BooksListStore store = Modular.get<BooksListStore>();
   final List<BookEntity> list;
   final Function(BookEntity) onTapItem;
   final Function(List<BookEntity> updatedList, BookEntity removeditem)
       onDeleteItem;
 
-  const BooksList(
+  BooksList(
     this.list, {
     required this.onTapItem,
     required this.onDeleteItem,
     Key? key,
   }) : super(key: key);
-
-  @override
-  State<BooksList> createState() => _BooksListState();
-}
-
-class _BooksListState extends ModularState<BooksList, BooksListStore> {
-  late List<BookEntity> list;
-
-  @override
-  void initState() {
-    super.initState();
-    list = widget.list;
-  }
 
   Future<bool?> showAlertDialog(BuildContext context) async {
     Widget cancelButton = TextButton(
@@ -80,7 +68,7 @@ class _BooksListState extends ModularState<BooksList, BooksListStore> {
           final item = list[position];
           list.removeAt(position);
           await store.deleteBook(item);
-          widget.onDeleteItem(list, item);
+          onDeleteItem(list, item);
         },
         secondaryBackground: Container(
           color: Colors.grey[200],
@@ -97,7 +85,7 @@ class _BooksListState extends ModularState<BooksList, BooksListStore> {
         background: Container(color: Colors.grey[200]),
         child: HomeBookItem(
           list[position],
-          onTap: () => widget.onTapItem(list[position]),
+          onTap: () => onTapItem(list[position]),
         ),
       ),
     );
