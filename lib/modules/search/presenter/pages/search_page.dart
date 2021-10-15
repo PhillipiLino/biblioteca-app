@@ -1,4 +1,3 @@
-import 'package:biblioteca/core/utils/adapters/book_adapter.dart';
 import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
 import 'package:biblioteca/modules/search/presenter/controller/search_store.dart';
 import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
@@ -25,9 +24,7 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
     super.dispose();
   }
 
-  _openDetails(SearchBookEntity book) {
-    Modular.to.pushNamed('/menu/books/details/', arguments: book.toDetails());
-  }
+  _openDetails(SearchBookEntity book) => store.openDetails(book);
 
   Widget _onLoading(BuildContext context) {
     return const Expanded(child: Center(child: CircularProgressIndicator()));

@@ -1,4 +1,6 @@
 import 'package:biblioteca/core/database/books_database.dart';
+import 'package:biblioteca/core/utils/routes/app_routes.dart';
+import 'package:biblioteca/core/utils/routes/constants.dart';
 import 'package:biblioteca/modules/books/books_module.dart';
 import 'package:biblioteca/modules/books/presenter/utils/persist_list_helper.dart';
 import 'package:biblioteca/modules/profile/profile_module.dart';
@@ -23,8 +25,9 @@ class AppModule extends Module {
         .databaseBuilder('books-db.db')
         .addMigrations([migration1to2]).build()),
     AsyncBind((i) async => i<BooksDatabase>().bookDao),
-    Bind((i) => BottomNavigationStore()),
+    Bind((i) => BottomNavigationStore(i())),
     Bind((i) => PersistListHelper()),
+    Bind((i) => AppRoutes()),
   ];
 
   @override
@@ -34,21 +37,21 @@ class AppModule extends Module {
       child: (context, args) => const SplashPage(),
     ),
     ChildRoute(
-      '/menu/',
+      menuRoute,
       child: (_, args) => BottomNavigationPage(args.data),
       children: [
         ModuleRoute(
-          '/books/',
+          booksRoute,
           module: BooksModule(),
           transition: TransitionType.noTransition,
         ),
         ModuleRoute(
-          '/search/',
+          searchRoute,
           module: SearchModule(),
           transition: TransitionType.noTransition,
         ),
         ModuleRoute(
-          '/profile/',
+          profileRoute,
           module: ProfileModule(),
           transition: TransitionType.noTransition,
         ),

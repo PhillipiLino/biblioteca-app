@@ -28,7 +28,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   Future _refresh() async => store.getBooks();
 
   _openDetails([BookEntity? book]) {
-    Modular.to.pushNamed('/menu/books/details/', arguments: book).then((value) {
+    store.openDetails(book).then((value) {
       if ((value as bool? ?? false)) _refresh();
     });
   }

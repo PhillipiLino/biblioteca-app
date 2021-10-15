@@ -1,5 +1,6 @@
 import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/core/usecase/usecase.dart';
+import 'package:biblioteca/core/utils/routes/app_routes.dart';
 import 'package:biblioteca/modules/books/domain/usecases/get_books_usecase.dart';
 import 'package:biblioteca/modules/books/presenter/controllers/home_store.dart';
 import 'package:biblioteca/modules/books/presenter/utils/persist_list_helper.dart';
@@ -16,8 +17,9 @@ main() {
   late GetBooksUsecase usecase;
 
   setUp(() {
+    registerFallbackValue(NoParams());
     usecase = MockGetUserBooksUsecase();
-    store = HomeStore(usecase, PersistListHelper());
+    store = HomeStore(usecase, PersistListHelper(), AppRoutes());
   });
 
   final tFailure = DatabaseFailure();

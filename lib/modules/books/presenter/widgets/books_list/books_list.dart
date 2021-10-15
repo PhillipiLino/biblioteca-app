@@ -33,11 +33,11 @@ class _BooksListState extends ModularState<BooksList, BooksListStore> {
   Future<bool?> showAlertDialog(BuildContext context) async {
     Widget cancelButton = TextButton(
       child: const Text('Não'),
-      onPressed: () => Modular.to.pop(false),
+      onPressed: () => store.closeDialog(false),
     );
     Widget continueButton = TextButton(
       child: const Text('Sim'),
-      onPressed: () => Modular.to.pop(true),
+      onPressed: () => store.closeDialog(true),
     );
 
     AlertDialog alert = AlertDialog(

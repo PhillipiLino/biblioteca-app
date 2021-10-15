@@ -1,19 +1,22 @@
 import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:biblioteca/core/utils/routes/app_routes.dart';
+import 'package:biblioteca/core/utils/routes/constants.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 
 class BottomNavigationStore extends NotifierStore<Failure, int> {
-  BottomNavigationStore() : super(0);
+  final AppRoutes _routes;
+
+  BottomNavigationStore(this._routes) : super(0);
 
   setRoute(String route) {
     switch (route) {
-      case '/books/':
+      case booksRoute:
         update(0);
         break;
-      case '/search/':
+      case searchRoute:
         update(1);
         break;
-      case '/profile/':
+      case profileRoute:
         update(2);
         break;
       default:
@@ -27,7 +30,7 @@ class BottomNavigationStore extends NotifierStore<Failure, int> {
 
     switch (index) {
       case 0:
-        _goToHome();
+        _goToBooks();
         break;
       case 1:
         _goToSearch();
@@ -39,9 +42,9 @@ class BottomNavigationStore extends NotifierStore<Failure, int> {
     }
   }
 
-  _goToHome() => Modular.to.navigate('/menu/books/');
+  _goToBooks() => _routes.goToMenu(booksRoute);
 
-  _goToSearch() => Modular.to.navigate('/menu/search/');
+  _goToSearch() => _routes.goToMenu(searchRoute);
 
-  _goToProgress() => Modular.to.navigate('/menu/profile/');
+  _goToProgress() => _routes.goToMenu(profileRoute);
 }

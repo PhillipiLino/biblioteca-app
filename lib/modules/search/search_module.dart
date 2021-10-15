@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 class SearchModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind((i) => SearchStore(i())),
+    Bind((i) => SearchStore(i(), i())),
     Bind((i) => SearchBooksUsecase(i())),
     Bind((i) => SearchBooksRepositoryImplementation(i())),
     Bind((i) => GoogleDataSourceImplementation(i())),

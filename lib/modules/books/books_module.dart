@@ -1,5 +1,6 @@
 import 'package:biblioteca/core/database/book_dao.dart';
 import 'package:biblioteca/core/utils/helpers/image_helper.dart';
+import 'package:biblioteca/core/utils/routes/constants.dart';
 import 'package:biblioteca/modules/books/data/datasources/database_datasource_implementation.dart';
 import 'package:biblioteca/modules/books/data/repositories/books_repository_implementation.dart';
 import 'package:biblioteca/modules/books/domain/usecases/create_book_usecase.dart';
@@ -15,7 +16,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 class BooksModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind((i) => HomeStore(i(), i())),
+    Bind((i) => HomeStore(i(), i(), i())),
     Bind((i) => BooksListStore(i())),
     Bind((i) => DetailsStore(i())),
     Bind((i) => GetBooksUsecase(i())),
@@ -33,7 +34,7 @@ class BooksModule extends Module {
       child: (context, args) => const HomePage(),
     ),
     ChildRoute(
-      '/details/',
+      detailsRoute,
       child: (_, args) => DetailsPage(args.data),
       transition: TransitionType.downToUp,
     ),
