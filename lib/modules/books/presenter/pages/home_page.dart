@@ -54,11 +54,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
               child: BooksList(
                 books,
                 onTapItem: _openDetails,
-                onDeleteItem: (list, item) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('${item.name} deletado com sucesso')));
-                  _refresh();
-                },
+                onDeleteItem: (list, item) => _refresh(),
               ),
             ),
     );
