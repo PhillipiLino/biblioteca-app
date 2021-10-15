@@ -1,4 +1,4 @@
-import 'package:biblioteca/features/presenter/widgets/star.dart';
+import 'package:biblioteca/modules/books/presenter/widgets/star.dart';
 import 'package:flutter/material.dart';
 
 class RatingBar extends StatefulWidget {

@@ -26,7 +26,7 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
   }
 
   _openDetails(SearchBookEntity book) {
-    Modular.to.pushNamed('/book/', arguments: book.toDetails());
+    Modular.to.pushNamed('/menu/books/details/', arguments: book.toDetails());
   }
 
   Widget _onLoading(BuildContext context) {

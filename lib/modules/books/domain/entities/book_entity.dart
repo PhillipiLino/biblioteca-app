@@ -1,4 +1,4 @@
-import 'package:biblioteca/features/data/models/book_model.dart';
+import 'package:biblioteca/modules/books/data/models/book_model.dart';
 import 'package:equatable/equatable.dart';
 
 class BookEntity extends Equatable {

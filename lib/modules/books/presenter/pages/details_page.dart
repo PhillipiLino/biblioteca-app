@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
-import 'package:biblioteca/features/presenter/controller/details_store.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/presenter/controllers/details_store.dart';
 import 'package:biblioteca/features/presenter/widgets/book_image.dart';
 import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
 import 'package:biblioteca/features/presenter/widgets/default_text_field.dart';
-import 'package:biblioteca/features/presenter/widgets/rating_bar.dart';
+import 'package:biblioteca/modules/books/presenter/widgets/rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
@@ -298,30 +298,31 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                                 ),
                                 Container(width: 12),
                                 StreamBuilder<bool>(
-                                    stream: store.enabledButton,
-                                    builder: (context, snapshot) {
-                                      return SizedBox(
-                                        child: ElevatedButton(
-                                          child: const Text('Salvar'),
-                                          onPressed: snapshot.data ?? false
-                                              ? () async {
-                                                  await store.insertBook(
-                                                    book?.id,
-                                                    starsNumber,
-                                                    pickedImage,
-                                                    book?.imagePath,
-                                                  );
-                                                  Modular.to.pop(true);
-                                                }
-                                              : null,
-                                          style: ElevatedButton.styleFrom(
-                                            primary: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                          ),
+                                  stream: store.enabledButton,
+                                  builder: (context, snapshot) {
+                                    return SizedBox(
+                                      child: ElevatedButton(
+                                        child: const Text('Salvar'),
+                                        onPressed: snapshot.data ?? false
+                                            ? () async {
+                                                await store.insertBook(
+                                                  book?.id,
+                                                  starsNumber,
+                                                  pickedImage,
+                                                  book?.imagePath,
+                                                );
+                                                Navigator.of(context).pop(true);
+                                              }
+                                            : null,
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
                                         ),
-                                      );
-                                    })
+                                      ),
+                                    );
+                                  },
+                                )
                               ],
                             ),
                           ],

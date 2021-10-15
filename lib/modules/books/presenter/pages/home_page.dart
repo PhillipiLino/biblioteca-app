@@ -1,6 +1,6 @@
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
-import 'package:biblioteca/features/presenter/controller/home_store.dart';
-import 'package:biblioteca/features/presenter/widgets/books_list/books_list.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/presenter/controllers/home_store.dart';
+import 'package:biblioteca/modules/books/presenter/widgets/books_list/books_list.dart';
 import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
 import 'package:biblioteca/features/presenter/widgets/empty_list.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +25,10 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
     _refresh();
   }
 
-  Future _refresh() async => store.getBooksFromUser('0');
+  Future _refresh() async => store.getBooks();
 
   _openDetails([BookEntity? book]) {
-    Modular.to.pushNamed('/book/', arguments: book).then((value) {
+    Modular.to.pushNamed('/menu/books/details/', arguments: book).then((value) {
       if ((value as bool? ?? false)) _refresh();
     });
   }
@@ -43,8 +43,8 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
 
   Widget _onSuccess(BuildContext context, List<BookEntity>? list) {
     books = list ?? [];
-    Modular.get<PersistList>().list = books;
     listIsEmpty = books.isEmpty;
+    store.setPersistentList(books);
 
     return Expanded(
       child: books.isEmpty

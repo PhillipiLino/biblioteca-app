@@ -1,4 +1,4 @@
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
 

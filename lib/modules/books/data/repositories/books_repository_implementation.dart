@@ -1,10 +1,10 @@
 import 'package:biblioteca/core/usecase/errors/exceptions.dart';
 import 'package:biblioteca/core/utils/helpers/image_helper.dart';
-import 'package:biblioteca/features/data/datasources/books_datasource.dart';
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/data/datasources/books_datasource.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/features/domain/entities/book_to_save_entity.dart';
-import 'package:biblioteca/features/domain/repositories/books_repository.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
+import 'package:biblioteca/modules/books/domain/repositories/books_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class BooksRepositoryImplementation implements IBooksRepository {
@@ -14,9 +14,9 @@ class BooksRepositoryImplementation implements IBooksRepository {
   BooksRepositoryImplementation(this.datasource, this.imageHelper);
 
   @override
-  Future<Either<Failure, List<BookEntity>>> getUserBooks(String userId) async {
+  Future<Either<Failure, List<BookEntity>>> getBooks() async {
     try {
-      final result = await datasource.getBooksFromUser(userId);
+      final result = await datasource.getBooks();
       return Right(result);
     } on DatabaseException {
       return Left(DatabaseFailure());

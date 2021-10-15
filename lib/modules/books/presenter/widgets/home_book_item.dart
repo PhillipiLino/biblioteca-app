@@ -1,9 +1,8 @@
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
-import 'package:biblioteca/features/presenter/widgets/star.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca/features/presenter/widgets/book_image.dart';
+import 'package:biblioteca/modules/books/presenter/widgets/star.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
-import 'book_image.dart';
 
 class HomeBookItem extends StatelessWidget {
   final BookEntity book;

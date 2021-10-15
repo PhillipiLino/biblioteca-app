@@ -1,24 +1,25 @@
 import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/features/domain/usecases/get_user_books_usecase.dart';
-import 'package:biblioteca/features/presenter/controller/home_store.dart';
+import 'package:biblioteca/core/usecase/usecase.dart';
+import 'package:biblioteca/modules/books/domain/usecases/get_books_usecase.dart';
+import 'package:biblioteca/modules/books/presenter/controllers/home_store.dart';
+import 'package:biblioteca/modules/books/presenter/utils/persist_list_helper.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../mocks/book_entity_mock.dart';
 
-class MockGetUserBooksUsecase extends Mock implements GetUserBooksUsecase {}
+class MockGetUserBooksUsecase extends Mock implements GetBooksUsecase {}
 
 main() {
   late HomeStore store;
-  late GetUserBooksUsecase usecase;
+  late GetBooksUsecase usecase;
 
   setUp(() {
     usecase = MockGetUserBooksUsecase();
-    store = HomeStore(usecase, PersistList());
+    store = HomeStore(usecase, PersistListHelper());
   });
 
-  const tUserId = '23';
   final tFailure = DatabaseFailure();
 
   test('Should return a list of BookEntity from the usecase', () async {
@@ -26,12 +27,12 @@ main() {
     when(() => usecase(any())).thenAnswer((_) async => Right(tBooksList));
 
     // Act
-    await store.getBooksFromUser(tUserId);
+    await store.getBooks();
 
     // Assert
     store.observer(onState: (state) {
       expect(state, tBooksList);
-      verify(() => usecase(tUserId)).called(1);
+      verify(() => usecase(NoParams())).called(1);
     });
   });
 
@@ -41,12 +42,12 @@ main() {
     when(() => usecase(any())).thenAnswer((_) async => Left(tFailure));
 
     // Act
-    await store.getBooksFromUser(tUserId);
+    await store.getBooks();
 
     // Assert
     store.observer(onError: (error) {
       expect(error, tFailure);
-      verify(() => usecase(tUserId)).called(1);
+      verify(() => usecase(NoParams())).called(1);
     });
   });
 }

@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
 
   checkModule() async {
     await Modular.isModuleReady<AppModule>();
-    Modular.to.navigate('/menu/home/', arguments: '/home/');
+    Modular.to.navigate('/menu/books/', arguments: '/books/');
   }
 
   @override

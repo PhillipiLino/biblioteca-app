@@ -1,7 +1,7 @@
 import 'package:biblioteca/core/database/book_dao.dart';
 import 'package:biblioteca/core/usecase/errors/exceptions.dart';
-import 'package:biblioteca/features/data/datasources/database_datasource_implementation.dart';
-import 'package:biblioteca/features/data/models/book_model.dart';
+import 'package:biblioteca/modules/books/data/datasources/database_datasource_implementation.dart';
+import 'package:biblioteca/modules/books/data/models/book_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -42,28 +42,25 @@ main() {
     ),
   ];
 
-  const tUserId = '23';
-
   test('Should return a list of BookModel when is successfull', () async {
     // Arrange
-    when(() => dao.getAllBooksFromUser(any()))
-        .thenAnswer((_) async => tBooksList);
+    when(() => dao.getBooks()).thenAnswer((_) async => tBooksList);
 
     // Act
-    final result = await datasource.getBooksFromUser(tUserId);
+    final result = await datasource.getBooks();
 
     // Assert
     expect(result, tBooksList);
-    verify(() => dao.getAllBooksFromUser(tUserId)).called(1);
+    verify(() => dao.getBooks()).called(1);
   });
 
   test('Should throw a DatabaseException when get all books call is unccessful',
       () async {
     // Arrange
-    when(() => dao.getAllBooksFromUser(any())).thenThrow(Exception());
+    when(() => dao.getBooks()).thenThrow(Exception());
 
     // Act
-    final result = datasource.getBooksFromUser(tUserId);
+    final result = datasource.getBooks();
 
     // Assert
     expect(() => result, throwsA(DatabaseException()));

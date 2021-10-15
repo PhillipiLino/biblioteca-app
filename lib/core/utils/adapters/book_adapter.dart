@@ -1,4 +1,4 @@
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
 
 extension SearchBookEntityExtension on SearchBookEntity {

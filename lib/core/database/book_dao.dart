@@ -1,12 +1,11 @@
-import 'package:biblioteca/features/data/models/book_model.dart';
+import 'package:biblioteca/modules/books/data/models/book_model.dart';
 import 'package:biblioteca/modules/profile/data/models/user_progress_model.dart';
 import 'package:floor/floor.dart';
 
 @dao
 abstract class IBooksDao {
-  @Query(
-      'Select * from books_table WHERE user_id = :userId ORDER BY updated_at DESC')
-  Future<List<BookModel>> getAllBooksFromUser(String userId);
+  @Query('Select * from books_table ORDER BY updated_at DESC')
+  Future<List<BookModel>> getBooks();
 
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertBook(BookModel book);

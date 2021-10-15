@@ -7,7 +7,7 @@ class BottomNavigationStore extends NotifierStore<Failure, int> {
 
   setRoute(String route) {
     switch (route) {
-      case '/home/':
+      case '/books/':
         update(0);
         break;
       case '/search/':
@@ -39,7 +39,7 @@ class BottomNavigationStore extends NotifierStore<Failure, int> {
     }
   }
 
-  _goToHome() => Modular.to.navigate('/menu/home/');
+  _goToHome() => Modular.to.navigate('/menu/books/');
 
   _goToSearch() => Modular.to.navigate('/menu/search/');
 

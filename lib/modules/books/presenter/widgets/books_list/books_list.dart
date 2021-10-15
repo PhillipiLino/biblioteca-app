@@ -1,9 +1,8 @@
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
-import 'package:biblioteca/features/presenter/widgets/books_list/books_list_store.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/presenter/widgets/books_list/books_list_store.dart';
+import 'package:biblioteca/modules/books/presenter/widgets/home_book_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import '../home_book_item.dart';
 
 class BooksList extends StatefulWidget {
   final List<BookEntity> list;
