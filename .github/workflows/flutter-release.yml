@@ -16,7 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get branch version
-        run: echo "${{ github.base_ref }}"
+        run: |
+          echo "${{ github.base_ref }}"
+          echo "${{ github.repository }}"
+          echo "${{ github.ref }}"
+          echo "${{ github.job }}"
 
       # - name: Checkout
       #   uses: actions/checkout@v1
