@@ -76,30 +76,32 @@ jobs:
         run: |
           echo `grep -w ^version\: pubspec.yaml`
           flutter build appbundle
+          unzip -p build/app/outputs/bundle/release/app-release.aab base/manifest/AndroidManifest.xml > AndroidManifest.xml
+          echo `cat build/app/outputs/bundle/release/AndroidManifest.xml`
 
-      - name: Setup Ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: "2.6"
+      # - name: Setup Ruby
+      #   uses: actions/setup-ruby@v1
+      #   with:
+      #     ruby-version: "2.6"
 
-      - name: Cache bundle dependencies
-        uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: ${{ runner.os }}-gems-
+      # - name: Cache bundle dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: vendor/bundle
+      #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+      #     restore-keys: ${{ runner.os }}-gems-
 
-      - name: Download bundle dependencies
-        run: |
-          gem install bundler:2.0.2
-          bundle config path vendor/bundle
-          bundle install
+      # - name: Download bundle dependencies
+      #   run: |
+      #     gem install bundler:2.0.2
+      #     bundle config path vendor/bundle
+      #     bundle install
 
-      - name: Release to Google Play (beta)
-        env:
-          SUPPLY_PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
-          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-        run: |
-          bundle exec fastlane supply \
-          --aab build/app/outputs/bundle/release/app-release.aab \
-          --track beta
+      # - name: Release to Google Play (beta)
+      #   env:
+      #     SUPPLY_PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
+      #     SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+      #   run: |
+      #     bundle exec fastlane supply \
+      #     --aab build/app/outputs/bundle/release/app-release.aab \
+      #     --track beta
