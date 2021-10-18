@@ -23,16 +23,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Setup Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: "12.x"
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          channel: beta
-      - name: Flutter version
-        run: flutter --version
+      # - name: Setup Java
+      #   uses: actions/setup-java@v1
+      #   with:
+      #     java-version: "12.x"
+      # - name: Setup Flutter
+      #   uses: subosito/flutter-action@v1
+      #   with:
+      #     channel: beta
+      # - name: Flutter version
+      #   run: flutter --version
 
       - name: Get branch version
         run: |
@@ -42,7 +42,7 @@ jobs:
           echo "${{ github.job }}"
           echo ${{ env.release_version }}
           ls -la
-          echo `grep -w "^version\:" pubspec.yaml`
+          echo `grep -w "^version\: +[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\+[0-9]$" pubspec.yaml`
           if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
 
       # - name: Cache pub dependencies
