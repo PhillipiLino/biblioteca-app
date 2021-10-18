@@ -31,7 +31,7 @@ jobs:
           echo "${{ github.job }}"
           echo ${{ env.release_version }}
           ls -la
-          exho `grep -w "^version\: +[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\+[0-9]$" pubspec.yaml`
+          echo `grep -w "^version\: +[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\+[0-9]$" pubspec.yaml`
           if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
 
       # - name: Checkout
