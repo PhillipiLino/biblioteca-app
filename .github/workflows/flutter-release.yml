@@ -15,13 +15,14 @@ jobs:
     name: Test, build and release
     runs-on: ubuntu-latest
     steps:
-      - name: Get new version
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Get versions
         id: step_one
         run: |
           echo "release_version=$(echo ${{ github.ref }} | cut -d"/" -f4)" >> $GITHUB_ENV
-
-      - name: Checkout
-        uses: actions/checkout@v1
+          echo "old_version=$(echo `grep -w ^version\: pubspec.yaml`)" >> $GITHUB_ENV
 
       # - name: Setup Java
       #   uses: actions/setup-java@v1
@@ -34,14 +35,9 @@ jobs:
       # - name: Flutter version
       #   run: flutter --version
 
-      - name: Get branch version
+      - name: Get old version
         run: |
           if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
-          echo "old_version=$(echo `grep -w ^version\: pubspec.yaml`)" >> $GITHUB_ENV
-          echo "${{ github.base_ref }}"
-          echo "${{ github.repository }}"
-          echo "${{ github.ref }}"
-          echo "${{ github.job }}"
           echo ${{ env.release_version }}
           echo ${{ env.old_version }}
 
