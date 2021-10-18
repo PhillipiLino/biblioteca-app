@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Get branch version
         env:
-          ANDROID_VERSION: echo ${{ github.ref }} | cut -d"/" -f4
+          ANDROID_VERSION: ${{ github.ref }} | cut -d"/" -f4
         run: |
           echo "${{ github.base_ref }}"
           echo "${{ github.repository }}"
