@@ -23,8 +23,8 @@ jobs:
           echo "${{ github.job }}"
           echo "BRANCH=$(echo ${{ github.ref }} | cut -d"/" -f4)" >> $GITHUB_ENV
           echo env.BRANCH
-          echo env.BRANCH
-          if [[ "$(echo ${{ github.ref }} | cut -d"/" -f4)" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then echo 1; else echo 0; fi
+          echo $(echo ${{ github.ref }} | cut -d"/" -f4)
+          if [[ "$(echo ${{ github.ref }} | cut -d"/" -f4)" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else echo 0; fi
 
       # - name: Checkout
       #   uses: actions/checkout@v1
