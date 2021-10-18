@@ -1,5 +1,11 @@
 name: Flutter release
-on: [push]
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      # Push events to branches matching refs/heads/releases/10
+      - "releases/**"
+#on: [push]
 # on:
 #   release:
 #     types: [published]
