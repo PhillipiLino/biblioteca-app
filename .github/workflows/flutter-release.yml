@@ -40,6 +40,9 @@ jobs:
           if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
           echo ${{ env.release_version }}
           echo ${{ env.old_version }}
+          sed -i "s/${{ env.old_version}}/version: ${{ env.release_version }}+1/g" pubspec.yaml
+          echo `grep -w ^version\: pubspec.yaml`
+          echo `cat pubspec.yaml`
 
       # - name: Cache pub dependencies
       #   uses: actions/cache@v2
