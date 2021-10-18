@@ -77,7 +77,7 @@ jobs:
           echo `grep -w ^version\: pubspec.yaml`
           flutter build appbundle
           unzip -p build/app/outputs/bundle/release/app-release.aab base/manifest/AndroidManifest.xml > AndroidManifest.xml
-          echo `cat build/app/outputs/bundle/release/AndroidManifest.xml`
+          echo `cat AndroidManifest.xml`
 
       # - name: Setup Ruby
       #   uses: actions/setup-ruby@v1
