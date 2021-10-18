@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'dart:ui';
 
-import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
-import 'package:clean_biblioteca/features/presenter/controller/details_store.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/book_image.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/custom_app_bar.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/default_text_field.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/rating_bar.dart';
+import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/features/presenter/controller/details_store.dart';
+import 'package:biblioteca/features/presenter/widgets/book_image.dart';
+import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
+import 'package:biblioteca/features/presenter/widgets/default_text_field.dart';
+import 'package:biblioteca/features/presenter/widgets/rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
@@ -82,6 +83,10 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
       ),
     );
 
+    final Brightness brightnessValue =
+        MediaQuery.of(context).platformBrightness;
+    bool isDark = brightnessValue == Brightness.dark;
+
     return Scaffold(
         appBar: CustomAppBar(title: 'Detalhes do Livro', fromBottom: true),
         body: GestureDetector(
@@ -145,10 +150,10 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(50),
                       ),
-                      color: Colors.white,
+                      color: isDark ? Colors.grey[800] : Colors.white,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey[300]!,
+                          color: isDark ? Colors.grey[900]! : Colors.grey[300]!,
                           offset: const Offset(0.0, -1.0),
                           blurRadius: 10.0,
                         )
@@ -198,17 +203,23 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                                     height: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: Colors.grey[200],
+                                      color: isDark
+                                          ? Colors.grey[700]
+                                          : Colors.grey[200],
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        const Text(
+                                        Text(
                                           'Páginas lidas: ',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color: isDark
+                                                ? Colors.white
+                                                : Colors.black87,
+                                          ),
                                         ),
                                         Flexible(
                                           child: Row(
@@ -224,8 +235,12 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                                                       _timer.cancel(),
                                                   onTapCancel: _timer.cancel,
                                                   onTap: _removeRead,
-                                                  child:
-                                                      const Icon(Icons.remove),
+                                                  child: Icon(
+                                                    Icons.remove,
+                                                    color: isDark
+                                                        ? Colors.white
+                                                        : Colors.black87,
+                                                  ),
                                                 ),
                                               ),
                                               const SizedBox(width: 4),
@@ -233,6 +248,11 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                                                 width: 50,
                                                 child: TextField(
                                                   textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: isDark
+                                                        ? Colors.white
+                                                        : Colors.black87,
+                                                  ),
                                                   keyboardType:
                                                       TextInputType.number,
                                                   decoration:
@@ -262,8 +282,12 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                                                         _timer.cancel(),
                                                     onTapCancel: _timer.cancel,
                                                     onTap: _addRead,
-                                                    child:
-                                                        const Icon(Icons.add)),
+                                                    child: Icon(
+                                                      Icons.add,
+                                                      color: isDark
+                                                          ? Colors.white
+                                                          : Colors.black87,
+                                                    )),
                                               ),
                                             ],
                                           ),

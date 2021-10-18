@@ -1,4 +1,4 @@
-package com.example.clean_biblioteca
+package com.phillipilino.biblioteca
 
 import io.flutter.embedding.android.FlutterActivity
 

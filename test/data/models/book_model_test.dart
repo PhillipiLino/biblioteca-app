@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:clean_biblioteca/features/data/models/book_model.dart';
-import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/features/data/models/book_model.dart';
+import 'package:biblioteca/features/domain/entities/book_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../mocks/book_mock.dart';
@@ -16,6 +16,7 @@ main() {
     stars: 3,
     imagePath: 'imagePath',
     userId: '23',
+    updatedAt: DateTime(2021, 10, 13),
   );
 
   test('Should be a subclass of BookEntity', () {

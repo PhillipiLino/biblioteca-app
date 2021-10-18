@@ -1,7 +1,7 @@
-import 'package:clean_biblioteca/core/database/book_dao.dart';
-import 'package:clean_biblioteca/core/usecase/errors/exceptions.dart';
-import 'package:clean_biblioteca/features/data/datasources/database_datasource_implementation.dart';
-import 'package:clean_biblioteca/features/data/models/book_model.dart';
+import 'package:biblioteca/core/database/book_dao.dart';
+import 'package:biblioteca/core/usecase/errors/exceptions.dart';
+import 'package:biblioteca/features/data/datasources/database_datasource_implementation.dart';
+import 'package:biblioteca/features/data/models/book_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -22,6 +22,7 @@ main() {
       stars: 0,
       imagePath: 'imagePath',
       userId: '23',
+      updatedAt: DateTime.now(),
     ));
 
     dao = MockBooksDao();
@@ -37,6 +38,7 @@ main() {
       stars: 3,
       imagePath: 'imagePath',
       userId: '23',
+      updatedAt: DateTime.now(),
     ),
   ];
 

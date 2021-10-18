@@ -1,8 +1,8 @@
-import 'package:clean_biblioteca/features/domain/entities/book_entity.dart';
-import 'package:clean_biblioteca/features/presenter/controller/home_store.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/books_list/books_list.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/custom_app_bar.dart';
-import 'package:clean_biblioteca/features/presenter/widgets/empty_list.dart';
+import 'package:biblioteca/features/domain/entities/book_entity.dart';
+import 'package:biblioteca/features/presenter/controller/home_store.dart';
+import 'package:biblioteca/features/presenter/widgets/books_list/books_list.dart';
+import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
+import 'package:biblioteca/features/presenter/widgets/empty_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
@@ -43,6 +43,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
 
   Widget _onSuccess(BuildContext context, List<BookEntity>? list) {
     books = list ?? [];
+    Modular.get<PersistList>().list = books;
     listIsEmpty = books.isEmpty;
 
     return Expanded(

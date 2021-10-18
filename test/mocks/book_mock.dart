@@ -7,5 +7,6 @@ const bookMock = """{
 "readPages": 8,
 "stars": 3,
 "imagePath": "imagePath",
-"user_id": "23"
+"user_id": "23",
+"updated_at": "2021-10-13 00:00:00.000"
 }""";

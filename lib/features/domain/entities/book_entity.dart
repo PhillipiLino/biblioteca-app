@@ -1,4 +1,4 @@
-import 'package:clean_biblioteca/features/data/models/book_model.dart';
+import 'package:biblioteca/features/data/models/book_model.dart';
 import 'package:equatable/equatable.dart';
 
 class BookEntity extends Equatable {
@@ -32,14 +32,16 @@ class BookEntity extends Equatable {
   }
 
   BookModel toModel() => BookModel(
-      databaseId: id,
-      name: name,
-      author: author,
-      pages: pages,
-      readPages: readPages,
-      stars: stars,
-      imagePath: imagePath,
-      userId: '0');
+        databaseId: id,
+        name: name,
+        author: author,
+        pages: pages,
+        readPages: readPages,
+        stars: stars,
+        imagePath: imagePath,
+        userId: '0',
+        updatedAt: DateTime.now(),
+      );
 
   @override
   List<Object?> get props => [
