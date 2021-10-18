@@ -37,7 +37,7 @@ jobs:
 
       - name: Get old version
         run: |
-          if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
+          if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then echo "Branch OK"; else exit 1; fi
           echo ${{ env.release_version }}
           echo ${{ env.old_version }}
           sed -i "s/${{ env.old_version}}/version: ${{ env.release_version }}+1/g" pubspec.yaml
