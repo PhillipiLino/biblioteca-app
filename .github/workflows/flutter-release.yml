@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get branch version
-        run: echo "${{ GITHUB_HEAD_REF-${GITHUB_REF##*/}} "
+        run: echo "${{ GITHUB_HEAD_REF-${GITHUB_REF##*/} }}"
 
       # - name: Checkout
       #   uses: actions/checkout@v1
