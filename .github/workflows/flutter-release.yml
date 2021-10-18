@@ -18,20 +18,19 @@ jobs:
       - name: Set the value
         id: step_one
         run: |
-          echo "action_state=$(echo ${{ github.ref }} | cut -d"/" -f4)" >> $GITHUB_ENV
+          echo "release_version=$(echo ${{ github.ref }} | cut -d"/" -f4)" >> $GITHUB_ENV
       - name: Use the value
         id: step_two
         run: |
-          echo "${{ env.action_state }}" # This will output 'yellow'
+          echo "${{ env.release_version }}" # This will output 'yellow'
       - name: Get branch version
         run: |
           echo "${{ github.base_ref }}"
           echo "${{ github.repository }}"
           echo "${{ github.ref }}"
           echo "${{ github.job }}"
-          echo "BRANCH=$(echo ${{ github.ref }} | cut -d"/" -f4)" >> $GITHUB_ENV
-          echo $(echo ${{ github.ref }} | cut -d"/" -f4)
-          if [[ "$(echo ${{ github.ref }} | cut -d"/" -f4)" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
+          echo ${{ env.release_version }}
+          if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
 
       # - name: Checkout
       #   uses: actions/checkout@v1
