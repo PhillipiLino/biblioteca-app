@@ -56,9 +56,8 @@ jobs:
           echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
 
           echo "${{ steps.android_keystore.outputs.filePath }}"
-          echo "${{ secrets.ANDROID_KEYSTORE_PASSWORD }}"
-          echo "${{ secrets.ANDROID_KEY_PASSWORD }}"
-          echo "${{ secrets.ANDROID_KEY_ALIAS }}"
+          echo `cat android/key.properties`
+          pwd
 
       # - name: Build Android App Bundle
       #   run: flutter build appbundle
