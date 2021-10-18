@@ -15,6 +15,14 @@ jobs:
     name: Test, build and release
     runs-on: ubuntu-latest
     steps:
+      - name: Set the value
+        id: step_one
+        run: |
+          echo "action_state=yellow" >> $GITHUB_ENV
+      - name: Use the value
+        id: step_two
+        run: |
+          echo "${{ env.action_state }}" # This will output 'yellow'
       - name: Get branch version
         run: |
           echo "${{ github.base_ref }}"
@@ -22,9 +30,8 @@ jobs:
           echo "${{ github.ref }}"
           echo "${{ github.job }}"
           echo "BRANCH=$(echo ${{ github.ref }} | cut -d"/" -f4)" >> $GITHUB_ENV
-          echo env.BRANCH
           echo $(echo ${{ github.ref }} | cut -d"/" -f4)
-          if [[ "$(echo ${{ github.ref }} | cut -d"/" -f4)" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 1; else echo 0; fi
+          if [[ "$(echo ${{ github.ref }} | cut -d"/" -f4)" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
 
       # - name: Checkout
       #   uses: actions/checkout@v1
