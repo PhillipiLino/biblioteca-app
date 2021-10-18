@@ -1,4 +1,6 @@
 import 'package:biblioteca/app_module.dart';
+import 'package:biblioteca/core/utils/routes/app_routes.dart';
+import 'package:biblioteca/core/utils/routes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -18,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
 
   checkModule() async {
     await Modular.isModuleReady<AppModule>();
-    Modular.to.navigate('/menu/home/', arguments: '/home/');
+    AppRoutes().goToMenu(booksRoute);
   }
 
   @override

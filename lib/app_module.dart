@@ -1,24 +1,14 @@
-import 'package:biblioteca/core/database/book_dao.dart';
 import 'package:biblioteca/core/database/books_database.dart';
-import 'package:biblioteca/core/utils/helpers/image_helper.dart';
-import 'package:biblioteca/features/data/datasources/database_datasource_implementation.dart';
-import 'package:biblioteca/features/data/repositories/books_repository_implementation.dart';
-import 'package:biblioteca/features/domain/usecases/create_book_usecase.dart';
-import 'package:biblioteca/features/domain/usecases/delete_book_usecase.dart';
-import 'package:biblioteca/features/domain/usecases/get_progress_usecase.dart';
-import 'package:biblioteca/features/domain/usecases/get_user_books_usecase.dart';
+import 'package:biblioteca/core/utils/routes/app_routes.dart';
+import 'package:biblioteca/core/utils/routes/constants.dart';
+import 'package:biblioteca/modules/books/books_module.dart';
+import 'package:biblioteca/modules/books/presenter/utils/persist_list_helper.dart';
+import 'package:biblioteca/modules/profile/profile_module.dart';
 import 'package:biblioteca/features/presenter/controller/bottom_navigation_store.dart';
-import 'package:biblioteca/features/presenter/controller/details_store.dart';
-import 'package:biblioteca/features/presenter/controller/home_store.dart';
-import 'package:biblioteca/features/presenter/controller/progress_store.dart';
 import 'package:biblioteca/features/presenter/pages/bottom_navigation_page.dart';
-import 'package:biblioteca/features/presenter/pages/home_page.dart';
-import 'package:biblioteca/features/presenter/pages/progress_page.dart';
-import 'package:biblioteca/features/presenter/widgets/books_list/books_list_store.dart';
+import 'package:biblioteca/modules/search/search_module.dart';
 import 'package:floor/floor.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import 'features/presenter/pages/details_page.dart';
 import 'features/presenter/pages/splash_page.dart';
 
 class AppModule extends Module {
@@ -35,45 +25,37 @@ class AppModule extends Module {
         .databaseBuilder('books-db.db')
         .addMigrations([migration1to2]).build()),
     AsyncBind((i) async => i<BooksDatabase>().bookDao),
-    Bind((i) => HomeStore(i(), i())),
-    Bind((i) => PersistList()),
-    Bind((i) => BooksListStore(i())),
-    Bind((i) => DetailsStore(i())),
-    Bind((i) => ProgressStore(i())),
-    Bind((i) => BottomNavigationStore()),
-    Bind((i) => GetUserBooksUsecase(i())),
-    Bind((i) => CreateBooksUsecase(i())),
-    Bind((i) => DeleteBookUsecase(i())),
-    Bind((i) => GetProgressUsecase(i())),
-    Bind((i) => BooksRepositoryImplementation(i(), i())),
-    Bind((i) => DatabaseDataSourceImplementation(i<IBooksDao>())),
-    Bind((i) => ImageHelper()),
+    Bind((i) => BottomNavigationStore(i())),
+    Bind((i) => PersistListHelper()),
+    Bind((i) => AppRoutes()),
   ];
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute,
-        child: (context, args) => const SplashPage()),
     ChildRoute(
-      '/menu/',
-      child: (_, args) => BottomNavigationPage(args.data),
-      children: [
-        ChildRoute(
-          '/home/',
-          child: (_, args) => const HomePage(),
-          transition: TransitionType.noTransition,
-        ),
-        ChildRoute(
-          '/progress/',
-          child: (_, args) => const ProgressPage(),
-          transition: TransitionType.noTransition,
-        )
-      ],
+      Modular.initialRoute,
+      child: (context, args) => const SplashPage(),
     ),
     ChildRoute(
-      '/book/',
-      child: (_, args) => DetailsPage(args.data),
-      transition: TransitionType.downToUp,
+      menuRoute,
+      child: (_, args) => BottomNavigationPage(args.data),
+      children: [
+        ModuleRoute(
+          booksRoute,
+          module: BooksModule(),
+          transition: TransitionType.noTransition,
+        ),
+        ModuleRoute(
+          searchRoute,
+          module: SearchModule(),
+          transition: TransitionType.noTransition,
+        ),
+        ModuleRoute(
+          profileRoute,
+          module: ProfileModule(),
+          transition: TransitionType.noTransition,
+        ),
+      ],
     ),
   ];
 }

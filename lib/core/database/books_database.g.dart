@@ -148,9 +148,9 @@ class _$IBooksDao extends IBooksDao {
   final DeletionAdapter<BookModel> _bookModelDeletionAdapter;
 
   @override
-  Future<List<BookModel>> getAllBooksFromUser(String userId) async {
+  Future<List<BookModel>> getBooks() async {
     return _queryAdapter.queryList(
-        'Select * from books_table WHERE user_id = ?1 ORDER BY updated_at DESC',
+        'Select * from books_table ORDER BY updated_at DESC',
         mapper: (Map<String, Object?> row) => BookModel(
             databaseId: row['databaseId'] as int?,
             name: row['name'] as String,
@@ -160,8 +160,7 @@ class _$IBooksDao extends IBooksDao {
             stars: row['stars'] as int,
             imagePath: row['imagePath'] as String?,
             userId: row['user_id'] as String,
-            updatedAt: _dateTimeConverter.decode(row['updated_at'] as int?)),
-        arguments: [userId]);
+            updatedAt: _dateTimeConverter.decode(row['updated_at'] as int?)));
   }
 
   @override

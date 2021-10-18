@@ -1,11 +1,11 @@
 import 'package:biblioteca/core/usecase/errors/exceptions.dart';
 import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/core/utils/helpers/image_helper.dart';
-import 'package:biblioteca/features/data/datasources/books_datasource.dart';
-import 'package:biblioteca/features/data/models/book_model.dart';
-import 'package:biblioteca/features/data/repositories/books_repository_implementation.dart';
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
-import 'package:biblioteca/features/domain/entities/book_to_save_entity.dart';
+import 'package:biblioteca/modules/books/data/datasources/books_datasource.dart';
+import 'package:biblioteca/modules/books/data/models/book_model.dart';
+import 'package:biblioteca/modules/books/data/repositories/books_repository_implementation.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
@@ -64,36 +64,33 @@ main() {
     ),
   ];
 
-  const tUserId = '23';
   final tInfosToSave = BookToSaveEntity(book: tBook, imageFile: XFile('path'));
 
   test('Should return a list of book model when calls the datasource',
       () async {
     // Arrange
-    when(() => datasource.getBooksFromUser(any()))
-        .thenAnswer((_) async => tBooksList);
+    when(() => datasource.getBooks()).thenAnswer((_) async => tBooksList);
 
     // Act
-    final result = await repository.getUserBooks(tUserId);
+    final result = await repository.getBooks();
 
     // Assert
     expect(result, Right(tBooksList));
-    verify(() => datasource.getBooksFromUser(tUserId)).called(1);
+    verify(() => datasource.getBooks()).called(1);
   });
 
   test(
       'Should return a database failure when the call to datasource is unsuccessful',
       () async {
     // Arrange
-    when(() => datasource.getBooksFromUser(any()))
-        .thenThrow(DatabaseException());
+    when(() => datasource.getBooks()).thenThrow(DatabaseException());
 
     // Act
-    final result = await repository.getUserBooks(tUserId);
+    final result = await repository.getBooks();
 
     // Assert
     expect(result, Left(DatabaseFailure()));
-    verify(() => datasource.getBooksFromUser(tUserId)).called(1);
+    verify(() => datasource.getBooks()).called(1);
   });
 
   test('Should return true when calls the datasource to create book', () async {

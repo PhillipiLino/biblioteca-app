@@ -1,8 +1,8 @@
 import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
-import 'package:biblioteca/features/domain/entities/book_to_save_entity.dart';
-import 'package:biblioteca/features/domain/repositories/books_repository.dart';
-import 'package:biblioteca/features/domain/usecases/create_book_usecase.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
+import 'package:biblioteca/modules/books/domain/repositories/books_repository.dart';
+import 'package:biblioteca/modules/books/domain/usecases/create_book_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';

@@ -1,7 +1,7 @@
 import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/features/domain/entities/book_entity.dart';
-import 'package:biblioteca/features/domain/usecases/delete_book_usecase.dart';
-import 'package:biblioteca/features/presenter/widgets/books_list/books_list_store.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/domain/usecases/delete_book_usecase.dart';
+import 'package:biblioteca/modules/books/presenter/widgets/books_list/books_list_store.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
