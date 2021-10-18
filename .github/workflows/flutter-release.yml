@@ -16,16 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get branch version
-        env:
-          ANDROID_VERSION: ${{ github.ref }} | cut -d"/" -f4
         run: |
           echo "${{ github.base_ref }}"
           echo "${{ github.repository }}"
           echo "${{ github.ref }}"
           echo "${{ github.job }}"
-          echo ANDROID_VERSION
+          echo "BRANCH=12345" >> $GITHUB_ENV
           echo env.BRANCH
-          if [[ "${ ANDROID_VERSION }" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then echo 1; else echo 0; fi
+          echo env.BRANCH
+          if [[ "${{ env.BRANCH }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then echo 1; else echo 0; fi
 
       # - name: Checkout
       #   uses: actions/checkout@v1
