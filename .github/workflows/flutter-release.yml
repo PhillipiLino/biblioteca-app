@@ -19,6 +19,7 @@ jobs:
         id: step_one
         run: |
           echo "release_version=$(echo ${{ github.ref }} | cut -d"/" -f4)" >> $GITHUB_ENV
+          if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
 
       - name: Checkout
         uses: actions/checkout@v1
@@ -36,14 +37,13 @@ jobs:
 
       - name: Get branch version
         run: |
+          echo "old_version=$(echo `grep -w ^version\: pubspec.yaml`)" >> $GITHUB_ENV
           echo "${{ github.base_ref }}"
           echo "${{ github.repository }}"
           echo "${{ github.ref }}"
           echo "${{ github.job }}"
           echo ${{ env.release_version }}
-          ls -la
-          echo `grep -w "^version\: +[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\+[0-9]$" pubspec.yaml`
-          if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then exit 0; else exit 1; fi
+          echo ${{ env.old_version }}
 
       # - name: Cache pub dependencies
       #   uses: actions/cache@v2
