@@ -63,7 +63,7 @@ jobs:
           git config --global user.name 'PhillipiLino'
           git config --global user.email 'phillipilino@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git tag -a ${{ env.release_version }}
+          git tag ${{ env.release_version }}
           git push origin "${{ env.release_version }}"
           # echo "${GITHUB_REF:11}"
           # git checkout "${GITHUB_REF:11}"
