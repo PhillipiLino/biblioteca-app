@@ -119,8 +119,9 @@ jobs:
           tag_name: ${{ env.release_version }}
           release_name: Release ${{ env.release_version }}
           body: |
-            Changes in this Release
-            - First Change
-            - Second Change
+            # 🚀 Features
+            - Feature
+            # 🐛 Bug Fixes
+            - Bugfix
           draft: true
           prerelease: false
