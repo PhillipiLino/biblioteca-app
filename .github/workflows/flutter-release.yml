@@ -40,7 +40,7 @@ jobs:
           if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then echo "Branch OK"; else exit 1; fi
           sed -i "s/${{ env.old_version}}/version: ${{ env.release_version }}+8/g" pubspec.yaml
 
-      - name: Cache pub dependencies
+      # - name: Cache pub dependencies
       #   uses: actions/cache@v2
       #   with:
       #     path: ${{ env.FLUTTER_HOME }}/.pub-cache
