@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
-
 import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:biblioteca/modules/books/presenter/controllers/details_store.dart';
 import 'package:biblioteca/features/presenter/widgets/book_image.dart';
