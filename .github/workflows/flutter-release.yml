@@ -24,21 +24,25 @@ jobs:
           echo "release_version=$(echo ${{ github.ref }} | cut -d"/" -f4)" >> $GITHUB_ENV
           echo "old_version=$(echo `grep -w ^version\: pubspec.yaml`)" >> $GITHUB_ENV
 
-      - name: Setup Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: "12.x"
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          channel: beta
-      - name: Flutter version
-        run: flutter --version
+      # - name: Setup Java
+      #   uses: actions/setup-java@v1
+      #   with:
+      #     java-version: "12.x"
+      # - name: Setup Flutter
+      #   uses: subosito/flutter-action@v1
+      #   with:
+      #     channel: beta
+      # - name: Flutter version
+      #   run: flutter --version
 
       - name: Set new version on pubspec
         run: |
           if [[ "${{ env.release_version }}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$ ]]; then echo "Branch OK"; else exit 1; fi
           sed -i "s/${{ env.old_version}}/version: ${{ env.release_version }}+8/g" pubspec.yaml
+      
+      - name: Create release log file
+        run: |
+          sed -n '/# \[${{env.release_version}}\]/,/# \[/p' CHANGELOG.md | sed '1d;$d' > new_release.md
 
       # - name: Cache pub dependencies
       #   uses: actions/cache@v2
@@ -118,10 +122,24 @@ jobs:
         with:
           tag_name: ${{ env.release_version }}
           release_name: Release ${{ env.release_version }}
-          body: |
-            # 🚀 Features
-            - Feature
-            # 🐛 Bug Fixes
-            - Bugfix
+          body_path: new_release.md
           draft: true
           prerelease: false
+
+      - name: Get version
+        id: vars
+        run: echo ::set-output name=version::$(cat new_release.md)
+
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          destination_branch: main
+          pr_title: Release/${{ env.release_version }}
+
+      - name: update-pull-request
+        uses: kt3k/update-pr-description@v1.0.1
+        with:
+          pr_body: ${{ steps.vars.outputs.version }}
+          destination_branch: main
+          github_token: ${{ secrets.ACCESS_TOKEN }}
