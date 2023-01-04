@@ -1,0 +1,13 @@
+name: Second action
+
+on:
+  workflow_call:
+
+jobs:
+  job-reusable-3:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Waiting 2 minutes..."
+          sleep 120
+          echo "Hello World"
