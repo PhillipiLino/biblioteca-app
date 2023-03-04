@@ -1,10 +1,9 @@
 import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/core/usecase/usecase.dart';
 import 'package:biblioteca/core/utils/routes/app_routes.dart';
 import 'package:biblioteca/modules/books/domain/usecases/get_books_usecase.dart';
 import 'package:biblioteca/modules/books/presenter/stores/home_store.dart';
 import 'package:biblioteca/modules/books/presenter/utils/persist_list_helper.dart';
-import 'package:dartz/dartz.dart';
+import 'package:clean_architecture_utils/usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -19,10 +18,10 @@ main() {
   setUp(() {
     registerFallbackValue(NoParams());
     usecase = MockGetUserBooksUsecase();
-    store = HomeStore(usecase, PersistListHelper(), AppRoutes());
+    store = HomeStore(usecase, PersistListHelper(), AppRoutes(), null);
   });
 
-  final tFailure = const DatabaseFailure();
+  const tFailure = DatabaseFailure();
 
   test('Should return a list of BookEntity from the usecase', () async {
     // Arrange
@@ -41,7 +40,7 @@ main() {
   test('Should return a failure from the usecase when there is an error',
       () async {
     // Arrange
-    when(() => usecase(any())).thenAnswer((_) async => Left(tFailure));
+    when(() => usecase(any())).thenAnswer((_) async => const Left(tFailure));
 
     // Act
     await store.getBooks();

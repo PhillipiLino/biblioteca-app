@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
 // This is a library that provides messages for a en locale. All the
 // messages from the main program should be duplicated here with the same
@@ -20,9 +21,9 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function> {
-    "booksTab" : MessageLookupByLibrary.simpleMessage("My Books"),
-    "profileTab" : MessageLookupByLibrary.simpleMessage("Profile"),
-    "searchTab" : MessageLookupByLibrary.simpleMessage("Search")
-  };
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "booksTab": MessageLookupByLibrary.simpleMessage("My Books"),
+        "profileTab": MessageLookupByLibrary.simpleMessage("Profile"),
+        "searchTab": MessageLookupByLibrary.simpleMessage("Search")
+      };
 }
