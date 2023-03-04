@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
@@ -19,11 +20,14 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
+      toolbarHeight: 20,
       systemOverlayStyle:
           const SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
       title: Text(
         title,
-        style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+        style: GoogleFonts.raleway(
+          textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
       ),
       leading: (ModalRoute.of(context)?.canPop ?? false)
           ? IconButton(
@@ -36,7 +40,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             )
           : null,
       backgroundColor: Colors.transparent,
-      foregroundColor: Theme.of(context).textTheme.button!.color,
+      foregroundColor: Colors.white,
       elevation: 0,
     );
   }

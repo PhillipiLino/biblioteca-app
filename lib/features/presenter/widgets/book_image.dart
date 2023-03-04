@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class BookImage extends StatelessWidget {
@@ -48,9 +49,15 @@ class BookImage extends StatelessWidget {
     final isUrlImage = path.contains('http://') || path.contains('https://');
 
     return isUrlImage
-        ? Image.network(path,
-            fit: BoxFit.cover, loadingBuilder: _loadingBuilder)
-        : Image.file(File(path),
-            fit: BoxFit.cover, errorBuilder: _errorBuilder);
+        ? Image.network(
+            path,
+            fit: BoxFit.cover,
+            loadingBuilder: _loadingBuilder,
+          )
+        : Image.file(
+            File(path),
+            fit: BoxFit.cover,
+            errorBuilder: _errorBuilder,
+          );
   }
 }

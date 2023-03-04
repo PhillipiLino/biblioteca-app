@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:biblioteca/core/database/type_converters/date_time_converter.dart';
 import 'package:biblioteca/modules/books/data/models/book_model.dart';
 import 'package:biblioteca/modules/profile/data/models/user_progress_model.dart';

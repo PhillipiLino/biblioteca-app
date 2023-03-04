@@ -41,6 +41,7 @@ dependencies:
   path_provider: ^2.0.5
   pagination_view: ^2.0.0
   google_fonts: ^4.0.3
+  widget_mask: ^1.0.0+0
   biblioteca_sdk:
     path: ../projeto_biblioteca/biblioteca_sdk
 
@@ -79,6 +80,8 @@ flutter:
   assets:
     - assets/images/book_placeholder.png
     - assets/images/book_mockup.png
+    - assets/images/first_book_mockup.png
+    - assets/images/only-shelf.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

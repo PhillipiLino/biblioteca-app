@@ -1,5 +1,5 @@
-import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:biblioteca/features/presenter/widgets/book_image.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:biblioteca/modules/books/presenter/widgets/star.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -32,6 +32,7 @@ class HomeBookItem extends StatelessWidget {
     );
 
     return Material(
+      color: Colors.transparent,
       child: InkWell(
         onTap: onTap as Function(),
         child: SizedBox(
@@ -72,10 +73,12 @@ class HomeBookItem extends StatelessWidget {
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 3,
+                      style: const TextStyle(color: Colors.white),
                     ),
+                    const SizedBox(height: 12),
                     Text(
                       book.author,
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
                     const SizedBox(height: 12),
                     Row(children: stars)

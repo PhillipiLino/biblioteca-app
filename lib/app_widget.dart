@@ -9,16 +9,12 @@ class AppWidget extends StatelessWidget {
     return MaterialApp.router(
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
-      darkTheme: ThemeData.dark().copyWith(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.amber,
-          accentColor: Colors.black87,
-        ),
-      ),
+      themeMode: ThemeMode.light,
       theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 36, 38, 39),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.amber,
-          accentColor: Colors.black87,
+          accentColor: const Color.fromARGB(255, 96, 96, 96),
         ),
       ),
     );
