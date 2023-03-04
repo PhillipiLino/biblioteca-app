@@ -1,6 +1,6 @@
-import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
+import 'package:clean_architecture_utils/failures.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class IBooksRepository {

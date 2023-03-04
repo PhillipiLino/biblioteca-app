@@ -30,7 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^1.0.2
+  intl: ^0.17.0
   equatable: ^2.0.3
   dartz: ^0.10.0
   floor: ^1.2.0
@@ -45,6 +48,11 @@ dependencies:
   biblioteca_sdk:
     path: ../projeto_biblioteca/biblioteca_sdk
 
+  clean_architecture_utils:
+    git:
+      url: https://github.com/PhillipiLino/flutter-clean-architecture-utils.git
+      ref: main
+
   commons_tools_sdk:
     git:
       url: https://github.com/PhillipiLino/flutter-commons-tools-sdk
@@ -58,6 +66,7 @@ dev_dependencies:
   build_runner: ^2.1.4
   plugin_platform_interface: ^2.0.0
   path_provider_platform_interface: ^2.0.0
+  intl_generator: ^0.3.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

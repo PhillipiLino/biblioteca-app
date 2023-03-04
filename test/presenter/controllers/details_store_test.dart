@@ -2,7 +2,7 @@ import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
 import 'package:biblioteca/modules/books/domain/usecases/create_book_usecase.dart';
-import 'package:biblioteca/modules/books/presenter/controllers/details_store.dart';
+import 'package:biblioteca/modules/books/presenter/stores/details_store.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,8 +36,8 @@ main() {
     store = DetailsStore(usecase);
   });
 
-  final tDatabaseFailure = DatabaseFailure();
-  final tImageFailure = SaveImageFailure();
+  final tDatabaseFailure = const DatabaseFailure();
+  final tImageFailure = const SaveImageFailure();
   final tInfosToSave = BookToSaveEntity(book: tBook, imageFile: XFile('path'));
 
   test('Should return true from the usecase', () async {

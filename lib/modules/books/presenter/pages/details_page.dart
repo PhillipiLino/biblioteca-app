@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
-import 'package:biblioteca/modules/books/presenter/controllers/details_store.dart';
+
 import 'package:biblioteca/features/presenter/widgets/book_image.dart';
 import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
 import 'package:biblioteca/features/presenter/widgets/default_text_field.dart';
+import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca/modules/books/presenter/stores/details_store.dart';
 import 'package:biblioteca/modules/books/presenter/widgets/rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -300,7 +301,6 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                                   builder: (context, snapshot) {
                                     return SizedBox(
                                       child: ElevatedButton(
-                                        child: const Text('Salvar'),
                                         onPressed: snapshot.data ?? false
                                             ? () async {
                                                 await store.insertBook(
@@ -313,10 +313,11 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                                               }
                                             : null,
                                         style: ElevatedButton.styleFrom(
-                                          primary: Theme.of(context)
+                                          backgroundColor: Theme.of(context)
                                               .colorScheme
                                               .primary,
                                         ),
+                                        child: const Text('Salvar'),
                                       ),
                                     );
                                   },

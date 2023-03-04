@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class GirassolCard extends StatelessWidget {
+class CustomCard extends StatelessWidget {
   final Widget? child;
   final VoidCallback? onPressed;
   final bool showShadow;
   final double? borderRadius;
   final Color? backgroundColor;
 
-  const GirassolCard({
+  const CustomCard({
     this.child,
     this.onPressed,
     this.showShadow = false,

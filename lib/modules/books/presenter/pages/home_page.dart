@@ -1,11 +1,11 @@
 import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
 import 'package:biblioteca/features/presenter/widgets/empty_list.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
-import 'package:biblioteca/modules/books/presenter/controllers/home_store.dart';
+import 'package:biblioteca/modules/books/presenter/stores/home_store.dart';
 import 'package:biblioteca/modules/books/presenter/widgets/books_list/books_list.dart';
+import 'package:clean_architecture_utils/utils.dart';
+import 'package:commons_tools_sdk/commons_tools_sdk.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_triple/flutter_triple.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/girassol_card.dart';
@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeStore> {
+class _HomePageState extends MainPageState<HomePage, HomeStore> {
   bool listIsEmpty = false;
   List<BookEntity> books = [];
 
@@ -63,7 +63,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: SizedBox(
                   width: double.maxFinite,
-                  child: GirassolCard(
+                  child: CustomCard(
                     backgroundColor: accentColor,
                     child: Column(
                       children: [
@@ -120,29 +120,35 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
     return Scaffold(
       appBar: CustomAppBar(title: 'Meus Livros'),
       extendBodyBehindAppBar: true,
-      body: Column(
-        children: [
-          Container(
-            width: double.maxFinite,
-            height: 100,
-            decoration: BoxDecoration(
-              color: accentColor,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(300),
-                bottomRight: Radius.circular(300),
+      resizeToAvoidBottomInset: false,
+      body: GestureDetector(
+        onTap: hideKeyboard,
+        behavior: HitTestBehavior.opaque,
+        onPanDown: (_) => hideKeyboard(),
+        child: Column(
+          children: [
+            Container(
+              width: double.maxFinite,
+              height: 100,
+              decoration: BoxDecoration(
+                color: accentColor,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(300),
+                  bottomRight: Radius.circular(300),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: ScopedBuilder(
-              store: store,
-              onLoading: _onLoading,
-              onState: _onSuccess,
-              onError: _onError,
+            const SizedBox(height: 20),
+            Expanded(
+              child: ScopedBuilder(
+                store: store,
+                onLoading: _onLoading,
+                onState: _onSuccess,
+                onError: _onError,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.primary,

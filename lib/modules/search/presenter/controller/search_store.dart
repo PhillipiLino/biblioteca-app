@@ -1,4 +1,3 @@
-import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/core/utils/adapters/book_adapter.dart';
 import 'package:biblioteca/core/utils/adapters/dartz_either_adapter.dart';
 import 'package:biblioteca/core/utils/debouncer.dart';
@@ -6,6 +5,7 @@ import 'package:biblioteca/core/utils/routes/app_routes.dart';
 import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
 import 'package:biblioteca/modules/search/domain/entities/search_params.dart';
 import 'package:biblioteca/modules/search/domain/usecases/search_books_usecase.dart';
+import 'package:clean_architecture_utils/failures.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 
 class SearchStore extends NotifierStore<Failure, List<SearchBookEntity>> {

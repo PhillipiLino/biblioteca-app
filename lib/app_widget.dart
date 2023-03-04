@@ -1,4 +1,6 @@
+import 'package:biblioteca/modules/menu/localizations/menu_localizations_delegate.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppWidget extends StatelessWidget {
@@ -10,6 +12,13 @@ class AppWidget extends StatelessWidget {
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
       themeMode: ThemeMode.light,
+      localizationsDelegates: const [
+        MenuModuleLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('pt', 'en_US')],
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 36, 38, 39),
         colorScheme: ColorScheme.fromSwatch(

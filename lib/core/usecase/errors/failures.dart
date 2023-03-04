@@ -1,23 +1,21 @@
-import 'package:equatable/equatable.dart';
-
-abstract class Failure extends Equatable {}
+import 'package:clean_architecture_utils/failures.dart';
 
 class DatabaseFailure extends Failure {
-  @override
-  List<Object?> get props => [];
-}
+  const DatabaseFailure() : super('Ocorreu um erro inesperado');
 
-class NullParamFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
 
 class SaveImageFailure extends Failure {
+  const SaveImageFailure() : super('');
+
   @override
   List<Object?> get props => [];
 }
 
 class ServerFailure extends Failure {
+  const ServerFailure() : super('');
   @override
   List<Object?> get props => [];
 }

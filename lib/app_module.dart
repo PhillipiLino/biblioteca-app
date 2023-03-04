@@ -1,12 +1,7 @@
 import 'package:biblioteca/core/database/books_database.dart';
 import 'package:biblioteca/core/utils/routes/app_routes.dart';
 import 'package:biblioteca/core/utils/routes/constants.dart';
-import 'package:biblioteca/features/presenter/controller/bottom_navigation_store.dart';
-import 'package:biblioteca/features/presenter/pages/bottom_navigation_page.dart';
-import 'package:biblioteca/modules/books/books_module.dart';
 import 'package:biblioteca/modules/books/presenter/utils/persist_list_helper.dart';
-import 'package:biblioteca/modules/profile/profile_module.dart';
-import 'package:biblioteca/modules/search/search_module.dart';
 import 'package:biblioteca_sdk/clients.dart';
 import 'package:commons_tools_sdk/error_report.dart';
 import 'package:floor/floor.dart';
@@ -14,6 +9,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'client/client_interceptor.dart';
 import 'features/presenter/pages/splash_page.dart';
+import 'modules/menu/menu_module.dart';
+import 'trackers_helper.dart';
 
 class AppModule extends Module {
   static final migration1to2 = Migration(1, 2, (database) async {
@@ -29,7 +26,7 @@ class AppModule extends Module {
         .databaseBuilder('books-db.db')
         .addMigrations([migration1to2]).build()),
     AsyncBind((i) async => i<BooksDatabase>().bookDao),
-    Bind((i) => BottomNavigationStore(i())),
+    Bind.singleton<TrackersHelper>((i) => TrackersHelper()),
     Bind((i) => PersistListHelper()),
     Bind((i) => AppRoutes()),
     Bind<IClientInterceptor>((i) => ClientInterceptor()),
@@ -50,26 +47,6 @@ class AppModule extends Module {
       Modular.initialRoute,
       child: (context, args) => const SplashPage(),
     ),
-    ChildRoute(
-      menuRoute,
-      child: (_, args) => BottomNavigationPage(args.data),
-      children: [
-        ModuleRoute(
-          booksRoute,
-          module: BooksModule(),
-          transition: TransitionType.noTransition,
-        ),
-        ModuleRoute(
-          searchRoute,
-          module: SearchModule(),
-          transition: TransitionType.noTransition,
-        ),
-        ModuleRoute(
-          profileRoute,
-          module: ProfileModule(),
-          transition: TransitionType.noTransition,
-        ),
-      ],
-    ),
+    ModuleRoute(menuRoute, module: MenuModule()),
   ];
 }

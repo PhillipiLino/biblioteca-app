@@ -1,8 +1,7 @@
-import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/core/usecase/usecase.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
 import 'package:biblioteca/modules/books/domain/repositories/books_repository.dart';
-import 'package:dartz/dartz.dart';
+import 'package:clean_architecture_utils/failures.dart';
+import 'package:clean_architecture_utils/usecase.dart';
 
 class CreateBooksUsecase implements Usecase<bool, BookToSaveEntity> {
   final IBooksRepository repository;

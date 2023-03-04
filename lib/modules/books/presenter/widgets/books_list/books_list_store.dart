@@ -1,7 +1,7 @@
-import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/core/utils/adapters/dartz_either_adapter.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:biblioteca/modules/books/domain/usecases/delete_book_usecase.dart';
+import 'package:clean_architecture_utils/failures.dart';
 import 'package:commons_tools_sdk/commons_tools_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';

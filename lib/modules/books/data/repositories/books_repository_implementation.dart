@@ -1,10 +1,11 @@
 import 'package:biblioteca/core/usecase/errors/exceptions.dart';
+import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/core/utils/helpers/image_helper.dart';
 import 'package:biblioteca/modules/books/data/datasources/books_datasource.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
-import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
 import 'package:biblioteca/modules/books/domain/repositories/books_repository.dart';
+import 'package:clean_architecture_utils/failures.dart';
 import 'package:dartz/dartz.dart';
 
 class BooksRepositoryImplementation implements IBooksRepository {
@@ -19,7 +20,7 @@ class BooksRepositoryImplementation implements IBooksRepository {
       final result = await datasource.getBooks();
       return Right(result);
     } on DatabaseException {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -34,7 +35,7 @@ class BooksRepositoryImplementation implements IBooksRepository {
 
       return const Right(true);
     } on DatabaseException {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     } on ImageException {
       return Left(SaveImageFailure());
     }
@@ -46,7 +47,7 @@ class BooksRepositoryImplementation implements IBooksRepository {
       await datasource.deleteBook(book.toModel());
       return const Right(true);
     } on DatabaseException {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 }
