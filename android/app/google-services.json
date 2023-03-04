@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "508342328099",
+    "project_id": "biblioteca-app-621b2",
+    "storage_bucket": "biblioteca-app-621b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508342328099:android:627c8ef1384b1f3264ca96",
+        "android_client_info": {
+          "package_name": "com.phillipilino.biblioteca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508342328099-pr65iretuecke78ol6vsjk3j8e7t72sp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLL7e-l_LDao6YvJlB00tp81FOnHXaPWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508342328099-pr65iretuecke78ol6vsjk3j8e7t72sp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "508342328099-kqmmg1tfi5ff3a2v14dt4gfqisime76b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.phillipilino.biblioteca"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
