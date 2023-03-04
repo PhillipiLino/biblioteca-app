@@ -1,3 +1,4 @@
+import 'package:biblioteca_sdk/models.dart';
 import 'package:equatable/equatable.dart';
 
 class SearchBookEntity extends Equatable {
@@ -7,6 +8,8 @@ class SearchBookEntity extends Equatable {
   final int pages;
   final String? imagePath;
 
+  static const unknownAuthor = 'Desconhecido';
+
   const SearchBookEntity({
     required this.id,
     required this.name,
@@ -14,6 +17,15 @@ class SearchBookEntity extends Equatable {
     required this.pages,
     this.imagePath,
   });
+
+  SearchBookEntity.fromGoogleModel(GoogleBookModel model)
+      : id = model.id,
+        name = model.title ?? '',
+        pages = model.pageCount ?? 0,
+        imagePath = model.imagePath,
+        author = (model.authors ?? []).isEmpty
+            ? unknownAuthor
+            : model.authors?.first ?? unknownAuthor;
 
   @override
   List<Object?> get props => [

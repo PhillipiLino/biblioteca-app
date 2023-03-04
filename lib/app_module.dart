@@ -1,14 +1,18 @@
 import 'package:biblioteca/core/database/books_database.dart';
 import 'package:biblioteca/core/utils/routes/app_routes.dart';
 import 'package:biblioteca/core/utils/routes/constants.dart';
+import 'package:biblioteca/features/presenter/controller/bottom_navigation_store.dart';
+import 'package:biblioteca/features/presenter/pages/bottom_navigation_page.dart';
 import 'package:biblioteca/modules/books/books_module.dart';
 import 'package:biblioteca/modules/books/presenter/utils/persist_list_helper.dart';
 import 'package:biblioteca/modules/profile/profile_module.dart';
-import 'package:biblioteca/features/presenter/controller/bottom_navigation_store.dart';
-import 'package:biblioteca/features/presenter/pages/bottom_navigation_page.dart';
 import 'package:biblioteca/modules/search/search_module.dart';
+import 'package:biblioteca_sdk/clients.dart';
+import 'package:commons_tools_sdk/error_report.dart';
 import 'package:floor/floor.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import 'client/client_interceptor.dart';
 import 'features/presenter/pages/splash_page.dart';
 
 class AppModule extends Module {
@@ -28,6 +32,16 @@ class AppModule extends Module {
     Bind((i) => BottomNavigationStore(i())),
     Bind((i) => PersistListHelper()),
     Bind((i) => AppRoutes()),
+    Bind<IClientInterceptor>((i) => ClientInterceptor()),
+    Bind<IErrorReport>((i) => ErrorReport()),
+    Bind<IClient>((i) {
+      return DioClient(
+        typesToLog: [],
+        interceptor: i.get(),
+        errorReport: i.get(),
+        // initialEnvironment: Environment(),
+      );
+    }),
   ];
 
   @override

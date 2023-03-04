@@ -26,13 +26,13 @@ class SearchStore extends NotifierStore<Failure, List<SearchBookEntity>> {
         return;
       }
 
-      final params = SearchParams(filter, 0);
+      final params = SearchParams(filter: filter, page: 0);
       executeEither(() => DartzEitherAdapter.adapter(usecase(params)));
     });
   }
 
   Future<List<SearchBookEntity>> paginate(String filter, int page) async {
-    final params = SearchParams(filter, page ~/ 10);
+    final params = SearchParams(filter: filter, page: page);
     final result = await usecase(params);
     result.fold((error) => setError(error), (success) => {});
 

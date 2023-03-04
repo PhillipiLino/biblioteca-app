@@ -18,7 +18,8 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=2.19.3 <3.0.0'
+  flutter: ">=1.17.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -38,8 +39,15 @@ dependencies:
   percent_indicator: ^4.2.3
   image_picker: ^0.8.4+2
   path_provider: ^2.0.5
-  intl: ^0.18.0
   pagination_view: ^2.0.0
+  google_fonts: ^4.0.3
+  biblioteca_sdk:
+    path: ../projeto_biblioteca/biblioteca_sdk
+
+  commons_tools_sdk:
+    git:
+      url: https://github.com/PhillipiLino/flutter-commons-tools-sdk
+      ref: main
 
 dev_dependencies:
   flutter_test:
