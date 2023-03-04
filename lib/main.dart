@@ -6,6 +6,7 @@ import 'app_widget.dart';
 
 void main() {
   runApp(const MyApp());
+  Modular.setInitialRoute(Modular.initialRoute);
 }
 
 class MyApp extends StatelessWidget {

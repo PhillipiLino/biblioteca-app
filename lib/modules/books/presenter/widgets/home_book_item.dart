@@ -50,9 +50,15 @@ class HomeBookItem extends StatelessWidget {
                 child: Hero(
                   tag: 'avatar-${book.id}',
                   child: BookImage(book.imagePath ?? ''),
-                  flightShuttleBuilder: (flightContext, animation,
-                          flightDirection, fromHeroContext, toHeroContext) =>
-                      Center(child: bookImageWidget),
+                  flightShuttleBuilder: (
+                    flightContext,
+                    animation,
+                    flightDirection,
+                    fromHeroContext,
+                    toHeroContext,
+                  ) {
+                    return Center(child: bookImageWidget);
+                  },
                 ),
               ),
               const SizedBox(width: 10),

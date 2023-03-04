@@ -4,6 +4,8 @@ import 'package:biblioteca/modules/books/presenter/widgets/home_book_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../pages/home_page.dart';
+
 class BooksList extends StatelessWidget {
   final BooksListStore store = Modular.get<BooksListStore>();
   final List<BookEntity> list;
@@ -52,6 +54,18 @@ class BooksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      physics:
+          const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      itemCount: list.length,
+      itemBuilder: (itemContext, position) => BookWidget(
+        list[position],
+        onTap: onTapItem,
+      ),
+    );
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       physics:
           const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
@@ -83,9 +97,9 @@ class BooksList extends StatelessWidget {
           ),
         ),
         background: Container(color: Colors.grey[200]),
-        child: HomeBookItem(
+        child: BookWidget(
           list[position],
-          onTap: () => onTapItem(list[position]),
+          onTap: onTapItem,
         ),
       ),
     );

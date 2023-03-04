@@ -6,8 +6,9 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: Modular.initialRoute,
+    return MaterialApp.router(
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.amber,
@@ -20,6 +21,6 @@ class AppWidget extends StatelessWidget {
           accentColor: Colors.black87,
         ),
       ),
-    ).modular();
+    );
   }
 }
