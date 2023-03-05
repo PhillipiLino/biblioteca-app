@@ -1,6 +1,6 @@
+import 'package:biblioteca/app/domain/usecases/get_books_usecase.dart';
+import 'package:biblioteca/app/utils/routes/app_routes.dart';
 import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/core/utils/routes/app_routes.dart';
-import 'package:biblioteca/modules/books/domain/usecases/get_books_usecase.dart';
 import 'package:biblioteca/modules/books/presenter/stores/home_store.dart';
 import 'package:biblioteca/modules/books/presenter/utils/persist_list_helper.dart';
 import 'package:clean_architecture_utils/usecase.dart';

@@ -1,7 +1,7 @@
-import 'package:biblioteca/core/database/book_dao.dart';
-import 'package:biblioteca/core/usecase/errors/exceptions.dart';
-import 'package:biblioteca/modules/profile/data/datasources/user_datasource.dart';
-import 'package:biblioteca/modules/profile/data/models/user_progress_model.dart';
+import '../../../../app/database/book_dao.dart';
+import '../../../../app/domain/errors/exceptions.dart';
+import '../models/user_progress_model.dart';
+import 'user_datasource.dart';
 
 class DatabaseDataSourceImplementation implements IUserDatasource {
   final IBooksDao dao;

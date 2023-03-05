@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:biblioteca/modules/books/data/models/book_model.dart';
+import 'package:biblioteca/core/database/models/book_model.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 

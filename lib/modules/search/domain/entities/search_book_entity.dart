@@ -1,3 +1,4 @@
+import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:biblioteca_sdk/models.dart';
 import 'package:equatable/equatable.dart';
 
@@ -26,6 +27,18 @@ class SearchBookEntity extends Equatable {
         author = (model.authors ?? []).isEmpty
             ? unknownAuthor
             : model.authors?.first ?? unknownAuthor;
+
+  toDetails() {
+    return BookEntity(
+      id: null,
+      name: name,
+      author: author,
+      pages: pages,
+      readPages: 0,
+      stars: 1,
+      imagePath: imagePath,
+    );
+  }
 
   @override
   List<Object?> get props => [

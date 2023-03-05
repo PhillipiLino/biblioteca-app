@@ -1,6 +1,6 @@
-import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
 import 'package:biblioteca/modules/profile/domain/entities/user_progress_entity.dart';
 import 'package:biblioteca/modules/profile/presenter/controllers/progress_store.dart';
+import 'package:biblioteca_components/biblioteca_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
@@ -215,7 +215,7 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Meu Progresso'),
+      appBar: CustomAppBar(title: 'Meu Progresso', pageContext: context),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

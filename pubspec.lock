@@ -64,7 +64,7 @@ packages:
     source: path
     version: "0.0.1"
   biblioteca_components:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "../biblioteca_components"
       relative: true

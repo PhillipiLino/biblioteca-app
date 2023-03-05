@@ -1,10 +1,11 @@
-import 'package:biblioteca/core/usecase/errors/exceptions.dart';
-import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/modules/profile/data/datasources/user_datasource.dart';
 import 'package:biblioteca/modules/profile/domain/entities/user_progress_entity.dart';
 import 'package:biblioteca/modules/profile/domain/repositories/user_repository.dart';
 import 'package:clean_architecture_utils/failures.dart';
 import 'package:dartz/dartz.dart';
+
+import '../../../../app/domain/errors/exceptions.dart';
+import '../../../../app/domain/errors/failures.dart';
 
 class UserRepositoryImplementation implements IUserRepository {
   final IUserDatasource datasource;

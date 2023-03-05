@@ -1,8 +1,7 @@
 import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
-import 'package:biblioteca/modules/search/presenter/controller/search_store.dart';
-import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
-import 'package:biblioteca/features/presenter/widgets/search_bar.dart';
+import 'package:biblioteca/modules/search/presenter/store/search_store.dart';
 import 'package:biblioteca/modules/search/presenter/widgets/search_book_item.dart';
+import 'package:biblioteca_components/biblioteca_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
@@ -77,7 +76,7 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
     hideKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Busca'),
+      appBar: CustomAppBar(title: 'Busca', pageContext: context),
       body: GestureDetector(
         onTap: hideKeyboard,
         child: Column(

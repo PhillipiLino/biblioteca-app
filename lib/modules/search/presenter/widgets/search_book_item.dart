@@ -1,7 +1,6 @@
 import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
+import 'package:biblioteca_components/biblioteca_components.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../features/presenter/widgets/book_image.dart';
 
 class SearchBookItem extends StatelessWidget {
   final int position;

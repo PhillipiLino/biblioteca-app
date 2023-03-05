@@ -1,4 +1,4 @@
-import 'package:biblioteca/core/utils/routes/constants.dart';
+import 'package:biblioteca/app/utils/routes/constants.dart';
 import 'package:biblioteca/modules/menu/localizations/menu_localization.dart';
 import 'package:biblioteca/modules/menu/localizations/menu_localizations_delegate.dart';
 import 'package:biblioteca/modules/menu/presenter/utils/bottom_navigation_item.dart';

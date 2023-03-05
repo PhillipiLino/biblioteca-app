@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/routes/constants.dart';
+import '../../../../app/utils/routes/constants.dart';
 import '../../localizations/menu_localization.dart';
 
 enum BottomNavigationItem {

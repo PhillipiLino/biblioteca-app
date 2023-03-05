@@ -3,7 +3,7 @@
 import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../core/utils/routes/constants.dart';
+import '../../app/utils/routes/constants.dart';
 import '../profile/profile_module.dart';
 import '../search/search_module.dart';
 import 'presenter/pages/bottom_navigation_page.dart';

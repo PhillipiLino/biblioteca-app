@@ -56,6 +56,9 @@ dependencies:
   biblioteca_sdk:
     path: ../biblioteca_sdk
 
+  biblioteca_components:
+    path: ../biblioteca_components
+
   clean_architecture_utils:
     git:
       url: https://github.com/PhillipiLino/flutter-clean-architecture-utils.git

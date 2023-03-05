@@ -1,15 +1,10 @@
-import 'package:biblioteca/auth_store.dart';
-import 'package:biblioteca/core/database/books_database.dart';
-import 'package:biblioteca/core/utils/routes/app_routes.dart';
-import 'package:biblioteca/core/utils/routes/constants.dart';
-import 'package:biblioteca/features/stores/splash_page_store.dart';
-import 'package:biblioteca/modules/books/data/datasources/books_datasource.dart';
-import 'package:biblioteca/modules/books/data/repositories/books_repository_implementation.dart';
-import 'package:biblioteca/modules/books/domain/repositories/books_repository.dart';
-import 'package:biblioteca/modules/books/domain/usecases/create_book_usecase.dart';
-import 'package:biblioteca/modules/books/domain/usecases/delete_book_usecase.dart';
-import 'package:biblioteca/modules/books/domain/usecases/get_books_usecase.dart';
-import 'package:biblioteca/preferences_manager.dart';
+import 'package:biblioteca/app/data/repositories/books_repository_implementation.dart';
+import 'package:biblioteca/app/domain/repositories/books_repository.dart';
+import 'package:biblioteca/app/domain/usecases/create_book_usecase.dart';
+import 'package:biblioteca/app/domain/usecases/delete_book_usecase.dart';
+import 'package:biblioteca/app/domain/usecases/get_books_usecase.dart';
+import 'package:biblioteca/app/utils/routes/app_routes.dart';
+import 'package:biblioteca/app/utils/routes/constants.dart';
 import 'package:biblioteca_auth_module/biblioteca_auth_module.dart';
 import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:biblioteca_sdk/clients.dart';
@@ -22,15 +17,20 @@ import 'package:firebase_sdk/trackers.dart';
 import 'package:floor/floor.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'client/client_interceptor.dart';
-import 'core/database/book_dao.dart';
-import 'core/utils/helpers/image_helper.dart';
-import 'event_controller.dart';
-import 'features/presenter/pages/splash_page.dart';
-import 'login_callback.dart';
-import 'modules/books/data/datasources/database_datasource_implementation.dart';
+import 'app/client/client_interceptor.dart';
+import 'app/database/book_dao.dart';
+import 'app/database/books_database.dart';
+import 'app/database/datasources/books_datasource.dart';
+import 'app/database/datasources/database_datasource_implementation.dart';
+import 'app/utils/auth_store.dart';
+import 'app/utils/event_controller.dart';
+import 'app/utils/image_helper.dart';
+import 'app/utils/login_callback.dart';
+import 'app/utils/preferences_manager.dart';
+import 'app/utils/trackers_helper.dart';
 import 'modules/menu/menu_module.dart';
-import 'trackers_helper.dart';
+import 'splash/presenter/pages/splash_page.dart';
+import 'splash/stores/splash_page_store.dart';
 
 class AppModule extends Module {
   static final migration1to2 = Migration(1, 2, (database) async {
@@ -47,7 +47,7 @@ class AppModule extends Module {
         .addMigrations([migration1to2]).build()),
     AsyncBind((i) async => i<BooksDatabase>().bookDao),
     AsyncBind<IBooksDatasource>(
-      (i) async => DatabaseDataSourceImplementation(i<IBooksDao>()),
+      (i) async => BooksDataSourceImplementation(i<IBooksDao>()),
     ),
     AsyncBind<IBooksRepository>((i) async => BooksRepositoryImplementation(
           i.get(),

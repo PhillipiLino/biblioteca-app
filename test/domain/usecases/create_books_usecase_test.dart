@@ -1,8 +1,8 @@
+import 'package:biblioteca/app/domain/repositories/books_repository.dart';
+import 'package:biblioteca/app/domain/usecases/create_book_usecase.dart';
 import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
-import 'package:biblioteca/modules/books/domain/repositories/books_repository.dart';
-import 'package:biblioteca/modules/books/domain/usecases/create_book_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
@@ -51,13 +51,13 @@ main() {
   test('Should return a DatabaseFailure when don\'t succeed', () async {
     // Arrange
     when(() => repository.createBook(any()))
-        .thenAnswer((_) async => Left(DatabaseFailure()));
+        .thenAnswer((_) async => const Left(DatabaseFailure()));
 
     // Act
     final result = await usecase(tInfosToSave);
 
     // Assert
-    expect(result, Left(DatabaseFailure()));
+    expect(result, const Left(DatabaseFailure()));
     verify(() => repository.createBook(tInfosToSave)).called(1);
   });
 }

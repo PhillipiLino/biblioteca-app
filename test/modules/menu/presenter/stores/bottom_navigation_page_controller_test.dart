@@ -1,4 +1,4 @@
-import 'package:biblioteca/core/utils/routes/app_routes.dart';
+import 'package:biblioteca/app/utils/routes/app_routes.dart';
 import 'package:biblioteca/modules/menu/presenter/stores/bottom_navigation_page_store.dart';
 import 'package:biblioteca/modules/menu/presenter/utils/bottom_navigation_item.dart';
 import 'package:biblioteca/modules/menu/presenter/utils/bottom_navigation_page_data.dart';

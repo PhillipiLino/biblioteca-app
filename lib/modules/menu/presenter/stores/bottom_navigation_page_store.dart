@@ -1,4 +1,4 @@
-import 'package:biblioteca/core/utils/routes/app_routes.dart';
+import 'package:biblioteca/app/utils/routes/app_routes.dart';
 import 'package:clean_architecture_utils/events.dart';
 import 'package:clean_architecture_utils/utils.dart';
 

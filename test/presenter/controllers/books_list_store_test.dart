@@ -1,6 +1,6 @@
+import 'package:biblioteca/app/domain/usecases/delete_book_usecase.dart';
 import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
-import 'package:biblioteca/modules/books/domain/usecases/delete_book_usecase.dart';
 import 'package:biblioteca/modules/books/presenter/widgets/books_list/books_list_store.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,8 +32,8 @@ main() {
     store = BooksListStore(usecase);
   });
 
-  final tDatabaseFailure = DatabaseFailure();
-  final tImageFailure = SaveImageFailure();
+  final tDatabaseFailure = const DatabaseFailure();
+  final tImageFailure = const SaveImageFailure();
 
   test('Should return true from the usecase', () async {
     // Arrange
