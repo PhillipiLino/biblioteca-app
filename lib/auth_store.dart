@@ -1,9 +1,9 @@
-import 'package:biblioteca/app_module.dart';
 import 'package:clean_architecture_utils/events.dart';
 import 'package:clean_architecture_utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'preferences_manager.dart';
+import 'user_auth.dart';
 
 class AuthStore extends MainStore<UserAuth> {
   final PreferencesManager _prefs;
@@ -29,8 +29,8 @@ class AuthStore extends MainStore<UserAuth> {
 
   clearAuthData() async {
     update(const UserAuth(uid: '', name: '', email: ''));
-    _prefs.removeKey(_userPrefsKey);
-    FirebaseAuth.instance.signOut();
+    await _prefs.removeKey(_userPrefsKey);
+    await FirebaseAuth.instance.signOut();
   }
 
   Future<UserAuth?> getUser() async {
