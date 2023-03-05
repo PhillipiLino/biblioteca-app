@@ -1,5 +1,5 @@
 import 'package:biblioteca/core/utils/routes/constants.dart';
-import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../modules/menu/presenter/utils/bottom_navigation_item.dart';

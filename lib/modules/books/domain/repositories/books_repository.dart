@@ -1,5 +1,4 @@
-import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
-import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
+import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:clean_architecture_utils/failures.dart';
 import 'package:dartz/dartz.dart';
 

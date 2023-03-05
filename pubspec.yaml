@@ -45,8 +45,11 @@ dependencies:
   pagination_view: ^2.0.0
   google_fonts: ^4.0.3
   widget_mask: ^1.0.0+0
+  biblioteca_books_module:
+    path: ../biblioteca_books_module
+
   biblioteca_sdk:
-    path: ../projeto_biblioteca/biblioteca_sdk
+    path: ../biblioteca_sdk
 
   clean_architecture_utils:
     git:
@@ -56,6 +59,11 @@ dependencies:
   commons_tools_sdk:
     git:
       url: https://github.com/PhillipiLino/flutter-commons-tools-sdk
+      ref: main
+
+  firebase_sdk:
+    git:
+      url: https://github.com/PhillipiLino/flutter-firebase-sdk
       ref: main
 
 dev_dependencies:
@@ -91,6 +99,7 @@ flutter:
     - assets/images/book_mockup.png
     - assets/images/first_book_mockup.png
     - assets/images/only-shelf.png
+    - assets/images/empty_library.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

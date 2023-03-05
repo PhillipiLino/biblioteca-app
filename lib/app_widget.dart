@@ -1,4 +1,5 @@
 import 'package:biblioteca/modules/menu/localizations/menu_localizations_delegate.dart';
+import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,6 +15,7 @@ class AppWidget extends StatelessWidget {
       themeMode: ThemeMode.light,
       localizationsDelegates: const [
         MenuModuleLocalizationsDelegate(),
+        BooksModuleLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

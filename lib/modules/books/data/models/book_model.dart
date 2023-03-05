@@ -1,4 +1,4 @@
-import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:floor/floor.dart';
 
 @Entity(tableName: 'books_table')
@@ -44,6 +44,7 @@ class BookModel extends BookEntity {
         updatedAt: DateTime.parse(json['updated_at']),
       );
 
+  @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
