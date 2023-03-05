@@ -1,4 +1,3 @@
-import 'package:biblioteca/app/utils/book_adapter.dart';
 import 'package:biblioteca/app/utils/routes/app_routes.dart';
 import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
 import 'package:biblioteca/modules/search/domain/entities/search_params.dart';

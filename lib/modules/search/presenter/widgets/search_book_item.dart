@@ -16,17 +16,8 @@ class SearchBookItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bookImageWidget = Container(
-      height: 130,
-      width: 90,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadiusDirectional.circular(10),
-      ),
-      child: BookImage(book.imagePath ?? ''),
-    );
-
     return Material(
+      color: Colors.transparent,
       child: InkWell(
         onTap: onTap as Function(),
         child: SizedBox(
@@ -43,13 +34,7 @@ class SearchBookItem extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Hero(
-                    tag: 'avatar-$position',
-                    child: BookImage(book.imagePath ?? ''),
-                    flightShuttleBuilder: (flightContext, animation,
-                            flightDirection, fromHeroContext, toHeroContext) =>
-                        Center(child: bookImageWidget),
-                  ),
+                  child: BookImage(book.imagePath ?? ''),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -62,17 +47,23 @@ class SearchBookItem extends StatelessWidget {
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
+                        style: MainTextStyles.bodyMediumBold.copyWith(
+                          color: Colors.white,
+                        ),
                       ),
+                      const SizedBox(height: 4),
                       Text(
                         book.author,
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 12),
+                        style: MainTextStyles.bodySmallRegular.copyWith(
+                          color: Colors.white,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       Text(
                         'Total de páginas: ${book.pages}',
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 12),
+                        style: MainTextStyles.bodySmallRegular.copyWith(
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
