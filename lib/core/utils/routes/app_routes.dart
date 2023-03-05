@@ -14,4 +14,6 @@ class AppRoutes {
   goToMenu(BottomNavigationItem item, dynamic childData) =>
       Modular.to.navigate('$menuRoute${item.route}/',
           arguments: BottomNavigationPageData(item, childData));
+
+  goToLogin() => Modular.to.pushNamed('/login');
 }

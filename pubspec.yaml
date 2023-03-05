@@ -39,6 +39,7 @@ dependencies:
   floor: ^1.2.0
   flutter_triple: ^1.2.4+3
   flutter_modular: ^5.0.3
+  firebase_auth: ^4.2.9
   percent_indicator: ^4.2.3
   image_picker: ^0.8.4+2
   path_provider: ^2.0.5
@@ -47,6 +48,9 @@ dependencies:
   widget_mask: ^1.0.0+0
   biblioteca_books_module:
     path: ../biblioteca_books_module
+  
+  biblioteca_auth_module:
+    path: ../biblioteca_auth_module
 
   biblioteca_sdk:
     path: ../biblioteca_sdk
@@ -95,11 +99,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/book_placeholder.png
-    - assets/images/book_mockup.png
-    - assets/images/first_book_mockup.png
     - assets/images/only-shelf.png
-    - assets/images/empty_library.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

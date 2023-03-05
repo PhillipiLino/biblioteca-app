@@ -1,17 +1,28 @@
+import 'dart:developer';
+
+import 'package:biblioteca/auth_store.dart';
 import 'package:biblioteca/core/database/books_database.dart';
 import 'package:biblioteca/core/utils/routes/app_routes.dart';
 import 'package:biblioteca/core/utils/routes/constants.dart';
+import 'package:biblioteca/features/stores/splash_page_store.dart';
 import 'package:biblioteca/modules/books/data/datasources/books_datasource.dart';
 import 'package:biblioteca/modules/books/data/repositories/books_repository_implementation.dart';
 import 'package:biblioteca/modules/books/domain/repositories/books_repository.dart';
 import 'package:biblioteca/modules/books/domain/usecases/create_book_usecase.dart';
 import 'package:biblioteca/modules/books/domain/usecases/delete_book_usecase.dart';
 import 'package:biblioteca/modules/books/domain/usecases/get_books_usecase.dart';
+import 'package:biblioteca/modules/menu/presenter/utils/bottom_navigation_item.dart';
+import 'package:biblioteca/preferences_manager.dart';
+import 'package:biblioteca_auth_module/biblioteca_auth_module.dart';
 import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:biblioteca_sdk/clients.dart';
 import 'package:clean_architecture_utils/events.dart';
+import 'package:commons_tools_sdk/commons_tools_sdk.dart';
 import 'package:commons_tools_sdk/error_report.dart';
+import 'package:commons_tools_sdk/preferences.dart';
 import 'package:commons_tools_sdk/trackers.dart';
+import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_sdk/error_report.dart';
 import 'package:firebase_sdk/trackers.dart';
 import 'package:floor/floor.dart';
@@ -25,6 +36,70 @@ import 'features/presenter/pages/splash_page.dart';
 import 'modules/books/data/datasources/database_datasource_implementation.dart';
 import 'modules/menu/menu_module.dart';
 import 'trackers_helper.dart';
+
+class UserAuth extends Equatable {
+  final String uid;
+  final String name;
+  final String email;
+
+  static const String _uid = 'uid';
+  static const String _name = 'name';
+  static const String _email = 'email';
+
+  const UserAuth({
+    required this.uid,
+    required this.name,
+    required this.email,
+  });
+
+  UserAuth.fromJson(Map<String, dynamic> json)
+      : uid = castOrNull(json[_uid]),
+        name = castOrNull(json[_name]),
+        email = castOrNull(json[_email]);
+
+  Map<String, dynamic> toJson() => {
+        _uid: uid,
+        _name: name,
+        _email: email,
+      };
+
+  @override
+  List<Object?> get props => [
+        uid,
+        name,
+        email,
+      ];
+}
+
+class LoginCallback extends ILoginCallback {
+  final AuthStore authStore;
+  final AppRoutes routes;
+
+  LoginCallback(this.authStore, this.routes);
+
+  @override
+  onLoginFailure(Object? error, StackTrace stack) {}
+
+  @override
+  onLoginSuccess(UserAuthInfo info) async {
+    final credential = GoogleAuthProvider.credential(
+      accessToken: info.accessToken,
+      idToken: info.idToken,
+    );
+
+    FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
+      final name = value.user?.displayName ?? '';
+      final uid = value.user?.uid ?? '';
+      final email = value.user?.email ?? '';
+
+      final user = UserAuth(uid: uid, name: name, email: email);
+      await authStore.setUser(user);
+      routes.goToMenu(BottomNavigationItem.books, null);
+    }).onError((error, stackTrace) {
+      log(error.toString());
+    });
+  }
+}
 
 class AppModule extends Module {
   static final migration1to2 = Migration(1, 2, (database) async {
@@ -58,8 +133,12 @@ class AppModule extends Module {
         )),
 
     ///
+    Bind((i) => SharedPreferencesAdapter()),
+    Bind((i) => PreferencesManager(i.get())),
+    Bind((i) => AuthStore(i.get(), i.get())),
+    Bind((i) => SplashPageStore(i.get(), i.get())),
     Bind((i) => ImageHelper()),
-
+    Bind((i) => LoginCallback(i.get(), i.get())),
     Bind((i) => AppRoutes()),
     Bind.singleton<TrackersHelper>((i) => TrackersHelper(i.get())),
     Bind.singleton<EventBus>((i) => EventBus()),
@@ -88,6 +167,11 @@ class AppModule extends Module {
     ModuleRoute(
       booksRoute,
       module: BooksModule(),
+      guards: [SplashRouteGuardGuard()],
+    ),
+    ModuleRoute(
+      '/login',
+      module: AuthModule(),
       guards: [SplashRouteGuardGuard()],
     ),
     ModuleRoute(

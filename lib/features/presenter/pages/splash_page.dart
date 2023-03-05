@@ -1,32 +1,25 @@
-import 'package:biblioteca/app_module.dart';
-import 'package:biblioteca/core/utils/routes/app_routes.dart';
-import 'package:biblioteca/modules/menu/presenter/utils/bottom_navigation_item.dart';
+import 'package:biblioteca/features/stores/splash_page_store.dart';
+import 'package:clean_architecture_utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
   @override
-  _SplashPageState createState() => _SplashPageState();
+  SplashPageState createState() => SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class SplashPageState extends MainPageState<SplashPage, SplashPageStore> {
   @override
   void initState() {
     super.initState();
-    checkModule();
-  }
-
-  checkModule() async {
-    await Modular.isModuleReady<AppModule>();
-    AppRoutes().goToMenu(BottomNavigationItem.books, null);
+    store.checkUser();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Material(
-      child: Center(
+    return const Scaffold(
+      body: Center(
         child: CircularProgressIndicator(),
       ),
     );

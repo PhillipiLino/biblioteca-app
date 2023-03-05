@@ -8,7 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 class ProfileModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind((i) => ProgressStore(i())),
+    Bind((i) => ProgressStore(i(), i())),
     Bind((i) => GetProgressUsecase(i())),
     Bind((i) => UserRepositoryImplementation(i())),
     Bind((i) => DatabaseDataSourceImplementation(i())),

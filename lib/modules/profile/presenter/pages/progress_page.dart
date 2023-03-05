@@ -42,7 +42,17 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
     }
 
     return userProgress.books == 0
-        ? const Center(child: Text('Sem Livros na sua biblioteca'))
+        ? Column(
+            children: [
+              const Center(child: Text('Sem Livros na sua biblioteca')),
+              ElevatedButton(
+                onPressed: () {
+                  store.logout();
+                },
+                child: const Text('Sair'),
+              )
+            ],
+          )
         : Column(children: [
             Text(
               date,
