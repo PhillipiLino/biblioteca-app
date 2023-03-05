@@ -10,18 +10,18 @@ part of 'books_database.dart';
 class $FloorBooksDatabase {
   /// Creates a database builder for a persistent database.
   /// Once a database is built, you should keep a reference to it and re-use it.
-  static _$BooksDatabaseBuilder databaseBuilder(String name) =>
-      _$BooksDatabaseBuilder(name);
+  static $BooksDatabaseBuilder databaseBuilder(String name) =>
+      $BooksDatabaseBuilder(name);
 
   /// Creates a database builder for an in memory database.
   /// Information stored in an in memory database disappears when the process is killed.
   /// Once a database is built, you should keep a reference to it and re-use it.
-  static _$BooksDatabaseBuilder inMemoryDatabaseBuilder() =>
-      _$BooksDatabaseBuilder(null);
+  static $BooksDatabaseBuilder inMemoryDatabaseBuilder() =>
+      $BooksDatabaseBuilder(null);
 }
 
-class _$BooksDatabaseBuilder {
-  _$BooksDatabaseBuilder(this.name);
+class $BooksDatabaseBuilder {
+  $BooksDatabaseBuilder(this.name);
 
   final String? name;
 
@@ -30,13 +30,13 @@ class _$BooksDatabaseBuilder {
   Callback? _callback;
 
   /// Adds migrations to the builder.
-  _$BooksDatabaseBuilder addMigrations(List<Migration> migrations) {
+  $BooksDatabaseBuilder addMigrations(List<Migration> migrations) {
     _migrations.addAll(migrations);
     return this;
   }
 
   /// Adds a database [Callback] to the builder.
-  _$BooksDatabaseBuilder addCallback(Callback callback) {
+  $BooksDatabaseBuilder addCallback(Callback callback) {
     _callback = callback;
     return this;
   }
@@ -63,8 +63,11 @@ class _$BooksDatabase extends BooksDatabase {
 
   IBooksDao? _bookDaoInstance;
 
-  Future<sqflite.Database> open(String path, List<Migration> migrations,
-      [Callback? callback]) async {
+  Future<sqflite.Database> open(
+    String path,
+    List<Migration> migrations, [
+    Callback? callback,
+  ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
       version: 2,
       onConfigure: (database) async {
@@ -99,8 +102,10 @@ class _$BooksDatabase extends BooksDatabase {
 }
 
 class _$IBooksDao extends IBooksDao {
-  _$IBooksDao(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database),
+  _$IBooksDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
         _bookModelInsertionAdapter = InsertionAdapter(
             database,
             'books_table',
@@ -181,6 +186,12 @@ class _$IBooksDao extends IBooksDao {
   @override
   Future<void> insertBook(BookModel book) async {
     await _bookModelInsertionAdapter.insert(book, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> insertBooks(List<BookModel> books) async {
+    await _bookModelInsertionAdapter.insertList(
+        books, OnConflictStrategy.replace);
   }
 
   @override

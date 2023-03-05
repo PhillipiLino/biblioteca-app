@@ -3,6 +3,8 @@ import 'package:biblioteca/app/domain/repositories/books_repository.dart';
 import 'package:biblioteca/app/domain/usecases/create_book_usecase.dart';
 import 'package:biblioteca/app/domain/usecases/delete_book_usecase.dart';
 import 'package:biblioteca/app/domain/usecases/get_books_usecase.dart';
+import 'package:biblioteca/app/domain/usecases/update_books_usecase.dart';
+import 'package:biblioteca/app/utils/cloud_books_manager.dart';
 import 'package:biblioteca/app/utils/routes/app_routes.dart';
 import 'package:biblioteca/app/utils/routes/constants.dart';
 import 'package:biblioteca_auth_module/biblioteca_auth_module.dart';
@@ -56,7 +58,10 @@ class AppModule extends Module {
     AsyncBind<GetBooksUsecase>((i) async => GetBooksUsecase(i.get())),
     AsyncBind<CreateBooksUsecase>((i) async => CreateBooksUsecase(i.get())),
     AsyncBind<DeleteBookUsecase>((i) async => DeleteBookUsecase(i.get())),
+    AsyncBind<UpdateBooksUsecase>((i) async => UpdateBooksUsecase(i.get())),
     AsyncBind<EventController>((i) async => EventController(
+          i.get(),
+          i.get(),
           i.get(),
           i.get(),
           i.get(),
@@ -64,6 +69,7 @@ class AppModule extends Module {
         )),
 
     ///
+    Bind((i) => CloudBooksManager(i(), i())),
     Bind((i) => SharedPreferencesAdapter()),
     Bind((i) => PreferencesManager(i.get())),
     Bind((i) => AuthStore(i.get(), i.get())),

@@ -53,4 +53,20 @@ class BooksRepositoryImplementation implements IBooksRepository {
       return const Left(DatabaseFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> updateBooks(
+    List<BookEntity> infoToSave,
+  ) async {
+    try {
+      final books = infoToSave.map((e) => e.toModel()).toList();
+      await datasource.updateBooks(books);
+
+      return const Right(true);
+    } on DatabaseException {
+      return const Left(DatabaseFailure());
+    } on ImageException {
+      return const Left(SaveImageFailure());
+    }
+  }
 }

@@ -11,6 +11,9 @@ abstract class IBooksDao {
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertBook(BookModel book);
 
+  @Insert(onConflict: OnConflictStrategy.replace)
+  Future<void> insertBooks(List<BookModel> books);
+
   @delete
   Future<void> deleteBook(BookModel book);
 

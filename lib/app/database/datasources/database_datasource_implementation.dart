@@ -34,4 +34,13 @@ class BooksDataSourceImplementation implements IBooksDatasource {
       throw DatabaseException();
     }
   }
+
+  @override
+  Future<void> updateBooks(List<BookModel> books) {
+    try {
+      return dao.insertBooks(books);
+    } catch (e) {
+      throw DatabaseException();
+    }
+  }
 }

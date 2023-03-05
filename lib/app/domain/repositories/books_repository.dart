@@ -6,4 +6,5 @@ abstract class IBooksRepository {
   Future<Either<Failure, List<BookEntity>>> getBooks();
   Future<Either<Failure, bool>> createBook(BookToSaveEntity infoToSave);
   Future<Either<Failure, bool>> deleteBook(BookEntity book);
+  Future<Either<Failure, bool>> updateBooks(List<BookEntity> infoToSave);
 }
