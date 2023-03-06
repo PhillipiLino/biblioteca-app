@@ -1,7 +1,7 @@
 import 'package:biblioteca/modules/search/domain/entities/search_book_entity.dart';
 import 'package:biblioteca/modules/search/domain/entities/search_params.dart';
 import 'package:biblioteca/modules/search/domain/repositories/books_repository.dart';
-import 'package:biblioteca_sdk/google_service.dart';
+import 'package:biblioteca_network_sdk/google_service.dart';
 import 'package:clean_architecture_utils/failures.dart';
 import 'package:dartz/dartz.dart';
 

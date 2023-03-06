@@ -9,7 +9,7 @@ import 'package:biblioteca/app/utils/routes/app_routes.dart';
 import 'package:biblioteca/app/utils/routes/constants.dart';
 import 'package:biblioteca_auth_module/biblioteca_auth_module.dart';
 import 'package:biblioteca_books_module/biblioteca_books_module.dart';
-import 'package:biblioteca_sdk/clients.dart';
+import 'package:biblioteca_network_sdk/clients.dart';
 import 'package:clean_architecture_utils/events.dart';
 import 'package:commons_tools_sdk/error_report.dart';
 import 'package:commons_tools_sdk/preferences.dart';

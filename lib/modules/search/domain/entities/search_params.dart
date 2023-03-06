@@ -1,4 +1,4 @@
-import 'package:biblioteca_sdk/google_service.dart';
+import 'package:biblioteca_network_sdk/google_service.dart';
 import 'package:equatable/equatable.dart';
 
 class SearchParams extends Equatable {

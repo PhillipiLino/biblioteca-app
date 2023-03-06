@@ -1,5 +1,5 @@
 import 'package:biblioteca_books_module/biblioteca_books_module.dart';
-import 'package:biblioteca_sdk/models.dart';
+import 'package:biblioteca_network_sdk/models.dart';
 import 'package:equatable/equatable.dart';
 
 class SearchBookEntity extends Equatable {

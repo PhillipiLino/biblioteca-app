@@ -1,4 +1,4 @@
-import 'package:biblioteca_sdk/clients.dart';
+import 'package:biblioteca_network_sdk/clients.dart';
 import 'package:commons_tools_sdk/error_report.dart';
 import 'package:commons_tools_sdk/logger.dart';
 

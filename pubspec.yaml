@@ -48,16 +48,24 @@ dependencies:
   widget_mask: ^1.0.0+0
   lottie: ^2.2.0
   biblioteca_books_module:
-    path: ../biblioteca_books_module
-  
-  biblioteca_auth_module:
-    path: ../biblioteca_auth_module
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-books-module.git
+      ref: main
 
-  biblioteca_sdk:
-    path: ../biblioteca_sdk
+  biblioteca_auth_module:
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-auth-module.git
+      ref: main
+
+  biblioteca_network_sdk:
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-network-sdk.git
+      ref: main
 
   biblioteca_components:
-    path: ../biblioteca_components
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-components.git
+      ref: main
 
   clean_architecture_utils:
     git:
