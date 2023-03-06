@@ -58,10 +58,9 @@ dependencies:
       ref: main
 
   biblioteca_search_module:
-    path: ../biblioteca_search_module
-    # git:
-    #   url: https://github.com/PhillipiLino/biblioteca-books-module.git
-    #   ref: main
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-search-module.git
+      ref: main
 
   biblioteca_network_sdk:
     git:
@@ -87,19 +86,6 @@ dependencies:
     git:
       url: https://github.com/PhillipiLino/flutter-firebase-sdk
       ref: main
-
-dependency_overrides:
-  biblioteca_books_module:
-    path: ../biblioteca_books_module
-
-  biblioteca_auth_module:
-    path: ../biblioteca_auth_module
-  
-  biblioteca_network_sdk:
-    path: ../biblioteca_sdk
-
-  biblioteca_components:
-    path: ../biblioteca_components
 
 dev_dependencies:
   flutter_test:

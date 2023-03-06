@@ -52,37 +52,47 @@ packages:
   biblioteca_auth_module:
     dependency: "direct main"
     description:
-      path: "../biblioteca_auth_module"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: aded32cca5086b50c435715f8d923266b15e3caa
+      url: "https://github.com/PhillipiLino/biblioteca-auth-module.git"
+    source: git
     version: "0.0.1"
   biblioteca_books_module:
     dependency: "direct main"
     description:
-      path: "../biblioteca_books_module"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "01cabb3ab370cef263ec98835eda30a546cb04a8"
+      url: "https://github.com/PhillipiLino/biblioteca-books-module.git"
+    source: git
     version: "0.0.1"
   biblioteca_components:
     dependency: "direct main"
     description:
-      path: "../biblioteca_components"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "8bd4706e9d0142e66618f0f0801cc36a9fe65a0b"
+      url: "https://github.com/PhillipiLino/biblioteca-components.git"
+    source: git
     version: "0.0.1"
   biblioteca_network_sdk:
     dependency: "direct main"
     description:
-      path: "../biblioteca_sdk"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "82b843c6d245a95be00ec512dd255d09d4a50485"
+      url: "https://github.com/PhillipiLino/biblioteca-network-sdk.git"
+    source: git
     version: "0.0.1"
   biblioteca_search_module:
     dependency: "direct main"
     description:
-      path: "../biblioteca_search_module"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "60fdfc4c9925463dcd5b8a065228b718c79e3853"
+      url: "https://github.com/PhillipiLino/biblioteca-search-module.git"
+    source: git
     version: "0.0.1"
   bloc:
     dependency: transitive
