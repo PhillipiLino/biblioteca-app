@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '508342328099',
     projectId: 'biblioteca-app-621b2',
     storageBucket: 'biblioteca-app-621b2.appspot.com',
-    iosClientId: '508342328099-kqmmg1tfi5ff3a2v14dt4gfqisime76b.apps.googleusercontent.com',
+    iosClientId:
+        '508342328099-kqmmg1tfi5ff3a2v14dt4gfqisime76b.apps.googleusercontent.com',
     iosBundleId: 'com.phillipilino.biblioteca',
   );
 }

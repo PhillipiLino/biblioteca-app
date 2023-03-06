@@ -1,6 +1,6 @@
+import 'package:biblioteca/app/domain/errors/failures.dart';
 import 'package:biblioteca/app/domain/repositories/books_repository.dart';
 import 'package:biblioteca/app/domain/usecases/get_books_usecase.dart';
-import 'package:biblioteca/core/usecase/errors/failures.dart';
 import 'package:clean_architecture_utils/usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
