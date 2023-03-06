@@ -1,0 +1,26 @@
+name: Flutter Web to Github Pages
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build Web
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Configure git
+        env:
+          TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+        
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
+
+      - name: Create update dev PR
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          destination_branch: dev
+          pr_title: Update dev with main
+          pr_body: ""
