@@ -1,6 +1,7 @@
 import 'package:biblioteca/app/domain/usecases/update_books_usecase.dart';
 import 'package:biblioteca/app/utils/book_adapter.dart';
 import 'package:biblioteca/app/utils/routes/constants.dart';
+import 'package:biblioteca/app_widget_store.dart';
 import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:biblioteca_search_module/biblioteca_search_module.dart';
 import 'package:clean_architecture_utils/events.dart';
@@ -19,6 +20,7 @@ class EventController {
   final DeleteBookUsecase deleteBookUsecase;
   final UpdateBooksUsecase updateBooksUsecase;
   final CloudBooksManager cloudManager;
+  final AppWidgetStore appStore;
 
   EventController(
     this._eventBus,
@@ -27,6 +29,7 @@ class EventController {
     this.deleteBookUsecase,
     this.updateBooksUsecase,
     this.cloudManager,
+    this.appStore,
   ) {
     _eventBus.on().listen((event) {
       if (event is EventInfo) _parseData(event);
@@ -35,6 +38,18 @@ class EventController {
 
   _parseData(EventInfo info) async {
     switch (info.name) {
+      case DefaultEvents.showSuccessMessageEvent:
+        appStore.showSuccessMessage(info.data);
+        break;
+      case DefaultEvents.showErrorMessageEvent:
+        appStore.showErrorMessage(info.data);
+        break;
+      case DefaultEvents.showAppLoaderEvent:
+        appStore.showLoaderApp();
+        break;
+      case DefaultEvents.hideAppLoaderEvent:
+        appStore.hideLoaderApp();
+        break;
       case BooksModuleEvents.getBooks:
         updateHomeBooks();
         break;
@@ -65,13 +80,22 @@ class EventController {
       case BooksModuleEvents.uploadBooks:
         final data = info.data as List<BookEntity>? ?? [];
         if (data.isEmpty) return;
-        cloudManager.uploadBooks(data);
+        appStore.showLoaderApp();
+        await cloudManager.uploadBooks(data);
+        appStore.hideLoaderApp();
 
         break;
       case BooksModuleEvents.downloadBooks:
+        appStore.showLoaderApp();
+
         final books = await cloudManager.downloadBooks() ?? [];
-        if (books.isEmpty) return;
+        if (books.isEmpty) {
+          appStore.hideLoaderApp();
+          return;
+        }
+
         await updateBooksUsecase(books);
+        appStore.hideLoaderApp();
         updateHomeBooks();
 
         break;

@@ -7,6 +7,7 @@ import 'package:biblioteca/app/domain/usecases/update_books_usecase.dart';
 import 'package:biblioteca/app/utils/cloud_books_manager.dart';
 import 'package:biblioteca/app/utils/routes/app_routes.dart';
 import 'package:biblioteca/app/utils/routes/constants.dart';
+import 'package:biblioteca/app_widget_store.dart';
 import 'package:biblioteca_auth_module/biblioteca_auth_module.dart';
 import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:biblioteca_network_sdk/clients.dart';
@@ -52,31 +53,31 @@ class AppModule extends Module {
       (i) async => BooksDataSourceImplementation(i<IBooksDao>()),
     ),
     AsyncBind<IBooksRepository>((i) async => BooksRepositoryImplementation(
-          i.get(),
-          i.get(),
+          i.get(), // IBooksDatasource
+          i.get(), // ImageHelper
         )),
     AsyncBind<GetBooksUsecase>((i) async => GetBooksUsecase(i.get())),
     AsyncBind<CreateBooksUsecase>((i) async => CreateBooksUsecase(i.get())),
     AsyncBind<DeleteBookUsecase>((i) async => DeleteBookUsecase(i.get())),
     AsyncBind<UpdateBooksUsecase>((i) async => UpdateBooksUsecase(i.get())),
     AsyncBind<EventController>((i) async => EventController(
-          i.get(),
-          i.get(),
-          i.get(),
-          i.get(),
-          i.get(),
-          i.get(),
+          i.get(), // EventBus
+          i.get(), // CreateBooksUsecase
+          i.get(), // GetBooksUsecase
+          i.get(), // DeleteBookUsecase
+          i.get(), // UpdateBooksUsecase
+          i.get(), // CloudBooksManager
+          i.get(), // AppWidgetStore
         )),
-
-    ///
     Bind((i) => CloudBooksManager(i(), i())),
     Bind((i) => SharedPreferencesAdapter()),
     Bind((i) => PreferencesManager(i.get())),
     Bind((i) => AuthStore(i.get(), i.get())),
     Bind((i) => SplashPageStore(i.get(), i.get())),
     Bind((i) => ImageHelper()),
-    Bind((i) => LoginCallback(i.get(), i.get())),
+    Bind((i) => LoginCallback(i.get(), i.get(), i.get())),
     Bind((i) => AppRoutes()),
+    Bind((i) => AppWidgetStore()),
     Bind.singleton<TrackersHelper>((i) => TrackersHelper(i.get())),
     Bind.singleton<EventBus>((i) => EventBus()),
     Bind.singleton<TrackersManager>((i) => TrackersManager(

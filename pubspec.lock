@@ -63,7 +63,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "01cabb3ab370cef263ec98835eda30a546cb04a8"
+      resolved-ref: "80b7ffd13ad2c3ba785596f0cde893bfa007dbbf"
       url: "https://github.com/PhillipiLino/biblioteca-books-module.git"
     source: git
     version: "0.0.1"
@@ -90,7 +90,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "60fdfc4c9925463dcd5b8a065228b718c79e3853"
+      resolved-ref: "5600f749ee21f576a558a84e2471d406002a5fcd"
       url: "https://github.com/PhillipiLino/biblioteca-search-module.git"
     source: git
     version: "0.0.1"

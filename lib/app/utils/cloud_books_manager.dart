@@ -9,7 +9,7 @@ class CloudBooksManager {
 
   CloudBooksManager(this.authStore, this.firebase);
 
-  uploadBooks(List<BookEntity> books) async {
+  Future uploadBooks(List<BookEntity> books) async {
     final user = await authStore.getUser();
     if (user == null) return;
 
@@ -18,7 +18,11 @@ class CloudBooksManager {
       'books': books.map((e) => e.toJson()).toList()
     };
 
-    firebase.sendData(collectionName: 'user-books', path: user.uid, info: dict);
+    await firebase.sendData(
+      collectionName: 'user-books',
+      path: user.uid,
+      info: dict,
+    );
   }
 
   Future<List<BookEntity>?> downloadBooks() async {

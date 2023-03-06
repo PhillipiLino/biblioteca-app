@@ -30,6 +30,6 @@ class ProgressStore extends MainStore<List<UserProgressEntity>> {
   }
 
   downloadBooks() {
-    eventBus?.fire(BooksModuleEvents.downloadBooks);
+    eventBus?.fire(const EventInfo(name: BooksModuleEvents.downloadBooks));
   }
 }

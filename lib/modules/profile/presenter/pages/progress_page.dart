@@ -45,8 +45,13 @@ class _ProgressPageState extends MainPageState<ProgressPage, ProgressStore> {
             children: [
               const Center(child: Text('Sem Livros na sua biblioteca')),
               MainButton(
-                  title: 'Baixar livros', onPressed: store.downloadBooks),
-              MainButton(title: 'Sair', onPressed: store.logout),
+                title: 'Baixar livros',
+                onPressed: store.downloadBooks,
+              ),
+              MainButton(
+                title: 'Sair',
+                onPressed: store.logout,
+              ),
             ],
           )
         : Column(
