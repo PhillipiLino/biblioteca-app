@@ -1,11 +1,11 @@
 // coverage:ignore-file
 
 import 'package:biblioteca_books_module/biblioteca_books_module.dart';
+import 'package:biblioteca_search_module/biblioteca_search_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app/utils/routes/constants.dart';
 import '../profile/profile_module.dart';
-import '../search/search_module.dart';
 import 'presenter/pages/bottom_navigation_page.dart';
 import 'presenter/stores/bottom_navigation_page_store.dart';
 

@@ -45,12 +45,9 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
         ? Column(
             children: [
               const Center(child: Text('Sem Livros na sua biblioteca')),
-              ElevatedButton(
-                onPressed: () {
-                  store.logout();
-                },
-                child: const Text('Sair'),
-              )
+              MainButton(
+                  title: 'Baixar livros', onPressed: store.downloadBooks),
+              MainButton(title: 'Sair', onPressed: store.logout),
             ],
           )
         : Column(children: [
@@ -58,6 +55,8 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
               date,
               style: const TextStyle(fontSize: 12),
             ),
+            MainButton(title: 'Baixar livros', onPressed: store.downloadBooks),
+            MainButton(title: 'Sair', onPressed: store.logout),
             const SizedBox(height: 50),
             Row(
               mainAxisSize: MainAxisSize.max,

@@ -1,7 +1,11 @@
 import 'package:biblioteca/app/domain/usecases/update_books_usecase.dart';
+import 'package:biblioteca/app/utils/book_adapter.dart';
+import 'package:biblioteca/app/utils/routes/constants.dart';
 import 'package:biblioteca_books_module/biblioteca_books_module.dart';
+import 'package:biblioteca_search_module/biblioteca_search_module.dart';
 import 'package:clean_architecture_utils/events.dart';
 import 'package:clean_architecture_utils/usecase.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../domain/usecases/create_book_usecase.dart';
 import '../domain/usecases/delete_book_usecase.dart';
@@ -70,6 +74,15 @@ class EventController {
         await updateBooksUsecase(books);
         updateHomeBooks();
 
+        break;
+      case SearchModuleEvents.searchOpenDetails:
+        final data = info.data as SearchBookEntity?;
+        if (data == null) return;
+
+        Modular.to.pushNamed(
+          '$booksRoute$detailsRoute',
+          arguments: data.toDetails(),
+        );
         break;
       default:
     }
