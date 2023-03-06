@@ -1,6 +1,7 @@
 import '../../domain/errors/exceptions.dart';
 import '../book_dao.dart';
 import '../models/book_model.dart';
+import '../models/user_progress_model.dart';
 import 'books_datasource.dart';
 
 class BooksDataSourceImplementation implements IBooksDatasource {
@@ -39,6 +40,15 @@ class BooksDataSourceImplementation implements IBooksDatasource {
   Future<void> updateBooks(List<BookModel> books) {
     try {
       return dao.insertBooks(books);
+    } catch (e) {
+      throw DatabaseException();
+    }
+  }
+
+  @override
+  Future<List<UserProgressModel>?> getProgress() async {
+    try {
+      return dao.getProgress();
     } catch (e) {
       throw DatabaseException();
     }

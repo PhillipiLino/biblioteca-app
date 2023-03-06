@@ -3,6 +3,7 @@ import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:clean_architecture_utils/failures.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../../modules/profile/domain/entities/user_progress_entity.dart';
 import '../../database/datasources/books_datasource.dart';
 import '../../domain/errors/exceptions.dart';
 import '../../domain/errors/failures.dart';
@@ -67,6 +68,16 @@ class BooksRepositoryImplementation implements IBooksRepository {
       return const Left(DatabaseFailure());
     } on ImageException {
       return const Left(SaveImageFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<UserProgressEntity>>> getProgress() async {
+    try {
+      final result = await datasource.getProgress() ?? [];
+      return Right(result);
+    } on DatabaseException {
+      return const Left(DatabaseFailure());
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:biblioteca/modules/profile/data/models/user_progress_model.dart';
+import 'package:biblioteca/app/database/models/user_progress_model.dart';
 import 'package:floor/floor.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 

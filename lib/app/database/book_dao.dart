@@ -1,7 +1,7 @@
 import 'package:floor/floor.dart';
 
-import '../../modules/profile/data/models/user_progress_model.dart';
 import 'models/book_model.dart';
+import 'models/user_progress_model.dart';
 
 @dao
 abstract class IBooksDao {

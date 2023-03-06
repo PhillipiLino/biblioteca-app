@@ -3,10 +3,10 @@ import 'package:clean_architecture_utils/events.dart';
 import 'package:clean_architecture_utils/usecase.dart';
 import 'package:clean_architecture_utils/utils.dart';
 
+import '../../../../app/domain/usecases/get_progress_usecase.dart';
 import '../../../../app/utils/auth_store.dart';
 import '../../../../app/utils/routes/app_routes.dart';
 import '../../domain/entities/user_progress_entity.dart';
-import '../../domain/usecases/get_progress_usecase.dart';
 
 class ProgressStore extends MainStore<List<UserProgressEntity>> {
   final GetProgressUsecase usecase;
