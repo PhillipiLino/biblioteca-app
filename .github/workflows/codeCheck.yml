@@ -1,21 +1,8 @@
-name: Flutter App Code Check
-on: [pull_request]
+name: Code check
+
+on:
+  [push]
 
 jobs:
-  build:
-    name: Analyze code
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - name: Configure git
-        env:
-          TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        run: git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
-
-      - name: Run analyze and tests
-        run: |
-          flutter pub get
-          flutter analyze
-          flutter test --coverage
+  workflow-1:
+    uses: PhillipiLino/workflows/.github/workflows/FlutterCodeCheck.yml@main
