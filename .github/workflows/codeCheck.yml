@@ -4,5 +4,5 @@ on:
   [push]
 
 jobs:
-  workflow-1:
+  CodeAnalyze:
     uses: PhillipiLino/workflows/.github/workflows/FlutterCodeCheck.yml@main
