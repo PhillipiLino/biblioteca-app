@@ -1,11 +1,11 @@
-import 'package:biblioteca/core/usecase/errors/exceptions.dart';
-import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/core/utils/helpers/image_helper.dart';
-import 'package:biblioteca/modules/books/data/datasources/books_datasource.dart';
-import 'package:biblioteca/modules/books/data/models/book_model.dart';
-import 'package:biblioteca/modules/books/data/repositories/books_repository_implementation.dart';
-import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
-import 'package:biblioteca/modules/books/domain/entities/book_to_save_entity.dart';
+import 'package:biblioteca/app/data/repositories/books_repository_implementation.dart';
+import 'package:biblioteca/app/database/datasources/books_datasource.dart';
+import 'package:biblioteca/app/database/models/book_model.dart';
+import 'package:biblioteca/app/domain/errors/exceptions.dart';
+import 'package:biblioteca/app/domain/errors/failures.dart';
+import 'package:biblioteca/app/utils/book_adapter.dart';
+import 'package:biblioteca/app/utils/image_helper.dart';
+import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
@@ -89,7 +89,7 @@ main() {
     final result = await repository.getBooks();
 
     // Assert
-    expect(result, Left(DatabaseFailure()));
+    expect(result, const Left(DatabaseFailure()));
     verify(() => datasource.getBooks()).called(1);
   });
 
@@ -118,7 +118,7 @@ main() {
     final result = await repository.createBook(tInfosToSave);
 
     // Assert
-    expect(result, Left(DatabaseFailure()));
+    expect(result, const Left(DatabaseFailure()));
     verify(() => datasource.createBook(tBook.toModel())).called(1);
     verifyNever(() => imageHelper.saveImage(
         tInfosToSave.imageFile!, tInfosToSave.book.imagePath ?? ''));
@@ -135,7 +135,7 @@ main() {
     final result = await repository.createBook(tInfosToSave);
 
     // Assert
-    expect(result, Left(SaveImageFailure()));
+    expect(result, const Left(SaveImageFailure()));
     verify(() => datasource.createBook(tBook.toModel())).called(1);
     verify(() => imageHelper.saveImage(
         tInfosToSave.imageFile!, tInfosToSave.book.imagePath ?? '')).called(1);
@@ -164,7 +164,7 @@ main() {
     final result = await repository.deleteBook(tBook);
 
     // Assert
-    expect(result, Left(DatabaseFailure()));
+    expect(result, const Left(DatabaseFailure()));
     verify(() => datasource.deleteBook(tBook.toModel())).called(1);
   });
 }

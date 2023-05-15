@@ -1,8 +1,7 @@
-import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/core/usecase/usecase.dart';
-import 'package:biblioteca/modules/books/domain/repositories/books_repository.dart';
-import 'package:biblioteca/modules/books/domain/usecases/get_books_usecase.dart';
-import 'package:dartz/dartz.dart';
+import 'package:biblioteca/app/domain/errors/failures.dart';
+import 'package:biblioteca/app/domain/repositories/books_repository.dart';
+import 'package:biblioteca/app/domain/usecases/get_books_usecase.dart';
+import 'package:clean_architecture_utils/usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -36,13 +35,13 @@ main() {
   test('Should return a DatabaseFailure when don\'t succeed', () async {
     // Arrange
     when(() => repository.getBooks())
-        .thenAnswer((_) async => Left(DatabaseFailure()));
+        .thenAnswer((_) async => const Left(DatabaseFailure()));
 
     // Act
     final result = await usecase(NoParams());
 
     // Assert
-    expect(result, Left(DatabaseFailure()));
+    expect(result, const Left(DatabaseFailure()));
     verify(() => repository.getBooks()).called(1);
   });
 }

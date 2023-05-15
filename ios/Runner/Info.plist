@@ -43,5 +43,20 @@
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need to upload image</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<!-- <key>GIDClientID</key>
+    <string>953158598209-3ietun7iii151r28av89cqqf5sic5ald.apps.googleusercontent.com</string> -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.508342328099-kqmmg1tfi5ff3a2v14dt4gfqisime76b</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

@@ -1,15 +1,39 @@
-import 'package:biblioteca/core/database/books_database.dart';
-import 'package:biblioteca/core/utils/routes/app_routes.dart';
-import 'package:biblioteca/core/utils/routes/constants.dart';
-import 'package:biblioteca/modules/books/books_module.dart';
-import 'package:biblioteca/modules/books/presenter/utils/persist_list_helper.dart';
-import 'package:biblioteca/modules/profile/profile_module.dart';
-import 'package:biblioteca/features/presenter/controller/bottom_navigation_store.dart';
-import 'package:biblioteca/features/presenter/pages/bottom_navigation_page.dart';
-import 'package:biblioteca/modules/search/search_module.dart';
+import 'package:biblioteca/app/data/repositories/books_repository_implementation.dart';
+import 'package:biblioteca/app/domain/repositories/books_repository.dart';
+import 'package:biblioteca/app/domain/usecases/create_book_usecase.dart';
+import 'package:biblioteca/app/domain/usecases/delete_book_usecase.dart';
+import 'package:biblioteca/app/domain/usecases/get_books_usecase.dart';
+import 'package:biblioteca/app/domain/usecases/update_books_usecase.dart';
+import 'package:biblioteca/app/utils/cloud_books_manager.dart';
+import 'package:biblioteca/app/utils/routes/app_routes.dart';
+import 'package:biblioteca/app/utils/routes/constants.dart';
+import 'package:biblioteca/app_widget_store.dart';
+import 'package:biblioteca_auth_module/biblioteca_auth_module.dart';
+import 'package:biblioteca_books_module/biblioteca_books_module.dart';
+import 'package:biblioteca_network_sdk/clients.dart';
+import 'package:clean_architecture_utils/events.dart';
+import 'package:commons_tools_sdk/error_report.dart';
+import 'package:commons_tools_sdk/preferences.dart';
+import 'package:commons_tools_sdk/trackers.dart';
+import 'package:firebase_sdk/error_report.dart';
+import 'package:firebase_sdk/trackers.dart';
 import 'package:floor/floor.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'features/presenter/pages/splash_page.dart';
+
+import 'app/client/client_interceptor.dart';
+import 'app/database/book_dao.dart';
+import 'app/database/books_database.dart';
+import 'app/database/datasources/books_datasource.dart';
+import 'app/database/datasources/database_datasource_implementation.dart';
+import 'app/utils/auth_store.dart';
+import 'app/utils/event_controller.dart';
+import 'app/utils/image_helper.dart';
+import 'app/utils/login_callback.dart';
+import 'app/utils/preferences_manager.dart';
+import 'app/utils/trackers_helper.dart';
+import 'modules/menu/menu_module.dart';
+import 'splash/presenter/pages/splash_page.dart';
+import 'splash/stores/splash_page_store.dart';
 
 class AppModule extends Module {
   static final migration1to2 = Migration(1, 2, (database) async {
@@ -25,9 +49,50 @@ class AppModule extends Module {
         .databaseBuilder('books-db.db')
         .addMigrations([migration1to2]).build()),
     AsyncBind((i) async => i<BooksDatabase>().bookDao),
-    Bind((i) => BottomNavigationStore(i())),
-    Bind((i) => PersistListHelper()),
+    AsyncBind<IBooksDatasource>(
+      (i) async => BooksDataSourceImplementation(i<IBooksDao>()),
+    ),
+    AsyncBind<IBooksRepository>((i) async => BooksRepositoryImplementation(
+          i.get(), // IBooksDatasource
+          i.get(), // ImageHelper
+        )),
+    AsyncBind<GetBooksUsecase>((i) async => GetBooksUsecase(i.get())),
+    AsyncBind<CreateBooksUsecase>((i) async => CreateBooksUsecase(i.get())),
+    AsyncBind<DeleteBookUsecase>((i) async => DeleteBookUsecase(i.get())),
+    AsyncBind<UpdateBooksUsecase>((i) async => UpdateBooksUsecase(i.get())),
+    AsyncBind<EventController>((i) async => EventController(
+          i.get(), // EventBus
+          i.get(), // CreateBooksUsecase
+          i.get(), // GetBooksUsecase
+          i.get(), // DeleteBookUsecase
+          i.get(), // UpdateBooksUsecase
+          i.get(), // CloudBooksManager
+          i.get(), // AppWidgetStore
+        )),
+    Bind((i) => CloudBooksManager(i(), i())),
+    Bind((i) => SharedPreferencesAdapter()),
+    Bind((i) => PreferencesManager(i.get())),
+    Bind((i) => AuthStore(i.get(), i.get())),
+    Bind((i) => SplashPageStore(i.get(), i.get())),
+    Bind((i) => ImageHelper()),
+    Bind((i) => LoginCallback(i.get(), i.get(), i.get())),
     Bind((i) => AppRoutes()),
+    Bind((i) => AppWidgetStore()),
+    Bind.singleton<TrackersHelper>((i) => TrackersHelper(i.get())),
+    Bind.singleton<EventBus>((i) => EventBus()),
+    Bind.singleton<TrackersManager>((i) => TrackersManager(
+          [i.get<FirebaseSDK>()],
+        )),
+    Bind<IClientInterceptor>((i) => ClientInterceptor()),
+    Bind<IErrorReport>((i) => CrashlyticsErrorReport()),
+    Bind<FirebaseSDK>((i) => FirebaseSDK()),
+    Bind<IClient>((i) {
+      return DioClient(
+        typesToLog: [],
+        interceptor: i.get(),
+        errorReport: i.get(),
+      );
+    }),
   ];
 
   @override
@@ -35,27 +100,31 @@ class AppModule extends Module {
     ChildRoute(
       Modular.initialRoute,
       child: (context, args) => const SplashPage(),
+      guards: [SplashRouteGuardGuard()],
     ),
-    ChildRoute(
+    ModuleRoute(
+      booksRoute,
+      module: BooksModule(),
+      guards: [SplashRouteGuardGuard()],
+    ),
+    ModuleRoute(
+      loginRoute,
+      module: AuthModule(),
+      guards: [SplashRouteGuardGuard()],
+    ),
+    ModuleRoute(
       menuRoute,
-      child: (_, args) => BottomNavigationPage(args.data),
-      children: [
-        ModuleRoute(
-          booksRoute,
-          module: BooksModule(),
-          transition: TransitionType.noTransition,
-        ),
-        ModuleRoute(
-          searchRoute,
-          module: SearchModule(),
-          transition: TransitionType.noTransition,
-        ),
-        ModuleRoute(
-          profileRoute,
-          module: ProfileModule(),
-          transition: TransitionType.noTransition,
-        ),
-      ],
+      module: MenuModule(),
+      guards: [SplashRouteGuardGuard()],
     ),
   ];
+}
+
+class SplashRouteGuardGuard extends RouteGuard {
+  @override
+  Future<bool> canActivate(String path, ModularRoute route) async {
+    await Modular.isModuleReady<AppModule>();
+    await Modular.isModuleReady<BooksModule>();
+    return true;
+  }
 }

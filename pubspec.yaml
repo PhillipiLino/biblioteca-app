@@ -18,7 +18,8 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=2.19.3 <3.0.0'
+  flutter: ">=1.17.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -29,33 +30,79 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^1.0.2
+  intl: ^0.17.0
   equatable: ^2.0.3
   dartz: ^0.10.0
   floor: ^1.2.0
   flutter_triple: ^1.2.4+3
-  flutter_modular: ^4.1.2
-  percent_indicator: ^3.0.1
+  flutter_modular: ^5.0.3
+  firebase_auth: ^4.2.9
+  percent_indicator: ^4.2.3
   image_picker: ^0.8.4+2
   path_provider: ^2.0.5
-  intl: ^0.17.0
   pagination_view: ^2.0.0
+  google_fonts: ^4.0.3
+  widget_mask: ^1.0.0+0
+  lottie: ^2.2.0
+  biblioteca_books_module:
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-books-module.git
+      ref: main
+
+  biblioteca_auth_module:
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-auth-module.git
+      ref: main
+
+  biblioteca_search_module:
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-search-module.git
+      ref: main
+
+  biblioteca_network_sdk:
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-network-sdk.git
+      ref: main
+
+  biblioteca_components:
+    git:
+      url: https://github.com/PhillipiLino/biblioteca-components.git
+      ref: main
+
+  clean_architecture_utils:
+    git:
+      url: https://github.com/PhillipiLino/flutter-clean-architecture-utils.git
+      ref: main
+
+  commons_tools_sdk:
+    git:
+      url: https://github.com/PhillipiLino/flutter-commons-tools-sdk
+      ref: main
+
+  firebase_sdk:
+    git:
+      url: https://github.com/PhillipiLino/flutter-firebase-sdk
+      ref: main
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^0.1.4
+  mocktail: ^0.3.0
   floor_generator: ^1.2.0
   build_runner: ^2.1.4
   plugin_platform_interface: ^2.0.0
   path_provider_platform_interface: ^2.0.0
+  intl_generator: ^0.3.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -69,7 +116,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/book_placeholder.png
+    - assets/images/only-shelf.png
+    - assets/images/empty-search.png
+    - assets/images/term-not-found.png
+    - assets/images/error.png
+    - assets/splash.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

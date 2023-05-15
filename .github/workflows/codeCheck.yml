@@ -1,0 +1,8 @@
+name: Code check
+
+on:
+  [push]
+
+jobs:
+  CodeAnalyze:
+    uses: PhillipiLino/workflows/.github/workflows/FlutterCodeCheck.yml@main

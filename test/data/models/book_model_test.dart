@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:biblioteca/modules/books/data/models/book_model.dart';
-import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca/app/database/models/book_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../mocks/book_mock.dart';
@@ -18,10 +17,6 @@ main() {
     userId: '23',
     updatedAt: DateTime(2021, 10, 13),
   );
-
-  test('Should be a subclass of BookEntity', () {
-    expect(tBookModel, isA<BookEntity>());
-  });
 
   test('Should return a valid model', () {
     // Arrange

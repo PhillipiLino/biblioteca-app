@@ -1,7 +1,7 @@
-import 'package:biblioteca/core/usecase/errors/failures.dart';
-import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
-import 'package:biblioteca/modules/books/domain/repositories/books_repository.dart';
-import 'package:biblioteca/modules/books/domain/usecases/delete_book_usecase.dart';
+import 'package:biblioteca/app/domain/errors/failures.dart';
+import 'package:biblioteca/app/domain/repositories/books_repository.dart';
+import 'package:biblioteca/app/domain/usecases/delete_book_usecase.dart';
+import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -45,13 +45,13 @@ main() {
   test('Should return a DatabaseFailure when don\'t succeed', () async {
     // Arrange
     when(() => repository.deleteBook(any()))
-        .thenAnswer((_) async => Left(DatabaseFailure()));
+        .thenAnswer((_) async => const Left(DatabaseFailure()));
 
     // Act
     final result = await usecase(tBook);
 
     // Assert
-    expect(result, Left(DatabaseFailure()));
+    expect(result, const Left(DatabaseFailure()));
     verify(() => repository.deleteBook(tBook)).called(1);
   });
 }

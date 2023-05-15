@@ -1,7 +1,8 @@
-import 'package:biblioteca/core/database/book_dao.dart';
-import 'package:biblioteca/core/usecase/errors/exceptions.dart';
-import 'package:biblioteca/modules/books/data/datasources/database_datasource_implementation.dart';
-import 'package:biblioteca/modules/books/data/models/book_model.dart';
+import 'package:biblioteca/app/database/book_dao.dart';
+import 'package:biblioteca/app/database/datasources/database_datasource_implementation.dart';
+import 'package:biblioteca/app/database/models/book_model.dart';
+import 'package:biblioteca/app/domain/errors/exceptions.dart';
+import 'package:biblioteca/app/utils/book_adapter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -10,7 +11,7 @@ import '../../mocks/book_entity_mock.dart';
 class MockBooksDao extends Mock implements IBooksDao {}
 
 main() {
-  late DatabaseDataSourceImplementation datasource;
+  late BooksDataSourceImplementation datasource;
   late IBooksDao dao;
 
   setUp(() {
@@ -26,7 +27,7 @@ main() {
     ));
 
     dao = MockBooksDao();
-    datasource = DatabaseDataSourceImplementation(dao);
+    datasource = BooksDataSourceImplementation(dao);
   });
 
   final tBooksList = [

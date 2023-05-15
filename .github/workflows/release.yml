@@ -1,0 +1,52 @@
+name: Create SDK Release
+on:
+    push:
+      branches:
+        - 'release/**'
+
+jobs:
+  release:
+    name: Create release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Get release version
+        run: |
+          echo "release_version=$(echo ${{ github.ref }} | cut -d"/" -f4)" >> $GITHUB_ENV
+      
+      - name: Create release log file
+        run: |
+          sed -n '/# \[${{env.release_version}}\]/,/# \[/p' CHANGELOG.md | sed '1d;$d' > new_release.md
+
+      - name: Create github release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        with:
+          tag_name: ${{ env.release_version }}
+          release_name: ${{ env.release_version }}
+          body_path: new_release.md
+          draft: true
+          prerelease: false
+
+      - name: Set log text inside variable
+        id: vars
+        run: echo ::set-output name=version::$(cat new_release.md)
+
+      - name: Sync pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          destination_branch: main
+          pr_title: Release/${{ env.release_version }}
+
+      - name: Update pull-request
+        uses: kt3k/update-pr-description@v1.0.1
+        with:
+          pr_body: ${{ steps.vars.outputs.version }}
+          destination_branch: main
+          github_token: ${{ secrets.ACCESS_TOKEN }}

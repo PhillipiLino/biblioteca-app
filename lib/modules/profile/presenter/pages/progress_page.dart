@@ -1,9 +1,8 @@
 import 'package:biblioteca/modules/profile/domain/entities/user_progress_entity.dart';
-import 'package:biblioteca/modules/profile/presenter/controllers/progress_store.dart';
-import 'package:biblioteca/features/presenter/widgets/custom_app_bar.dart';
+import 'package:biblioteca/modules/profile/presenter/stores/progress_store.dart';
+import 'package:biblioteca_components/biblioteca_components.dart';
+import 'package:clean_architecture_utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_triple/flutter_triple.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -14,7 +13,7 @@ class ProgressPage extends StatefulWidget {
   State<ProgressPage> createState() => _ProgressPageState();
 }
 
-class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
+class _ProgressPageState extends MainPageState<ProgressPage, ProgressStore> {
   @override
   void initState() {
     super.initState();
@@ -42,170 +41,208 @@ class _ProgressPageState extends ModularState<ProgressPage, ProgressStore> {
     }
 
     return userProgress.books == 0
-        ? const Center(child: Text('Sem Livros na sua biblioteca'))
-        : Column(children: [
-            Text(
-              date,
-              style: const TextStyle(fontSize: 12),
-            ),
-            const SizedBox(height: 50),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircularPercentIndicator(
-                  startAngle: 0,
-                  radius: 130.0,
-                  lineWidth: 25.0,
-                  percent: userProgress.pagesProgress / 100,
-                  center: Text(
-                      '${(userProgress.pagesProgress).toStringAsFixed(0)}%'),
-                  progressColor: Theme.of(context).colorScheme.primary,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  animation: true,
-                  circularStrokeCap: CircularStrokeCap.round,
-                ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  direction: Axis.vertical,
-                  runSpacing: 10,
-                  spacing: 10,
-                  children: [
-                    IntrinsicWidth(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: 10,
-                            height: 10,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondary,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Flexible(
-                            child: Text(
-                              'Total de páginas: ${userProgress.totalPages}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
+        ? Column(
+            children: [
+              const Center(child: Text('Sem Livros na sua biblioteca')),
+              MainButton(
+                title: 'Baixar livros',
+                onPressed: store.downloadBooks,
+              ),
+              MainButton(
+                title: 'Sair',
+                onPressed: store.logout,
+              ),
+            ],
+          )
+        : Column(
+            children: [
+              Text(date,
+                  style: MainTextStyles.bodyMediumRegular.copyWith(
+                    color: Colors.white,
+                  )),
+              const SizedBox(height: 50),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  CircularPercentIndicator(
+                    startAngle: 0,
+                    radius: 80.0,
+                    lineWidth: 25.0,
+                    percent: userProgress.pagesProgress / 100,
+                    center: Text(
+                      '${(userProgress.pagesProgress).toStringAsFixed(0)}%',
+                      style: MainTextStyles.bodyMediumBold.copyWith(
+                        color: Colors.white,
                       ),
                     ),
-                    IntrinsicWidth(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: 10,
-                            height: 10,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Flexible(
-                            child: Text(
-                              'Total de páginas lidas: ${userProgress.totalReadPages}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
+                    progressColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    animation: true,
+                    circularStrokeCap: CircularStrokeCap.round,
+                  ),
+                  const SizedBox(width: 24),
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    direction: Axis.vertical,
+                    runSpacing: 10,
+                    spacing: 10,
+                    children: [
+                      IntrinsicWidth(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                shape: BoxShape.circle,
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 5),
+                            Flexible(
+                              child: Text(
+                                'Total de páginas: ${userProgress.totalPages}',
+                                style: MainTextStyles.bodyMediumBold.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 50),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularPercentIndicator(
-                  startAngle: 0,
-                  radius: 90.0,
-                  lineWidth: 15.0,
-                  percent: userProgress.booksProgress / 100,
-                  center: Text(
-                      '${(userProgress.booksProgress).toStringAsFixed(0)}%'),
-                  progressColor: Theme.of(context).colorScheme.primary,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  animation: true,
-                  circularStrokeCap: CircularStrokeCap.round,
-                ),
-                const SizedBox(width: 20),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  direction: Axis.vertical,
-                  runSpacing: 10,
-                  spacing: 10,
-                  children: [
-                    IntrinsicWidth(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: 10,
-                            height: 10,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondary,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Flexible(
-                            child: Text(
-                              'Total de livros: ${userProgress.books}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
+                      IntrinsicWidth(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                shape: BoxShape.circle,
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 5),
+                            Flexible(
+                              child: Text(
+                                'Total de páginas lidas: ${userProgress.totalReadPages}',
+                                style: MainTextStyles.bodyMediumBold.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 50),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularPercentIndicator(
+                    startAngle: 0,
+                    radius: 60.0,
+                    lineWidth: 25.0,
+                    percent: userProgress.booksProgress / 100,
+                    center: Text(
+                      '${(userProgress.booksProgress).toStringAsFixed(0)}%',
+                      style: MainTextStyles.bodyMediumBold.copyWith(
+                        color: Colors.white,
                       ),
                     ),
-                    IntrinsicWidth(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: 10,
-                            height: 10,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Flexible(
-                            child: Text(
-                              'Total de livros lidos: ${userProgress.completedBooks}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
+                    progressColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    animation: true,
+                    circularStrokeCap: CircularStrokeCap.round,
+                  ),
+                  const SizedBox(width: 24),
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    direction: Axis.vertical,
+                    runSpacing: 10,
+                    spacing: 10,
+                    children: [
+                      IntrinsicWidth(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                shape: BoxShape.circle,
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 5),
+                            Flexible(
+                              child: Text(
+                                'Total de livros: ${userProgress.books}',
+                                style: MainTextStyles.bodyMediumBold.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                  ],
+                      IntrinsicWidth(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Flexible(
+                              child: Text(
+                                'Total de livros lidos: ${userProgress.completedBooks}',
+                                style: MainTextStyles.bodyMediumBold.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 48),
+              SizedBox(
+                width: double.maxFinite,
+                child: MainButton(
+                  title: 'Baixar livros',
+                  onPressed: store.downloadBooks,
                 ),
-              ],
-            ),
-          ]);
+              ),
+              SizedBox(
+                width: double.maxFinite,
+                child: MainButton(
+                  title: 'Sair',
+                  onPressed: store.logout,
+                ),
+              ),
+              const SizedBox(height: 48)
+            ],
+          );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Meu Progresso'),
+      appBar: CustomAppBar(title: 'Meu Progresso', pageContext: context),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

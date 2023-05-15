@@ -1,4 +1,4 @@
-import 'package:biblioteca/modules/books/domain/entities/book_entity.dart';
+import 'package:biblioteca_books_module/biblioteca_books_module.dart';
 
 final tBook = BookEntity(
   id: 1,
