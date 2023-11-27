@@ -2,6 +2,8 @@ name: Send release informations
 on:
   release:
     types: [published]
+    branches:
+      - main
       
 jobs:
   release:
