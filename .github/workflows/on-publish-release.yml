@@ -23,4 +23,4 @@ jobs:
         with:
           status: ${{ job.status }}
           message: ":rotating_light: AUTHOR: ${{ github.event.release.author.login }} TAG: ${{ github.event.release.tag_name }}\n\n${{ github.event.release.body}}"
-          webhook-url: "https://hooks.slack.com/services/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"
+          webhook-url: ${{ secrets.SLACK_TEST_WEBHOOK }}
