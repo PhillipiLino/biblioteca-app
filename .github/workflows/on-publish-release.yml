@@ -1,8 +1,8 @@
 name: Send release informations
 on:
-    release:
-        types: [published]
-
+  release:
+    types: [published]
+      
 jobs:
   release:
     name: Send informations
