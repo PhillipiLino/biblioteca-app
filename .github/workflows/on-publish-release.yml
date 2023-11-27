@@ -17,3 +17,11 @@ jobs:
           echo "release_author=${{ github.event.release.author.login }}"
           echo "release_body=${{ github.event.release.body }}"
           echo "release_tag=${{ github.event.release.tag_name }}"
+
+      - name: Slack Failure Notification
+        uses: act10ns/slack@v2.0.0
+        if: cancelled() || failure()
+        with:
+          status: ${{ job.status }}
+          message: ":rotating_light: AUTHOR: ${{ github.event.release.author.login }} TAG: ${{ github.event.release.tag_name }}\n\n${{ github.event.release.body}}"
+          webhook-url: https://hooks.slack.com/services/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
