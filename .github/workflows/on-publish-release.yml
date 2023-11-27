@@ -4,6 +4,7 @@ on:
     types: [published]
     branches:
       - main
+      - 'release/**'
       
 jobs:
   release:
