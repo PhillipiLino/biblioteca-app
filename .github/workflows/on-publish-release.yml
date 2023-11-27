@@ -1,0 +1,16 @@
+name: Send release informations
+on:
+    release:
+        types: [published]
+
+jobs:
+  release:
+    name: Send informations
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Get release version
+        run: |
+          echo "release_author=${{ github.event.release.author.login }}"
+          echo "release_body=${{ github.event.release.body }}"
+          echo "release_tag=${{ github.event.release.tag_name }}"
