@@ -20,7 +20,6 @@ jobs:
 
       - name: Slack Failure Notification
         uses: act10ns/slack@v2.0.0
-        if: cancelled() || failure()
         with:
           status: ${{ job.status }}
           message: ":rotating_light: AUTHOR: ${{ github.event.release.author.login }} TAG: ${{ github.event.release.tag_name }}\n\n${{ github.event.release.body}}"
